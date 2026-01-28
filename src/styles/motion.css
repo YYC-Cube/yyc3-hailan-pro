@@ -1,0 +1,354 @@
+/**
+ * HaiLan 标准化动效库
+ * 基于设计文档 01-Figma-HaiLan-Adult-products.md 第2.4节
+ */
+
+@theme {
+  /* === 缓动曲线 Easing Curves === */
+  /* 标准 - 适用于标准UI元素进入/退出 */
+  --ease-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+  
+  /* 强调 - 适用于模态框、大元素进入，有急入缓出感 */
+  --ease-emphasized: cubic-bezier(0.0, 0.0, 0.2, 1);
+  
+  /* 减速 - 适用于从屏幕外滑入的元素 */
+  --ease-decelerate: cubic-bezier(0.0, 0.0, 0.2, 1);
+  
+  /* 加速 - 适用于滑出屏幕的元素 */
+  --ease-accelerate: cubic-bezier(0.4, 0.0, 1, 1);
+  
+  /* === 持续时间 Duration === */
+  /* 快速 - 微交互（悬停、点击涟漪） */
+  --duration-fast: 150ms;
+  
+  /* 标准 - 常用过渡（页面切换、抽屉展开） */
+  --duration-standard: 300ms;
+  
+  /* 慢速 - 复杂动画（模态框、大图表加载） */
+  --duration-slow: 500ms;
+  
+  /* === 组合动效预设 Motion Presets === */
+  /* 按钮悬停 */
+  --motion-button-hover: var(--duration-fast) var(--ease-standard);
+  
+  /* 页面过渡 */
+  --motion-page-transition: var(--duration-standard) var(--ease-standard);
+  
+  /* 弹出组件 */
+  --motion-popup: var(--duration-slow) var(--ease-emphasized);
+  
+  /* 滑入 */
+  --motion-slide-in: var(--duration-standard) var(--ease-decelerate);
+  
+  /* 滑出 */
+  --motion-slide-out: var(--duration-standard) var(--ease-accelerate);
+}
+
+/* === 工具类 Utility Classes === */
+@layer utilities {
+  /* 基础过渡 */
+  .transition-fast {
+    transition: all var(--duration-fast) var(--ease-standard);
+  }
+  
+  .transition-standard {
+    transition: all var(--duration-standard) var(--ease-standard);
+  }
+  
+  .transition-slow {
+    transition: all var(--duration-slow) var(--ease-emphasized);
+  }
+  
+  /* 特定属性过渡 */
+  .transition-colors-fast {
+    transition: color var(--duration-fast) var(--ease-standard),
+                background-color var(--duration-fast) var(--ease-standard),
+                border-color var(--duration-fast) var(--ease-standard);
+  }
+  
+  .transition-transform-standard {
+    transition: transform var(--duration-standard) var(--ease-standard);
+  }
+  
+  .transition-opacity-fast {
+    transition: opacity var(--duration-fast) var(--ease-standard);
+  }
+}
+
+/* === 动画关键帧 Animation Keyframes === */
+
+/* 淡入 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 淡出 */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* 从下方滑入 */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 从上方滑入 */
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 从左侧滑入 */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 从右侧滑入 */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 缩放进入 */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 缩放退出 */
+@keyframes scaleOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+/* 脉冲 - 用于骨架屏加载 */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* 旋转 - 用于加载指示器 */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 弹跳 */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* 摇晃 - 用于错误提示 */
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px);
+  }
+}
+
+/* 闪烁 - 用于骨架屏 */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* === 动画类 Animation Classes === */
+@layer utilities {
+  /* 淡入淡出 */
+  .animate-fade-in {
+    animation: fadeIn var(--duration-standard) var(--ease-standard);
+  }
+  
+  .animate-fade-out {
+    animation: fadeOut var(--duration-standard) var(--ease-standard);
+  }
+  
+  /* 滑入 */
+  .animate-slide-in-up {
+    animation: slideInUp var(--duration-standard) var(--ease-decelerate);
+  }
+  
+  .animate-slide-in-down {
+    animation: slideInDown var(--duration-standard) var(--ease-decelerate);
+  }
+  
+  .animate-slide-in-left {
+    animation: slideInLeft var(--duration-standard) var(--ease-decelerate);
+  }
+  
+  .animate-slide-in-right {
+    animation: slideInRight var(--duration-standard) var(--ease-decelerate);
+  }
+  
+  /* 缩放 */
+  .animate-scale-in {
+    animation: scaleIn var(--duration-slow) var(--ease-emphasized);
+  }
+  
+  .animate-scale-out {
+    animation: scaleOut var(--duration-standard) var(--ease-standard);
+  }
+  
+  /* 脉冲 */
+  .animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  /* 旋转 */
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+  
+  .animate-spin-slow {
+    animation: spin 3s linear infinite;
+  }
+  
+  /* 弹跳 */
+  .animate-bounce {
+    animation: bounce 1s ease-in-out infinite;
+  }
+  
+  /* 摇晃 */
+  .animate-shake {
+    animation: shake 0.5s ease-in-out;
+  }
+  
+  /* 闪烁 */
+  .animate-shimmer {
+    animation: shimmer 2s infinite linear;
+    background: linear-gradient(
+      to right,
+      #f1f5f9 0%,
+      #e2e8f0 20%,
+      #f1f5f9 40%,
+      #f1f5f9 100%
+    );
+    background-size: 1000px 100%;
+  }
+}
+
+/* === 特殊动效 Special Effects === */
+
+/* 隐私模糊切换动画 */
+@keyframes blurToClean {
+  from {
+    filter: blur(8px);
+  }
+  to {
+    filter: blur(0px);
+  }
+}
+
+@keyframes cleanToBlur {
+  from {
+    filter: blur(0px);
+  }
+  to {
+    filter: blur(8px);
+  }
+}
+
+.animate-blur-to-clean {
+  animation: blurToClean var(--duration-slow) var(--ease-emphasized);
+}
+
+.animate-clean-to-blur {
+  animation: cleanToBlur var(--duration-standard) var(--ease-standard);
+}
+
+/* AI消息气泡进入动画 */
+@keyframes messageBubbleIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-message-in {
+  animation: messageBubbleIn var(--duration-standard) var(--ease-decelerate);
+}
+
+/* === 响应式动效控制 === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

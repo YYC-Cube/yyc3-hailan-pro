@@ -1,0 +1,51 @@
+{
+  "fontSize": {
+    "xs": { "value": "0.75rem", "type": "fontSize", "description": "12px - 说明文字" },
+    "sm": { "value": "0.875rem", "type": "fontSize", "description": "14px - 正文" },
+    "base": { "value": "1rem", "type": "fontSize", "description": "16px - 副标题" },
+    "lg": { "value": "1.125rem", "type": "fontSize", "description": "18px - 小标题" },
+    "xl": { "value": "1.25rem", "type": "fontSize", "description": "20px - 标题" },
+    "2xl": { "value": "1.5rem", "type": "fontSize", "description": "24px - 大标题" },
+    "3xl": { "value": "1.875rem", "type": "fontSize", "description": "30px - 展示文字" },
+    "4xl": { "value": "2.25rem", "type": "fontSize", "description": "36px - 超大展示" },
+    "5xl": { "value": "3rem", "type": "fontSize", "description": "48px - 巨大展示" }
+  },
+  "fontFamily": {
+    "sans": {
+      "value": "'Inter', 'PingFang SC', -apple-system, BlinkMacSystemFont, sans-serif",
+      "type": "fontFamily",
+      "description": "英文+中文"
+    },
+    "chinese": {
+      "value": "'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif",
+      "type": "fontFamily",
+      "description": "中文"
+    },
+    "mono": {
+      "value": "'SF Pro Display', 'Roboto Mono', 'Menlo', 'Monaco', monospace",
+      "type": "fontFamily",
+      "description": "数字/代码"
+    }
+  },
+  "fontWeight": {
+    "normal": { "value": "400", "type": "fontWeight" },
+    "medium": { "value": "500", "type": "fontWeight" },
+    "semibold": { "value": "600", "type": "fontWeight" },
+    "bold": { "value": "700", "type": "fontWeight" }
+  },
+  "lineHeight": {
+    "tight": { "value": "1.2", "type": "lineHeight", "description": "标题 1.2x" },
+    "snug": { "value": "1.3", "type": "lineHeight", "description": "标题 1.3x" },
+    "normal": { "value": "1.5", "type": "lineHeight", "description": "正文 1.5x" },
+    "relaxed": { "value": "1.6", "type": "lineHeight", "description": "正文 1.6x" },
+    "loose": { "value": "1.8", "type": "lineHeight", "description": "宽松" }
+  },
+  "letterSpacing": {
+    "tighter": { "value": "-0.05em", "type": "letterSpacing" },
+    "tight": { "value": "-0.025em", "type": "letterSpacing" },
+    "normal": { "value": "0", "type": "letterSpacing" },
+    "wide": { "value": "0.025em", "type": "letterSpacing" },
+    "wider": { "value": "0.05em", "type": "letterSpacing" },
+    "widest": { "value": "0.1em", "type": "letterSpacing" }
+  }
+}

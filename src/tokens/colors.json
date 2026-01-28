@@ -1,0 +1,95 @@
+{
+  "color": {
+    "blue": {
+      "50": { "value": "#E3F2FD", "type": "color" },
+      "100": { "value": "#BBDEFB", "type": "color" },
+      "200": { "value": "#90CAF9", "type": "color" },
+      "300": { "value": "#64B5F6", "type": "color" },
+      "400": { "value": "#42A5F5", "type": "color" },
+      "500": { "value": "#0056b3", "type": "color", "description": "海蓝蓝 - 品牌主色" },
+      "600": { "value": "#004494", "type": "color" },
+      "700": { "value": "#003373", "type": "color" },
+      "800": { "value": "#002852", "type": "color" },
+      "900": { "value": "#001D3A", "type": "color" }
+    },
+    "purple": {
+      "50": { "value": "#F3E5F5", "type": "color" },
+      "100": { "value": "#E1BEE7", "type": "color" },
+      "200": { "value": "#CE93D8", "type": "color" },
+      "300": { "value": "#BA68C8", "type": "color" },
+      "400": { "value": "#AB47BC", "type": "color" },
+      "500": { "value": "#6B46C1", "type": "color", "description": "极光紫 - 强调色" },
+      "600": { "value": "#5a3ba3", "type": "color" },
+      "700": { "value": "#4a3086", "type": "color" },
+      "800": { "value": "#3a2569", "type": "color" },
+      "900": { "value": "#2a1a4c", "type": "color" }
+    },
+    "gray": {
+      "50": { "value": "#F7FAFC", "type": "color" },
+      "100": { "value": "#EDF2F7", "type": "color" },
+      "200": { "value": "#E2E8F0", "type": "color" },
+      "300": { "value": "#CBD5E0", "type": "color" },
+      "400": { "value": "#A0AEC0", "type": "color" },
+      "500": { "value": "#718096", "type": "color" },
+      "600": { "value": "#4A5568", "type": "color" },
+      "700": { "value": "#2D3748", "type": "color" },
+      "800": { "value": "#1A202C", "type": "color" },
+      "900": { "value": "#171923", "type": "color" },
+      "950": { "value": "#0F1419", "type": "color" }
+    },
+    "neutral": {
+      "50": { "value": "#fafafa", "type": "color" },
+      "100": { "value": "#f5f5f5", "type": "color" },
+      "200": { "value": "#e5e5e5", "type": "color" },
+      "300": { "value": "#d4d4d4", "type": "color" },
+      "400": { "value": "#a3a3a3", "type": "color" },
+      "500": { "value": "#737373", "type": "color" },
+      "600": { "value": "#525252", "type": "color" },
+      "700": { "value": "#404040", "type": "color" },
+      "800": { "value": "#262626", "type": "color" },
+      "900": { "value": "#171717", "type": "color" },
+      "950": { "value": "#0a0a0a", "type": "color" }
+    },
+    "semantic": {
+      "success": { "value": "#48BB78", "type": "color", "description": "成功状态" },
+      "warning": { "value": "#ECC94B", "type": "color", "description": "警告状态" },
+      "error": { "value": "#F56565", "type": "color", "description": "错误状态" },
+      "info": { "value": "{color.blue.500}", "type": "color", "description": "信息状态" }
+    },
+    "brand": {
+      "primary": {
+        "default": { "value": "{color.blue.500}", "type": "color" },
+        "hover": { "value": "{color.blue.600}", "type": "color" },
+        "pressed": { "value": "{color.blue.700}", "type": "color" },
+        "light": { "value": "{color.blue.400}", "type": "color" }
+      },
+      "secondary": {
+        "default": { "value": "{color.purple.500}", "type": "color" },
+        "hover": { "value": "{color.purple.600}", "type": "color" },
+        "light": { "value": "{color.purple.400}", "type": "color" }
+      },
+      "deep-night": { "value": "#1A365D", "type": "color" },
+      "medical-white": { "value": "#FFFFFF", "type": "color" },
+      "coral": { "value": "#ED8936", "type": "color" },
+      "fresh-green": { "value": "#38A169", "type": "color" },
+      "soft-pink": { "value": "#FBB6CE", "type": "color" }
+    },
+    "background": {
+      "primary": { "value": "#ffffff", "type": "color" },
+      "secondary": { "value": "#f8fafc", "type": "color" },
+      "tertiary": { "value": "#f1f5f9", "type": "color" },
+      "dark": { "value": "#1a1a1a", "type": "color" }
+    },
+    "text": {
+      "primary": { "value": "#0f172a", "type": "color" },
+      "secondary": { "value": "#475569", "type": "color" },
+      "tertiary": { "value": "#94a3b8", "type": "color" },
+      "on-dark": { "value": "#ffffff", "type": "color" }
+    },
+    "border": {
+      "default": { "value": "#e2e8f0", "type": "color" },
+      "light": { "value": "#f1f5f9", "type": "color" },
+      "dark": { "value": "#cbd5e1", "type": "color" }
+    }
+  }
+}

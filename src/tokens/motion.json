@@ -1,0 +1,70 @@
+{
+  "motion": {
+    "easing": {
+      "standard": {
+        "value": "cubic-bezier(0.4, 0.0, 0.2, 1)",
+        "type": "cubicBezier",
+        "description": "标准 - 适用于标准UI元素进入/退出"
+      },
+      "emphasized": {
+        "value": "cubic-bezier(0.0, 0.0, 0.2, 1)",
+        "type": "cubicBezier",
+        "description": "强调 - 适用于模态框、大元素进入"
+      },
+      "decelerate": {
+        "value": "cubic-bezier(0.0, 0.0, 0.2, 1)",
+        "type": "cubicBezier",
+        "description": "减速 - 适用于从屏幕外滑入"
+      },
+      "accelerate": {
+        "value": "cubic-bezier(0.4, 0.0, 1, 1)",
+        "type": "cubicBezier",
+        "description": "加速 - 适用于滑出屏幕"
+      }
+    },
+    "duration": {
+      "fast": {
+        "value": "150ms",
+        "type": "duration",
+        "description": "快速 - 微交互（悬停、点击涟漪）"
+      },
+      "standard": {
+        "value": "300ms",
+        "type": "duration",
+        "description": "标准 - 常用过渡（页面切换、抽屉展开）"
+      },
+      "slow": {
+        "value": "500ms",
+        "type": "duration",
+        "description": "慢速 - 复杂动画（模态框、大图表加载）"
+      }
+    },
+    "preset": {
+      "button-hover": {
+        "value": "{motion.duration.fast} {motion.easing.standard}",
+        "type": "transition",
+        "description": "按钮悬停"
+      },
+      "page-transition": {
+        "value": "{motion.duration.standard} {motion.easing.standard}",
+        "type": "transition",
+        "description": "页面过渡"
+      },
+      "popup": {
+        "value": "{motion.duration.slow} {motion.easing.emphasized}",
+        "type": "transition",
+        "description": "弹出组件"
+      },
+      "slide-in": {
+        "value": "{motion.duration.standard} {motion.easing.decelerate}",
+        "type": "transition",
+        "description": "滑入"
+      },
+      "slide-out": {
+        "value": "{motion.duration.standard} {motion.easing.accelerate}",
+        "type": "transition",
+        "description": "滑出"
+      }
+    }
+  }
+}
