@@ -480,13 +480,9 @@ export function CommunityHomePage() {
                          </div>
                          
                          {verificationResult.moderationStatus === 'JOINT_REVIEW_REQUIRED' && (
-                           <motion.div 
-                             animate={{ opacity: [0.5, 1, 0.5] }}
-                             transition={{ duration: 2, repeat: Infinity }}
-                             className="text-[7px] text-brand-gold font-bold italic flex items-center gap-1"
-                           >
+                           <div className="text-[7px] text-brand-gold font-bold italic flex items-center gap-1 animate-pulse">
                               <Lock className="w-2.5 h-2.5" /> 触发 Senior Arbiter 决策冲突机制
-                           </motion.div>
+                           </div>
                          )}
                          <div className="space-y-1">
                             <div className="flex items-center justify-between">
@@ -684,21 +680,12 @@ export function CommunityHomePage() {
                         <div className="w-16 h-16 bg-brand-gold/10 rounded-[2rem] flex items-center justify-center relative">
                            <ShieldCheck className="w-8 h-8 text-brand-gold" />
                            {guardianStats?.totalRewards >= 10000 && (
-                             <motion.div 
-                               animate={{ rotate: 360 }}
-                               transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                               className="absolute -inset-1 border border-dashed border-brand-gold rounded-[2.2rem] opacity-40"
-                             />
+                             <div className="absolute -inset-1 border border-dashed border-brand-gold rounded-[2.2rem] opacity-40 animate-spin" />
                            )}
                            {guardianStats?.isActiveLeader && (
-                             <motion.div 
-                               initial={{ scale: 0 }}
-                               animate={{ scale: 1 }}
-                               className="absolute -top-1 -right-1 w-6 h-6 bg-emerald-500 rounded-full border-2 border-white flex items-center justify-center shadow-lg"
-                               title="活跃领袖限时勋章"
-                             >
+                             <div className="absolute -top-1 -right-1 w-6 h-6 bg-emerald-500 rounded-full border-2 border-white flex items-center justify-center shadow-lg" title="活跃领袖限时勋章">
                                 <Zap className="w-3 h-3 text-white fill-current" />
-                             </motion.div>
+                             </div>
                            )}
                         </div>
                         <div>

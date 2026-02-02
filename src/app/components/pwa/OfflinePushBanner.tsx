@@ -26,14 +26,9 @@ export function OfflinePushBanner() {
   };
 
   return (
-    <AnimatePresence>
+    <>
       {isOffline && (
-        <motion.div 
-          initial={{ y: -100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -100, opacity: 0 }}
-          className="fixed top-0 left-0 right-0 z-[100] px-4 pt-4 pointer-events-none"
-        >
+        <div className="fixed top-0 left-0 right-0 z-[100] px-4 pt-4 pointer-events-none animate-slideUp">
           <div className="max-w-xl mx-auto pointer-events-auto">
              <div className="bg-brand-navy text-white rounded-3xl p-4 shadow-2xl border border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 backdrop-blur-xl bg-brand-navy/90">
                 <div className="flex items-center gap-4">
@@ -72,9 +67,9 @@ export function OfflinePushBanner() {
                 <OfflineTag icon={Radio} label="本地 P2P 网络活跃" />
              </div>
           </div>
-        </motion.div>
+        </div>
       )}
-    </AnimatePresence>
+    </>
   );
 }
 

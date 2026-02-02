@@ -14,7 +14,12 @@ interface CustomRouterProps {
  */
 export const CustomRouter: React.FC<CustomRouterProps> = ({ children }) => {
   return (
-    <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+    <MemoryRouter 
+      future={{ 
+        v7_startTransition: true,
+        v7_relativeSplatPath: true 
+      }}
+    >
       {children}
     </MemoryRouter>
   );

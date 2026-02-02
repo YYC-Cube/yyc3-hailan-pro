@@ -62,11 +62,7 @@ export function HeroSection({ mode = 'default' }: { mode?: 'default' | 'bento' }
                 
                 <div className={cn("absolute inset-0 flex items-center", mode === 'bento' ? "p-12" : "container mx-auto px-6")}>
                    <div className={cn("text-white space-y-8", mode === 'bento' ? "max-w-xl" : "max-w-2xl pl-4 md:pl-0")}>
-                      <motion.div 
-                         initial={{ opacity: 0, x: -30 }}
-                         whileInView={{ opacity: 1, x: 0 }}
-                         transition={{ duration: 0.8, ease: "easeOut" }}
-                      >
+                       <div className="animate-fadeIn">
                          <div className="flex items-center gap-3 mb-6">
                             <span className="inline-block px-4 py-1 bg-white/10 backdrop-blur-md rounded-full text-xs font-black tracking-widest uppercase border border-white/20">
                                 {slide.theme}
@@ -96,7 +92,7 @@ export function HeroSection({ mode = 'default' }: { mode?: 'default' | 'bento' }
                                 </Button>
                             </Link>
                          </div>
-                      </motion.div>
+                       </div>
                    </div>
                 </div>
               </div>
@@ -161,12 +157,10 @@ function ScenarioCard({
     activeBg?: string
 }) {
    return (
-      <motion.div 
-        whileHover={{ scale: 1.02, y: -4 }}
-        whileTap={{ scale: 0.98 }}
+      <div 
         onClick={onClick}
         className={cn(
-         "flex items-center gap-5 p-5 rounded-2xl cursor-pointer transition-all flex-1",
+         "flex items-center gap-5 p-5 rounded-2xl cursor-pointer transition-all flex-1 hover:scale-[1.02] hover:-translate-y-1 active:scale-[0.98]",
          active ? `${activeBg} border border-white shadow-sm` : "border border-transparent hover:bg-neutral-50"
       )}>
          <div className={cn(
@@ -180,6 +174,6 @@ function ScenarioCard({
             <p className="text-sm text-neutral-400 font-medium">{desc}</p>
          </div>
          <ArrowRight className={cn("ml-auto w-5 h-5 transition-transform group-hover:translate-x-1", active ? activeColor : "text-neutral-200")} />
-      </motion.div>
+      </div>
    )
 }

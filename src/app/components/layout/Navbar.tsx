@@ -19,7 +19,6 @@ import {
   Smartphone
 } from "lucide-react";
 import { cn } from "@/app/components/design-system/utils";
-import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useLocation } from "react-router";
 import { Link } from "@/app/components/router";
 import { useCart } from "@/app/context/CartContext";
@@ -110,42 +109,35 @@ export function Navbar({ privacyMode = false, onPrivacyToggle }: NavbarProps) {
                     探索核心分类 <ChevronDown className={cn("ml-2 w-4 h-4 transition-transform duration-300", activeDropdown === 'categories' && "rotate-180")} />
                   </Button>
                   
-                  <AnimatePresence>
-                    {activeDropdown === 'categories' && (
-                      <motion.div 
-                        initial={{ opacity: 0, y: 15, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 15, scale: 0.95 }}
-                        className="absolute top-full left-0 w-72 bg-white/95 backdrop-blur-3xl rounded-3xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.2)] border border-white p-3 mt-2 overflow-hidden"
-                      >
-                        <div className="grid grid-cols-1 gap-2">
-                          {mainNavItems.map(item => (
-                            <Link 
-                              key={item.id} 
-                              to={`/category?main=${item.id}`} 
-                              className="flex items-center gap-4 p-4 rounded-2xl hover:bg-neutral-50 transition-all group/item"
-                              onClick={() => setActiveDropdown(null)}
-                            >
-                              <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center transition-all group-hover/item:scale-110", item.bg, item.color)}>
-                                <item.icon className="w-5 h-5" />
-                              </div>
-                              <div className="flex flex-col">
-                                <span className="text-sm font-bold text-neutral-900">{item.label}</span>
-                                <span className="text-[10px] text-neutral-400 font-medium tracking-tight">点击进入专属频道</span>
-                              </div>
-                            </Link>
-                          ))}
-                          <div className="h-px bg-neutral-100 my-1 mx-2" />
-                          <Link to="/category" className="flex items-center gap-4 p-4 rounded-2xl hover:bg-neutral-50 transition-all group/item">
-                             <div className="w-10 h-10 rounded-xl bg-brand-hailan-blue flex items-center justify-center text-white">
-                                <LayoutGrid className="w-5 h-5" />
-                             </div>
-                             <span className="text-sm font-bold text-neutral-900">查看全部探索</span>
+                  {activeDropdown === 'categories' && (
+                    <div className="absolute top-full left-0 w-72 bg-white/95 backdrop-blur-3xl rounded-3xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.2)] border border-white p-3 mt-2 overflow-hidden animate-slideUp">
+                      <div className="grid grid-cols-1 gap-2">
+                        {mainNavItems.map(item => (
+                          <Link 
+                            key={item.id} 
+                            to={`/category?main=${item.id}`} 
+                            className="flex items-center gap-4 p-4 rounded-2xl hover:bg-neutral-50 transition-all group/item"
+                            onClick={() => setActiveDropdown(null)}
+                          >
+                            <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center transition-all group-hover/item:scale-110", item.bg, item.color)}>
+                              <item.icon className="w-5 h-5" />
+                            </div>
+                            <div className="flex flex-col">
+                              <span className="text-sm font-bold text-neutral-900">{item.label}</span>
+                              <span className="text-[10px] text-neutral-400 font-medium tracking-tight">点击进入专属频道</span>
+                            </div>
                           </Link>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                        ))}
+                        <div className="h-px bg-neutral-100 my-1 mx-2" />
+                        <Link to="/category" className="flex items-center gap-4 p-4 rounded-2xl hover:bg-neutral-50 transition-all group/item">
+                           <div className="w-10 h-10 rounded-xl bg-brand-hailan-blue flex items-center justify-center text-white">
+                              <LayoutGrid className="w-5 h-5" />
+                           </div>
+                           <span className="text-sm font-bold text-neutral-900">查看全部探索</span>
+                        </Link>
+                      </div>
+                    </div>
+                  )}
                 </div>
                 
                 <Link to="/community">
@@ -227,14 +219,8 @@ export function Navbar({ privacyMode = false, onPrivacyToggle }: NavbarProps) {
           )}
         </div>
 
-        <AnimatePresence>
           {isSearchOpen && (
-            <motion.div 
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              className="md:hidden border-t border-neutral-100 p-5 bg-white/95 backdrop-blur-2xl absolute w-full shadow-2xl"
-            >
+            <div className="md:hidden border-t border-neutral-100 p-5 bg-white/95 backdrop-blur-2xl absolute w-full shadow-2xl animate-fadeIn">
               <div className="relative">
                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
                  <Input placeholder="搜索产品..." className="pl-12 w-full h-12 rounded-2xl bg-neutral-100 border-none" autoFocus />
@@ -247,27 +233,19 @@ export function Navbar({ privacyMode = false, onPrivacyToggle }: NavbarProps) {
                    <X className="w-5 h-5" />
                  </Button>
               </div>
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
       </header>
 
-      <AnimatePresence>
         {isMobileMenuOpen && (
           <>
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-brand-navy/40 backdrop-blur-md z-[60]"
+            <div 
+              className="fixed inset-0 bg-brand-navy/40 backdrop-blur-md z-[60] animate-fadeIn"
               onClick={() => setIsMobileMenuOpen(false)}
             />
-            <motion.div 
-              initial={{ x: "-100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="fixed top-0 left-0 bottom-0 w-[85%] max-w-sm bg-white z-[70] shadow-2xl flex flex-col rounded-r-[3rem]"
+            <div 
+              className="fixed top-0 left-0 bottom-0 w-[85%] max-w-sm bg-white z-[70] shadow-2xl flex flex-col rounded-r-[3rem] animate-slideInLeft"
+              style={{ animationDuration: '0.3s' }}
             >
               <div className="p-8 flex items-center justify-between border-b border-neutral-50">
                  <BrandLogo variant="full" size="sm" />
@@ -324,10 +302,9 @@ export function Navbar({ privacyMode = false, onPrivacyToggle }: NavbarProps) {
                     </Button>
                  </div>
               </div>
-            </motion.div>
+            </div>
           </>
         )}
-      </AnimatePresence>
     </>
   );
 }

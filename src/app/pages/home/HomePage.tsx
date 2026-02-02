@@ -29,17 +29,13 @@ export function HomePage({ onLogout, privacyMode, onPrivacyToggle }: HomePagePro
       />
       <GlobalSearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
 
-      <motion.button 
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+      <button 
         onClick={() => setIsSearchOpen(true)}
-        className="fixed bottom-24 right-6 w-14 h-14 bg-[#0056b3] text-white rounded-full shadow-2xl z-40 flex items-center justify-center border border-white/10 group overflow-hidden md:bottom-32"
+        className="fixed bottom-24 right-6 w-14 h-14 bg-[#0056b3] text-white rounded-full shadow-2xl z-40 flex items-center justify-center border border-white/10 group overflow-hidden md:bottom-32 animate-fadeIn"
       >
         <div className="absolute inset-0 bg-gradient-to-tr from-[#0056b3] to-[#6B46C1] opacity-0 group-hover:opacity-100 transition-opacity" />
         <Search className="w-6 h-6 relative z-10" />
-      </motion.button>
+      </button>
 
       <main>
         {/* Mobile Layout (< 1024px) */}

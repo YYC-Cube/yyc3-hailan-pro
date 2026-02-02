@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router";
-import { AnimatePresence } from "framer-motion";
 import { CustomRouter } from "./components/routing/CustomRouter";
 import { WelcomePage } from "./pages/onboarding/WelcomePage";
 import { PrivacySelectionPage } from "./pages/onboarding/PrivacySelectionPage";
@@ -58,18 +57,11 @@ import { ZKMedicalVaultPage } from "./pages/hub/ZKMedicalVaultPage";
 import { ZKReportDetailPage } from "./pages/community/ZKReportDetailPage";
 
 function AppContent() {
-    const { settings, updateSettings } = useUser();
-    const privacyMode = settings?.privacyMode;
-    const setPrivacyMode = (mode: boolean) => updateSettings({ privacyMode: mode });
     const navigate = useNavigate();
     const [showSplash, setShowSplash] = React.useState(true);
 
     if (showSplash) {
-        return (
-          <AnimatePresence>
-            <BrandSplash onComplete={() => setShowSplash(false)} />
-          </AnimatePresence>
-        );
+        return <BrandSplash onComplete={() => setShowSplash(false)} />;
     }
 
     return (
@@ -140,7 +132,6 @@ function AppContent() {
                 <Route path="/operations" element={<OperationsPage />} />
                 <Route path="/design-system-demo" element={<DesignSystemDemo />} />
 
-                {/* Default redirect to Home if no match */}
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </>
@@ -150,7 +141,6 @@ function AppContent() {
 export default function App() {
   React.useEffect(() => {
     console.log("[HaiLan] Application Heartbeat - Initialized Successfully");
-    // 极其防御性的环境检查
     let isProd = false;
     try {
       if (typeof import.meta !== 'undefined' && (import.meta as any).env) {
