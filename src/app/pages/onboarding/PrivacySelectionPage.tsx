@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@/app/components/design-system/Button";
 import { GlassCard, InteractiveListItem } from "@/app/components/design-system/GlassCard";
 import { Eye, Cloud, Lock, Check, Shield } from "lucide-react";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { cn } from "@/app/components/design-system/utils";
 
 interface PrivacyOption {

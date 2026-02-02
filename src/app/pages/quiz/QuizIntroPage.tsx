@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { Navbar } from '@/app/components/layout/Navbar';
 import { 
   Target, 

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Heart, ShoppingCart, X } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { FavoriteItem } from '@/app/data/favoritesData';
 import { PrivacyBlur } from '@/app/components/PrivacyBlur';
 import { Button } from '@/app/components/ui/button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 interface FavoritesSectionProps {
   favorites: FavoriteItem[];

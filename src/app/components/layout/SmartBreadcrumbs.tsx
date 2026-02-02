@@ -1,8 +1,9 @@
 import * as React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
+import { Link } from "@/app/components/router";
 import { ChevronRight, Home } from "lucide-react";
 import { cn } from "@/app/components/design-system/utils";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Map path segments to friendly names
 const routeNameMap: Record<string, string> = {

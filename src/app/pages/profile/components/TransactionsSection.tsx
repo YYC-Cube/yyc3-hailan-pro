@@ -1,6 +1,6 @@
 import React from 'react';
 import { Package, ChevronRight, Clock, CheckCircle, Truck, XCircle } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { Transaction, getStatusColor, getStatusText } from '@/app/data/transactionsData';
 import { PrivacyBlur } from '@/app/components/PrivacyBlur';
 import { Button } from '@/app/components/ui/button';

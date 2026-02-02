@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { usePrivacy } from '@/app/context/PrivacyContext';
-import { motion, AnimatePresence } from 'motion/react';
+import { usePrivacy } from '../../context/PrivacyContext';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, Unlock, Fingerprint, Delete, Check, Calculator, FileText, Search, Plus, MoreVertical, ChevronLeft } from 'lucide-react';
-import { Button } from '@/app/components/ui/button';
-import { Input } from '@/app/components/ui/input';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
 import { toast } from 'sonner';
-import { cn } from '@/lib/utils';
+import { cn } from '../../../lib/utils';
 
 export const CamouflageScreen: React.FC = () => {
   const { isLocked, unlockApp, unlockCode, camouflageMode, biometricEnabled } = usePrivacy();
@@ -70,7 +70,7 @@ export const CamouflageScreen: React.FC = () => {
     } catch (error) {
       console.error('Biometric auth failed:', error);
       // 即使 API 调用失败（通常是因为没有真实注册的凭据），在演示模式下我们也可以选择模拟成功
-      // 或者提示错误。这里为了演示流畅性，如果用户取消了则提示失败，否则...
+      // 或者提示错误。这里为了演示流畅性���如果用户取消了则提示失败，否则...
       
       // 简单的模拟回退
       setTimeout(() => {
@@ -221,7 +221,7 @@ const CalculatorMode = ({ input, setInput, onUnlock }: { input: string, setInput
   };
 
   return (
-    <div className="fixed inset-0 z-[100] bg-black text-white flex flex-col font-mono">
+    <div className="fixed inset-0 z-[100] bg-brand-navy text-white flex flex-col font-mono">
       {/* Calculator Display */}
       <div className="flex-1 flex items-end justify-end p-8 text-6xl font-light tracking-tighter break-all">
         {display}
@@ -236,7 +236,7 @@ const CalculatorMode = ({ input, setInput, onUnlock }: { input: string, setInput
               "h-20 rounded-full text-2xl font-medium transition-colors active:opacity-70 flex items-center justify-center m-1",
               btn === '0' ? "col-span-2 items-start pl-8" : "",
               ['÷', '×', '-', '+', '='].includes(btn) ? "bg-amber-500 text-white" : 
-              ['C', '±', '%'].includes(btn) ? "bg-neutral-400 text-black" : "bg-neutral-800"
+              ['C', '±', '%'].includes(btn) ? "bg-neutral-400 text-white/90" : "bg-brand-navy-light/50"
             )}
             onClick={() => handlePress(btn)}
           >
@@ -251,8 +251,8 @@ const CalculatorMode = ({ input, setInput, onUnlock }: { input: string, setInput
 const NotesMode = ({ input, setInput, onUnlock }: { input: string, setInput: (s: string) => void, onUnlock: () => void }) => {
   // A fake notes app. User types code in search bar to unlock.
   return (
-    <div className="fixed inset-0 z-[100] bg-zinc-50 dark:bg-zinc-900 text-foreground flex flex-col">
-      <div className="p-4 bg-white dark:bg-zinc-900 shadow-sm z-10">
+    <div className="fixed inset-0 z-[100] bg-zinc-50 dark:bg-brand-navy text-foreground flex flex-col">
+      <div className="p-4 bg-white dark:bg-brand-navy-light shadow-sm z-10">
         <div className="flex items-center gap-4 mb-4">
           <Button variant="ghost" size="icon"><ChevronLeft /></Button>
           <span className="font-semibold text-lg">Notes</span>
@@ -280,17 +280,17 @@ const NotesMode = ({ input, setInput, onUnlock }: { input: string, setInput: (s:
       </div>
       
       <div className="flex-1 overflow-auto p-4 space-y-4">
-         <div className="p-4 bg-white dark:bg-zinc-800 rounded-xl shadow-sm border border-zinc-100 dark:border-zinc-700">
+         <div className="p-4 bg-white dark:bg-brand-navy-light/40 rounded-xl shadow-sm border border-zinc-100 dark:border-brand-hailan-blue/20">
             <h3 className="font-semibold mb-1">Grocery List</h3>
             <p className="text-sm text-muted-foreground">Milk, Eggs, Bread, Organic Kale...</p>
             <p className="text-xs text-muted-foreground mt-2">10:30 AM</p>
          </div>
-         <div className="p-4 bg-white dark:bg-zinc-800 rounded-xl shadow-sm border border-zinc-100 dark:border-zinc-700">
+         <div className="p-4 bg-white dark:bg-brand-navy-light/40 rounded-xl shadow-sm border border-zinc-100 dark:border-brand-hailan-blue/20">
             <h3 className="font-semibold mb-1">Meeting Notes</h3>
             <p className="text-sm text-muted-foreground">Discuss Q3 marketing strategy with team...</p>
             <p className="text-xs text-muted-foreground mt-2">Yesterday</p>
          </div>
-         <div className="p-4 bg-white dark:bg-zinc-800 rounded-xl shadow-sm border border-zinc-100 dark:border-zinc-700">
+         <div className="p-4 bg-white dark:bg-brand-navy-light/40 rounded-xl shadow-sm border border-zinc-100 dark:border-brand-hailan-blue/20">
             <h3 className="font-semibold mb-1">Gym Routine</h3>
             <p className="text-sm text-muted-foreground">Warmup 10m, Bench Press 3x10, Squats...</p>
             <p className="text-xs text-muted-foreground mt-2">Monday</p>

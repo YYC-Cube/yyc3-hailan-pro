@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cn } from "./utils";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 
 export interface FloatingInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {

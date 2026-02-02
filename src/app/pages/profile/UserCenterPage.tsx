@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { Navbar } from '@/app/components/layout/Navbar';
 import { Footer } from '@/app/components/layout/Footer';
 import { BottomNav } from '@/app/components/layout/BottomNav';
@@ -9,7 +9,7 @@ import {
   Gift, TrendingUp, Award, Smartphone, Camera, ArrowUpRight
 } from 'lucide-react';
 import { useUser } from '@/app/context/UserContext';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { cn } from '@/app/components/design-system/utils';
 
 interface UserCenterPageProps {
@@ -187,22 +187,22 @@ export function UserCenterPage({ privacyMode, onPrivacyToggle }: UserCenterPageP
         <div className="hidden lg:grid grid-cols-12 grid-rows-[auto_auto_auto] gap-6">
           
           {/* Row 1: Profile Hero (8) + Privacy (4) */}
-          <BentoTile className="col-span-8 bg-gradient-to-br from-[#0056b3] to-[#6B46C1] text-white overflow-hidden relative">
+          <BentoTile className="col-span-8 bg-gradient-to-br from-[#0056b3] via-[#003a7a] to-[#6B46C1] text-white overflow-hidden relative shadow-2xl shadow-brand-hailan-blue/20">
              <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
              <div className="relative z-10 h-full flex flex-col justify-between p-8">
                 <div className="flex items-start justify-between">
                    <div className="flex items-center gap-6">
-                      <div className="w-24 h-24 rounded-full bg-white/20 backdrop-blur-md border-4 border-white/30 flex items-center justify-center text-4xl font-bold">
+                      <div className="w-24 h-24 rounded-full bg-white/20 backdrop-blur-md border-4 border-white/30 flex items-center justify-center text-4xl font-bold text-white">
                          {user.name.charAt(0)}
                       </div>
                       <div>
-                         <h1 className="text-3xl font-bold mb-2">{getGreeting()}，{user.name}</h1>
+                         <h1 className="text-3xl font-bold mb-2 text-white">{getGreeting()}，{user.name}</h1>
                          <div className="flex items-center gap-3">
-                            <span className="px-3 py-1 bg-white/20 rounded-full text-sm font-medium flex items-center gap-2">
+                            <span className="px-3 py-1 bg-white/20 rounded-full text-sm font-medium flex items-center gap-2 text-white">
                                <Award className="w-4 h-4" />
                                {user.tier} 会员
                             </span>
-                            <span className="text-white/80 text-sm">{user.email}</span>
+                            <span className="text-white/80 text-sm font-light">{user.email}</span>
                          </div>
                       </div>
                    </div>
@@ -288,17 +288,17 @@ export function UserCenterPage({ privacyMode, onPrivacyToggle }: UserCenterPageP
 
           {/* Row 3: AR Entry (6) + Account Menu (6) */}
           <BentoTile 
-             className="col-span-6 bg-neutral-900 text-white p-8 relative overflow-hidden group cursor-pointer"
+             className="col-span-6 bg-brand-deep-night text-white p-8 relative overflow-hidden group cursor-pointer shadow-lg shadow-brand-deep-night/20"
              onClick={() => navigate('/ar-start')}
           >
-             <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1633511090164-b43840ea1607?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-40 group-hover:opacity-50 transition-opacity" />
-             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+             <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1633511090164-b43840ea1607?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-30 group-hover:opacity-40 transition-opacity" />
+             <div className="absolute inset-0 bg-gradient-to-t from-brand-deep-night/90 via-brand-deep-night/40 to-transparent" />
              
              <div className="relative z-10 h-full flex flex-col justify-end">
                 <div className="mb-4">
-                   <span className="inline-block px-3 py-1 bg-brand-coral/90 rounded-full text-xs font-bold mb-3">新功能</span>
-                   <h3 className="text-2xl font-bold mb-2">沉浸式 AR 体验</h3>
-                   <p className="text-neutral-300 max-w-md">在您的私人空间中预览产品。无需购买即可体验真实尺寸与细节。</p>
+                   <span className="inline-block px-3 py-1 bg-brand-coral/90 rounded-full text-xs font-bold mb-3 text-white">新功能</span>
+                   <h3 className="text-2xl font-bold mb-2 text-white">沉浸式 AR 体验</h3>
+                   <p className="text-neutral-100 max-w-md font-light">在您的私人空间中预览产品。无需购买即可体验真实尺寸与细节。</p>
                 </div>
                 <div className="flex items-center gap-2 font-bold text-brand-coral group-hover:translate-x-2 transition-transform">
                    <span>立即尝试</span>
@@ -307,7 +307,7 @@ export function UserCenterPage({ privacyMode, onPrivacyToggle }: UserCenterPageP
              </div>
              
              <div className="absolute top-6 right-6 p-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20">
-                <Camera className="w-6 h-6" />
+                <Camera className="w-6 h-6 text-white" />
              </div>
           </BentoTile>
 
@@ -366,9 +366,9 @@ function BentoTile({ children, className, onClick }: { children: React.ReactNode
 
 function StatItem({ value, label }: { value: string, label: string }) {
    return (
-      <div className="text-center p-4 bg-white/10 rounded-2xl backdrop-blur-sm border border-white/10 hover:bg-white/20 transition-colors cursor-default">
-         <div className="text-2xl font-bold mb-1">{value}</div>
-         <div className="text-white/70 text-xs">{label}</div>
+      <div className="text-center p-3 bg-white/10 rounded-xl backdrop-blur-sm border border-white/10 hover:bg-white/20 transition-colors cursor-default">
+         <div className="text-xl font-bold mb-0.5 text-white">{value}</div>
+         <div className="text-white/60 text-[10px] uppercase font-medium">{label}</div>
       </div>
    )
 }
@@ -385,7 +385,7 @@ function CheckIcon() {
 
 function ProfileHeroMobile({ user }: { user: any }) {
    return (
-      <div className="bg-gradient-to-br from-[#0056b3] to-[#6B46C1] rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
+      <div className="bg-gradient-to-br from-[#0056b3] via-[#003a7a] to-[#6B46C1] rounded-2xl p-8 text-white shadow-xl relative overflow-hidden shadow-brand-hailan-blue/20">
         {/* 背景装饰 */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full blur-2xl" />
@@ -393,14 +393,14 @@ function ProfileHeroMobile({ user }: { user: any }) {
         <div className="relative z-10">
           <div className="flex items-start justify-between mb-6">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-xl border-2 border-white/30 flex items-center justify-center text-2xl font-bold">
+              <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-xl border-2 border-white/30 flex items-center justify-center text-2xl font-bold text-white shadow-inner">
                 {user.name.charAt(0)}
               </div>
               <div>
-                <h1 className="text-2xl font-bold mb-1">
+                <h1 className="text-2xl font-bold mb-1 text-white">
                   {getGreeting()}，{user.name}
                 </h1>
-                <p className="text-white/80 text-sm">{user.tier} 会员</p>
+                <p className="text-white/80 text-sm font-light">{user.tier} 会员</p>
               </div>
             </div>
           </div>

@@ -13,6 +13,7 @@ import { Button } from "@/app/components/ui/button";
 import { Badge } from "@/app/components/ui/badge";
 import { Sparkles, Leaf, Activity, Users, Zap, Smartphone, Filter, RefreshCw, Star } from "lucide-react";
 import { cn } from "@/app/components/design-system/utils";
+import { Link } from "@/app/components/router";
 
 interface FilterSidebarProps {
   className?: string;
@@ -150,9 +151,11 @@ export function FilterSidebar({ className, privacyMode }: FilterSidebarProps) {
           </div>
           <h4 className="font-bold text-sm mb-2">需要专家建议？</h4>
           <p className="text-xs text-white/70 mb-4 leading-relaxed">基于您的生理特征与喜好，AI 助手为您深度匹配。</p>
-          <Button size="sm" className="w-full h-9 bg-white text-brand-deep-blue hover:bg-neutral-100 border-none font-bold rounded-xl transition-all active:scale-95">
-            咨询 AI 助手
-          </Button>
+          <Link to="/ai-assistant" className="block w-full">
+            <Button size="sm" className="w-full h-9 bg-white text-brand-deep-blue hover:bg-neutral-100 border-none font-bold rounded-xl transition-all active:scale-95">
+              咨询 AI 助手
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

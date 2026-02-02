@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router';
+import { Link } from '@/app/components/router';
 import { 
   Camera, 
   Shield, 
@@ -10,7 +11,7 @@ import {
   Sun
 } from 'lucide-react';
 import { BrandLogo } from '@/app/components/BrandLogo';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { cn } from '@/app/components/design-system/utils';
 
 export function ARStartPage() {

@@ -45,15 +45,23 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 
   // Load from local storage on mount
   useEffect(() => {
-    const storedSettings = localStorage.getItem('hailan_user_settings');
-    if (storedSettings) {
-      setSettings(JSON.parse(storedSettings));
+    try {
+      const storedSettings = localStorage.getItem('hailan_user_settings');
+      if (storedSettings) {
+        setSettings(JSON.parse(storedSettings));
+      }
+    } catch (e) {
+      console.warn('Failed to load settings from localStorage:', e);
     }
   }, []);
 
   // Save to local storage on change
   useEffect(() => {
-    localStorage.setItem('hailan_user_settings', JSON.stringify(settings));
+    try {
+      localStorage.setItem('hailan_user_settings', JSON.stringify(settings));
+    } catch (e) {
+      console.warn('Failed to save settings to localStorage:', e);
+    }
   }, [settings]);
 
   const updateSettings = (newSettings: Partial<UserSettings>) => {

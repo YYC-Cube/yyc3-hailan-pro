@@ -12,39 +12,49 @@ export interface ServiceWorkerConfig {
 /**
  * 注册Service Worker
  */
-export function registerServiceWorker(config?: ServiceWorkerConfig) {
-  // 只在生产环境和支持SW的浏览器中注册
-  if (import.meta.env.PROD && 'serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      const swUrl = `/sw.js`;
-      registerValidSW(swUrl, config);
-    });
+export async function registerServiceWorker(config?: ServiceWorkerConfig) {
+  // 基础环境检查
+  if (typeof window === 'undefined' || !('serviceWorker' in navigator)) {
+    return;
+  }
+
+  // 确保在 window load 之后注册，不影响首屏加载
+  if (document.readyState === 'complete') {
+    register(config);
+  } else {
+    window.addEventListener('load', () => register(config));
   }
 }
 
-/**
- * 注册并验证Service Worker
- */
-async function registerValidSW(swUrl: string, config?: ServiceWorkerConfig) {
+async function register(config?: ServiceWorkerConfig) {
   try {
-    const registration = await navigator.serviceWorker.register(swUrl);
+    // 构造 SW URL
+    // 注意：在 Vite 中，public 目录下的文件会被复制到根目录
+    const swUrl = `/sw.js`.replace(/\/+/g, '/');
     
-    console.log('[SW Registration] Service Worker registered successfully');
+    console.log('[SW] Attempting to register at:', swUrl);
     
-    // 监听更新
+    const registration = await navigator.serviceWorker.register(swUrl, {
+      scope: '/'
+    });
+    
+    console.log('[SW] Registration successful:', registration.scope);
+    
+    // 检查是否有更新
+    if (registration.waiting) {
+      config?.onUpdate?.(registration);
+    }
+
     registration.addEventListener('updatefound', () => {
       const installingWorker = registration.installing;
-      
       if (installingWorker) {
         installingWorker.addEventListener('statechange', () => {
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
-              // 有新版本可用
-              console.log('[SW Registration] New content is available; please refresh.');
+              console.log('[SW] New version found, update available');
               config?.onUpdate?.(registration);
             } else {
-              // 首次安装完成
-              console.log('[SW Registration] Content is cached for offline use.');
+              console.log('[SW] Content cached for offline use');
               config?.onSuccess?.(registration);
               config?.onOfflineReady?.();
             }
@@ -52,15 +62,20 @@ async function registerValidSW(swUrl: string, config?: ServiceWorkerConfig) {
         });
       }
     });
-    
-    // 定期检查更新
-    setInterval(() => {
-      registration.update();
-    }, 60 * 60 * 1000); // 每小时检查一次
-    
+
   } catch (error) {
-    console.error('[SW Registration] Service Worker registration failed:', error);
+    console.warn('[SW] Registration failed:', error);
     config?.onError?.(error as Error);
+    
+    // 如果是路径问题导致的失败，尝试相对路径
+    if (error instanceof Error && (error.name === 'TypeError' || error.message.includes('MIME'))) {
+      try {
+        console.log('[SW] Retrying with relative path');
+        await navigator.serviceWorker.register('sw.js');
+      } catch (retryError) {
+        console.error('[SW] Fallback registration also failed:', retryError);
+      }
+    }
   }
 }
 
@@ -111,7 +126,14 @@ export async function getServiceWorkerVersion(): Promise<string | null> {
  * 清除所有缓存
  */
 export async function clearAllCaches(): Promise<boolean> {
-  if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+  if (typeof window === 'undefined' || !('serviceWorker' in navigator)) {
+    return false;
+  }
+
+  try {
+    const registration = await navigator.serviceWorker.ready;
+    if (!registration.active) return false;
+
     return new Promise((resolve) => {
       const messageChannel = new MessageChannel();
       
@@ -119,7 +141,7 @@ export async function clearAllCaches(): Promise<boolean> {
         resolve(event.data.success || false);
       };
       
-      navigator.serviceWorker.controller.postMessage(
+      registration.active.postMessage(
         { type: 'CLEAR_CACHE' },
         [messageChannel.port2]
       );
@@ -127,9 +149,10 @@ export async function clearAllCaches(): Promise<boolean> {
       // 超时处理
       setTimeout(() => resolve(false), 3000);
     });
+  } catch (e) {
+    console.error('[SW] Failed to clear cache:', e);
+    return false;
   }
-  
-  return false;
 }
 
 /**
@@ -177,7 +200,7 @@ export async function subscribeToPushNotifications(): Promise<PushSubscription |
       subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: urlBase64ToUint8Array(
-          import.meta.env.VITE_VAPID_PUBLIC_KEY || ''
+          (import.meta.env?.VITE_VAPID_PUBLIC_KEY as string) || ''
         ),
       });
       

@@ -3,7 +3,7 @@ import { Button } from "@/app/components/design-system/Button";
 import { FloatingInput } from "@/app/components/design-system/FloatingInput";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/app/components/design-system/Modal";
 import { Shield, Bell, Camera, MapPin, CheckCircle2, ChevronRight, ChevronLeft, Lock } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/app/components/design-system/utils";
 import { InteractiveListItem, GlassCard } from "@/app/components/design-system/GlassCard";
 

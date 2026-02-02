@@ -1,10 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   X, 
   Minus, 
   Send, 
-  Lock, 
   Sparkles,
   Settings,
   Plus,
@@ -12,7 +11,10 @@ import {
   Mic,
   MicOff,
   Maximize2,
-  Minimize2
+  Minimize2,
+  Activity,
+  Server,
+  Shield
 } from 'lucide-react';
 import { MessageBubble } from '@/app/pages/ai-assistant/components/MessageBubble';
 import { SmartSuggestionCard } from '@/app/pages/ai-assistant/components/SmartSuggestionCard';
@@ -56,7 +58,7 @@ export function GlobalAIAssistant() {
     {
       id: '1',
       type: 'assistant',
-      content: '您好！我是您的AI健康助手。我可以帮助您了解产品信息、提供健康建议、解答疑问。所有对话都经过端到端加密保护，您的隐私是我们的首要考虑。',
+      content: '您好！我是您的 AI 健康助手。检测到您的本地健康库已同步，我可以基于您的最新生理数据（如 HRV、心率曲线）提供精准建议。您的隐私受端到端加密保护。',
       timestamp: new Date(),
     }
   ]);
@@ -138,7 +140,7 @@ export function GlobalAIAssistant() {
       } else if (lowerInput.includes('隐私') || lowerInput.includes('安全')) {
         content = '您的隐私和数据安全是我们的首要考虑。所有对话都经过端到端加密，我们不会存储任何敏感信息。您可以在隐私控制面板中管理您的数据设置。';
       } else {
-        content = '感谢您的提问。我理解您的需求，让我为您提供一些有用的信息和建议。如果您需要更详细的帮助，我可以为您转接专业健康顾问。';
+        content = '我已经收到您的咨询。正在从您的私密知识库中检索相关信息... 这里有一些基于您以往偏好的建议。';
       }
 
       const suggestions = getSuggestions(currentInput);
@@ -159,15 +161,11 @@ export function GlobalAIAssistant() {
   const handleVoiceInput = () => {
     if (isListening) {
       setIsListening(false);
-      // Stop listening logic
     } else {
       setIsListening(true);
-      // Simulate voice recognition delay
       setTimeout(() => {
         setIsListening(false);
         setInputValue("推荐一些适合新手的健康产品");
-        // Optional: auto send
-        // handleSendMessage(); 
       }, 3000);
     }
   };
@@ -233,7 +231,6 @@ export function GlobalAIAssistant() {
     }]);
   };
 
-  // Determine window size and position styles
   const getWindowStyles = () => {
     if (isMobile) {
       return {
@@ -270,7 +267,7 @@ export function GlobalAIAssistant() {
               initial={{ opacity: 0, scale: 0.8, x: 0, y: 0 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              drag={!isMobile} // Disable drag on mobile if we want fixed position, but for floating button it's fine
+              drag={!isMobile} 
               dragMomentum={false}
               dragElastic={0.1}
               style={{ bottom: 32, right: 32 }}
@@ -279,8 +276,8 @@ export function GlobalAIAssistant() {
               onClick={toggleOpen}
             >
                <div className="relative group cursor-pointer">
-                 <div className="absolute inset-0 bg-brand-deep-blue/20 rounded-full blur-xl animate-pulse group-hover:bg-brand-deep-blue/40 transition-colors" />
-                 <button className="relative w-16 h-16 bg-white rounded-full shadow-2xl shadow-brand-deep-blue/20 border border-white/60 backdrop-blur-md flex items-center justify-center overflow-hidden">
+                 <div className="absolute inset-0 bg-brand-hailan-blue/20 rounded-full blur-xl animate-pulse group-hover:bg-brand-hailan-blue/40 transition-colors" />
+                 <button className="relative w-16 h-16 bg-white rounded-full shadow-2xl shadow-brand-hailan-blue/20 border border-white/60 backdrop-blur-md flex items-center justify-center overflow-hidden">
                     <img src={aiLogo} alt="AI" className="w-10 h-10 object-contain" />
                  </button>
                  <div className="absolute top-0 right-0 w-4 h-4 bg-red-500 rounded-full border-2 border-white" />
@@ -297,10 +294,6 @@ export function GlobalAIAssistant() {
               initial={isMobile ? { opacity: 0, y: '100%' } : { opacity: 0, scale: 0.9, y: 20 }}
               animate={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, scale: 1, y: 0 }}
               exit={isMobile ? { opacity: 0, y: '100%' } : { opacity: 0, scale: 0.9, y: 20 }}
-              drag={!isMobile && !isExpanded} // Disable drag when expanded or mobile
-              dragMomentum={false}
-              dragListener={false} 
-              dragControls={undefined}
               style={{ 
                   position: 'absolute',
                   ...getWindowStyles()
@@ -309,25 +302,21 @@ export function GlobalAIAssistant() {
             >
               {/* Header */}
               <motion.div 
-                className={`flex items-center justify-between px-5 py-4 bg-white/50 border-b border-neutral-100/50 ${(!isMobile && !isExpanded) ? 'cursor-move' : ''}`}
-                onPointerDown={(e) => {
-                   // This is where drag triggers if enabled on parent
-                }}
+                className={`flex items-center justify-between px-5 py-4 bg-white/80 border-b border-neutral-100/50 ${(!isMobile && !isExpanded) ? 'cursor-move' : ''}`}
               >
                   <div className="flex items-center gap-3 pointer-events-none select-none">
                       <div className="w-8 h-8 rounded-full bg-transparent flex items-center justify-center">
                           <img src={aiLogo} alt="Logo" className="w-full h-full object-contain" />
                       </div>
                       <div>
-                          <h3 className="text-sm font-bold text-neutral-900">AI健康助手</h3>
-                          <div className="flex items-center gap-1.5 text-[10px] text-neutral-500">
-                             <Lock className="w-2.5 h-2.5" />
-                             <span>私密 & 安全</span>
-                          </div>
+                          <h3 className="text-lg font-serif font-bold text-brand-hailan-blue">海蓝 AI 核心</h3>
                       </div>
                   </div>
                   
                   <div className="flex items-center gap-1 z-10" onPointerDown={(e) => e.stopPropagation()}>
+                      <div className="mr-2">
+                         <ShieldCheck className="w-5 h-5 text-neutral-400" />
+                      </div>
                       {!isMobile && (
                         <button 
                           onClick={handleExpandToggle}
@@ -354,6 +343,30 @@ export function GlobalAIAssistant() {
                   </div>
               </motion.div>
 
+              {/* Status Bar - Using Brand Navy instead of Neutral 900 */}
+              <div className="bg-brand-navy text-white px-4 py-1.5 flex flex-col gap-0.5 text-[9px] font-mono tracking-wider">
+                  <div className="flex items-center gap-2 scale-90 origin-left">
+                      <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+                      <span className="font-bold text-emerald-500 uppercase">Nas Sync Active</span>
+                  </div>
+          <div className="flex items-center justify-between text-white/50">
+            <div className="flex flex-col sm:flex-row sm:gap-4">
+                <span className="flex items-center gap-1">
+                   <Activity className="w-2.5 h-2.5" />
+                   LOG: <span className="text-emerald-400">IDLE</span>
+                </span>
+                <span className="flex items-center gap-1">
+                   <Server className="w-2.5 h-2.5" />
+                   NODE: <span className="text-emerald-400 font-bold">HaiLan-Core-Alpha-01</span>
+                </span>
+            </div>
+            <span className="flex items-center gap-1">
+               <Shield className="w-2.5 h-2.5" />
+               SEC: <span className="text-emerald-400 font-bold">AES-256</span>
+            </span>
+          </div>
+              </div>
+
               {/* Toolbar */}
               <div 
                   className="flex items-center justify-between px-4 py-2 bg-neutral-50/50 border-b border-neutral-100/50 text-xs"
@@ -365,7 +378,7 @@ export function GlobalAIAssistant() {
                         className="p-2 hover:bg-white rounded-lg text-neutral-600 transition-all hover:shadow-sm flex items-center gap-1.5"
                         title="功能"
                     >
-                        <Sparkles className="w-3.5 h-3.5 text-brand-deep-blue" />
+                        <Sparkles className="w-3.5 h-3.5 text-brand-hailan-blue" />
                         <span>功能</span>
                     </button>
                     <button 
@@ -396,7 +409,10 @@ export function GlobalAIAssistant() {
                   {messages.length === 1 && (
                       <div className="text-center py-6 animate-fadeIn">
                           <AssistantAvatar size="xl" animated />
-                          <h2 className="text-lg font-bold text-neutral-900 mt-4 mb-2">欢迎�����用AI健康助手</h2>
+                          <h2 className="text-lg font-bold text-neutral-900 mt-4 mb-2">欢迎使用海蓝 AI 核心</h2>
+                          <div className="text-[10px] bg-brand-hailan-blue/5 border border-brand-hailan-blue/10 inline-block px-2 py-1 rounded text-brand-hailan-blue mb-4">
+                             [系统] 已成功握手 HaiLan-Core。所有交互数据将保存在您的本地 NAS 中。
+                          </div>
                           <p className="text-neutral-500 text-sm mb-6 max-w-[280px] mx-auto leading-relaxed">
                               24小时在线的私密健康顾问。为您提供专业建议、产品推荐和使用指导。
                           </p>
@@ -442,9 +458,9 @@ export function GlobalAIAssistant() {
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-                            placeholder={isListening ? "正在聆听..." : "输入您的问题..."}
+                            placeholder={isListening ? "正在聆听..." : "询问您的健康数据或咨询产品..."}
                             disabled={isListening}
-                            className={`w-full bg-neutral-50 border border-neutral-200 rounded-2xl pl-4 pr-10 py-3 text-sm focus:ring-2 focus:ring-brand-deep-blue/20 focus:border-brand-deep-blue/50 outline-none transition-all placeholder:text-neutral-400 ${isListening ? 'bg-red-50/50 border-red-200 animate-pulse' : ''}`}
+                            className={`w-full bg-neutral-50 border border-neutral-200 rounded-2xl pl-4 pr-10 py-3 text-sm focus:ring-2 focus:ring-brand-hailan-blue/20 focus:border-brand-hailan-blue/50 outline-none transition-all placeholder:text-neutral-400 ${isListening ? 'bg-red-50/50 border-red-200 animate-pulse' : ''}`}
                           />
                           <button 
                             onClick={handleVoiceInput}
@@ -457,7 +473,7 @@ export function GlobalAIAssistant() {
                       
                       <Button 
                         size="icon" 
-                        className="rounded-xl h-11 w-11 shrink-0 bg-brand-deep-blue hover:bg-brand-deep-blue/90 shadow-lg shadow-brand-deep-blue/20"
+                        className="rounded-xl h-11 w-11 shrink-0 bg-brand-hailan-blue hover:bg-brand-hailan-blue/90 shadow-lg shadow-brand-hailan-blue/20"
                         onClick={handleSendMessage}
                         disabled={!inputValue.trim() && !isListening}
                       >

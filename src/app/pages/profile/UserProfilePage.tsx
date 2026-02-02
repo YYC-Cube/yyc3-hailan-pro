@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Navbar } from '@/app/components/layout/Navbar';
 import { Footer } from '@/app/components/layout/Footer';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   User, 
   Heart, 
@@ -68,40 +68,40 @@ export function UserProfilePage({ privacyMode, onPrivacyToggle }: UserProfilePag
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-br from-brand-deep-blue to-[#1e293b] rounded-3xl p-8 mb-8 text-white relative overflow-hidden shadow-xl shadow-brand-deep-blue/10"
+          className="bg-gradient-to-br from-[#0056b3] via-[#003a7a] to-[#001f42] rounded-3xl p-6 md:p-8 mb-8 text-white relative overflow-hidden shadow-2xl shadow-brand-hailan-blue/20"
         >
           {/* Decorative Elements */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-brand-coral/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-gold/10 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-brand-coral/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2" />
           
           <div className="relative z-10">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
               {/* User Info */}
-              <div className="flex items-center gap-6">
+              <div className="flex items-center gap-5">
                 <div className="relative">
-                   <div className="w-24 h-24 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-4xl font-serif text-white shadow-inner">
+                   <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-3xl md:text-4xl font-serif text-white shadow-inner">
                      {user.name.charAt(0)}
                    </div>
-                   <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-brand-gold rounded-full flex items-center justify-center border-2 border-[#1A365D]">
-                      <Crown className="w-4 h-4 text-[#1A365D]" />
+                   <div className="absolute -bottom-1 -right-1 w-7 h-7 md:w-8 md:h-8 bg-brand-gold rounded-full flex items-center justify-center border-2 border-brand-deep-night">
+                      <Crown className="w-3.5 h-3.5 md:w-4 md:h-4 text-brand-deep-night" />
                    </div>
                 </div>
                 
-                <div>
-                  <h1 className="text-3xl font-bold mb-1 tracking-tight">{user.name}</h1>
-                  <p className="text-white/60 mb-3 font-light">{user.email}</p>
-                  <div className="flex items-center gap-3">
-                    <div className="px-3 py-1 bg-white/10 backdrop-blur rounded-full text-xs font-medium border border-white/10 flex items-center gap-1.5">
+                <div className="space-y-1">
+                  <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight leading-tight">{user.name}</h1>
+                  <p className="text-white/70 text-sm font-light mb-2">{user.email}</p>
+                  <div className="flex flex-wrap items-center gap-2 pt-1">
+                    <div className="px-2.5 py-0.5 bg-white/15 backdrop-blur rounded-full text-[10px] font-bold border border-white/10 flex items-center gap-1.5 text-white">
                       <Sparkles className="w-3 h-3 text-brand-gold" />
                       {user.tier} 会员
                     </div>
-                    <PrivacyToggle />
+                    <PrivacyToggle size="sm" />
                   </div>
                 </div>
               </div>
 
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-8 md:border-l border-white/10 md:pl-8">
+              <div className="grid grid-cols-3 gap-4 md:gap-8 w-full md:w-auto md:border-l border-white/10 md:pl-8 pt-6 md:pt-0">
                 <StatCard label="总消费" value={`¥${calculateTotalSpent(MOCK_TRANSACTIONS)}`} />
                 <StatCard label="订单数" value={MOCK_TRANSACTIONS.length} />
                 <StatCard label="收藏" value={favorites.length} />
@@ -168,9 +168,9 @@ export function UserProfilePage({ privacyMode, onPrivacyToggle }: UserProfilePag
 
 function StatCard({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="text-center">
-      <p className="text-white/50 text-xs mb-1 uppercase tracking-wider">{label}</p>
-      <p className="text-2xl font-bold font-serif">{value}</p>
+    <div className="text-center px-2">
+      <p className="text-white/60 text-[10px] mb-1 uppercase tracking-widest font-medium">{label}</p>
+      <p className="text-xl md:text-2xl font-bold text-white tracking-tight">{value}</p>
     </div>
   );
 }

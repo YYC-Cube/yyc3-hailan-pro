@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@/app/components/design-system/Button";
 import { Shield, ArrowRight, Info } from "lucide-react";
 import { BrandLogo } from "@/app/components/BrandLogo";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 
 interface WelcomePageProps {
   onStart: () => void;

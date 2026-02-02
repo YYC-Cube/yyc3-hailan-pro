@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router";
 import { PRODUCTS, Product } from "@/app/data/mockData";
 import { Navbar } from "@/app/components/layout/Navbar";
 import { Footer } from "@/app/components/layout/Footer";
-import { motion } from "motion/react";
-import { ChevronRight, Home, ShoppingBag } from "lucide-react";
+import { motion } from "framer-motion";
+import { ChevronRight, Home, ShoppingBag, Sparkles } from "lucide-react";
 import { ProductGallery } from "./components/ProductGallery";
 import { ProductInfo } from "./components/ProductInfo";
 import { SpecsSection } from "./components/SpecsSection";
@@ -12,6 +12,7 @@ import { ReviewsSection } from "./components/ReviewsSection";
 import { RelatedProducts } from "./components/RelatedProducts";
 import { PurchasePanel } from "./components/PurchasePanel";
 import { ARSection } from "./components/ARSection";
+import { HealthCompatibility } from "./components/HealthCompatibility";
 import { GlassCard } from "@/app/components/design-system/GlassCard";
 
 export function ProductDetailPage() {
@@ -52,7 +53,7 @@ export function ProductDetailPage() {
   );
 
   return (
-    <div className="min-h-screen bg-neutral-50 text-neutral-900 font-sans selection:bg-brand-deep-blue/20">
+    <div className="min-h-screen bg-neutral-50 text-neutral-900 font-sans selection:bg-brand-deep-blue/20 pb-20 md:pb-0">
       <Navbar />
       
       {/* Dynamic Background Element */}
@@ -105,6 +106,15 @@ export function ProductDetailPage() {
             >
                <ProductInfo product={product} />
             </motion.div>
+
+            {/* NEW: Health Compatibility Module - Data Closure */}
+            <motion.div
+               initial={{ opacity: 0, x: 20 }}
+               animate={{ opacity: 1, x: 0 }}
+               transition={{ duration: 0.6, delay: 0.15 }}
+            >
+               <HealthCompatibility product={product} />
+            </motion.div>
             
             <motion.div
                initial={{ opacity: 0, x: 20 }}
@@ -116,9 +126,6 @@ export function ProductDetailPage() {
                  <PurchasePanel product={product} />
                </GlassCard>
             </motion.div>
-            
-            {/* Specs (Mobile only here, or desktop below) */}
-            {/* Moving Specs to a cleaner spot */}
           </div>
         </div>
 

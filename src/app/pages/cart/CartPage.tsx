@@ -4,7 +4,7 @@ import { Navbar } from "@/app/components/layout/Navbar";
 import { Footer } from "@/app/components/layout/Footer";
 import { Button } from "@/app/components/ui/button";
 import { Trash2, Plus, Minus, ArrowRight, ShieldCheck, ShoppingBag } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { Badge } from "@/app/components/ui/badge";
 
 export function CartPage() {
@@ -16,12 +16,12 @@ export function CartPage() {
       <div className="min-h-screen bg-[#F8FAFC] flex flex-col">
         <Navbar />
         <main className="flex-1 flex flex-col items-center justify-center p-4">
-          <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mb-6">
-            <ShoppingBag className="w-10 h-10 text-slate-300" />
+          <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mb-6">
+            <ShoppingBag className="w-10 h-10 text-brand-hailan-blue/30" />
           </div>
-          <h2 className="text-2xl font-serif text-[#1A365D] mb-2">购物车是空的</h2>
-          <p className="text-slate-500 mb-8">看起来您还没有找到心仪的产品。</p>
-          <Button onClick={() => navigate("/category")} className="bg-[#1A365D] hover:bg-[#2A4365]">
+          <h2 className="text-2xl font-bold text-brand-hailan-blue mb-2">购物车是空的</h2>
+          <p className="text-neutral-500 mb-8 font-medium">看起来您还没有找到心仪的产品。</p>
+          <Button onClick={() => navigate("/category")} className="bg-brand-hailan-blue hover:bg-brand-hailan-blue-hover text-white px-10 py-6 rounded-xl shadow-lg shadow-brand-hailan-blue/20 transition-all active:scale-95 font-bold">
             开始探索
           </Button>
         </main>

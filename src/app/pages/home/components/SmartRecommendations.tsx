@@ -4,7 +4,7 @@ import { Button } from "@/app/components/design-system/Button";
 import { Badge } from "@/app/components/design-system/Badge";
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
 import { cn } from "@/app/components/design-system/utils";
-import { Link } from "react-router-dom";
+import { Link } from "@/app/components/router";
 import { ProductCategory } from "@/types";
 
 interface ProductItem {
@@ -155,7 +155,7 @@ function ProductCard({ product, privacyMode }: { product: ProductItem, privacyMo
                 />
                 
                 {shouldBlur && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/5 backdrop-blur-[2px]">
+                    <div className="absolute inset-0 flex items-center justify-center bg-brand-navy/5 backdrop-blur-[2px]">
                         <EyeOff className="w-8 h-8 text-white drop-shadow-md" />
                     </div>
                 )}
@@ -168,7 +168,7 @@ function ProductCard({ product, privacyMode }: { product: ProductItem, privacyMo
 
                 {/* Quick Actions Overlay */}
                 <div className={cn(
-                    "absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent flex justify-between items-end translate-y-full transition-transform duration-300",
+                    "absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-brand-navy/60 to-transparent flex justify-between items-end translate-y-full transition-transform duration-300",
                     isHovered ? "translate-y-0" : ""
                 )}>
                     <Button size="sm" variant="secondary" className="bg-white/90 text-neutral-900 hover:bg-white">

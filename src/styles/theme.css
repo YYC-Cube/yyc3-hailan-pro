@@ -7,9 +7,9 @@
   --color-brand-hailan-blue-pressed: #003373;
   --color-brand-hailan-blue-light: #3b82f6;
   
-  /* 深夜灰 - 背景色，提供舒适的阅读体验 */
-  --color-brand-deep-night: #1a1a1a;
-  --color-brand-deep-night-light: #2d2d2d;
+  /* 深海蓝 - 背景色，提供沉稳的高端感 */
+  --color-brand-deep-night: #002b5c;
+  --color-brand-deep-night-light: #003a7a;
   
   /* 极光紫 - 强调色，用于互动元素 */
   --color-brand-aurora-purple: #6B46C1;
@@ -41,20 +41,20 @@
   --color-error: #F56565;
   --color-info: #0056b3;
   
-  /* === 中性色 Neutral Colors (12级灰度) === */
-  --color-neutral-50: #fafafa;
-  --color-neutral-100: #f5f5f5;
-  --color-neutral-200: #e5e5e5;
-  --color-neutral-300: #d4d4d4;
-  --color-neutral-400: #a3a3a3;
-  --color-neutral-500: #737373;
-  --color-neutral-600: #525252;
-  --color-neutral-700: #404040;
-  --color-neutral-800: #262626;
-  --color-neutral-900: #171717;
-  --color-neutral-950: #0a0a0a;
+  /* === 中性色 Neutral Colors (12级灰度) - 统一采用蓝灰调 === */
+  --color-neutral-50: #f0f4f8;
+  --color-neutral-100: #d9e2ec;
+  --color-neutral-200: #bcccdc;
+  --color-neutral-300: #9fb3c8;
+  --color-neutral-400: #829ab1;
+  --color-neutral-500: #627d98;
+  --color-neutral-600: #486581;
+  --color-neutral-700: #334e68;
+  --color-neutral-800: #243b53;
+  --color-neutral-900: #102a43;
+  --color-neutral-950: #001f42;
   --color-neutral-white: #ffffff;
-  --color-neutral-black: #000000;
+  --color-neutral-black: #002b5c;
   
   /* === Legacy color mappings for compatibility === */
   --color-brand-primary: #0056b3;
@@ -65,8 +65,8 @@
   --color-brand-secondary-light: #8b5cf6;
   --color-brand-accent: #ED8936;
   --color-brand-accent-light: #f6a057;
-  --color-brand-navy: #1a365d;
-  --color-brand-navy-light: #2a4365;
+  --color-brand-navy: #002b5c;
+  --color-brand-navy-light: #003a7a;
   --color-brand-deep-blue: #0056b3;
   --color-brand-elegant-purple: #6B46C1;
   --color-brand-gold: #f6a057;
@@ -75,7 +75,7 @@
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #f8fafc;
   --color-bg-tertiary: #f1f5f9;
-  --color-bg-dark: #1a1a1a;
+  --color-bg-dark: #002b5c;
   
   /* === Border Colors === */
   --color-border: #e2e8f0;

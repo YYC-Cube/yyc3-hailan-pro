@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import { Search } from "lucide-react";
+import { motion } from "framer-motion";
 import { Navbar } from "@/app/components/layout/Navbar";
 import { Footer } from "@/app/components/layout/Footer";
 import { BottomNav } from "@/app/components/layout/BottomNav";
+import { GlobalSearchOverlay } from "@/app/components/ai/GlobalSearchOverlay";
 import { HeroSection } from "@/app/pages/home/components/HeroSection";
 import { CategoryGrid } from "@/app/pages/home/components/CategoryGrid";
 import { SmartRecommendations } from "@/app/pages/home/components/SmartRecommendations";
@@ -16,12 +19,27 @@ interface HomePageProps {
 }
 
 export function HomePage({ onLogout, privacyMode, onPrivacyToggle }: HomePageProps) {
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-brand-light-grey font-sans text-neutral-900 pb-20 md:pb-0">
       <Navbar 
         privacyMode={privacyMode} 
         onPrivacyToggle={onPrivacyToggle}
       />
+      <GlobalSearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+
+      <motion.button 
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={() => setIsSearchOpen(true)}
+        className="fixed bottom-24 right-6 w-14 h-14 bg-[#0056b3] text-white rounded-full shadow-2xl z-40 flex items-center justify-center border border-white/10 group overflow-hidden md:bottom-32"
+      >
+        <div className="absolute inset-0 bg-gradient-to-tr from-[#0056b3] to-[#6B46C1] opacity-0 group-hover:opacity-100 transition-opacity" />
+        <Search className="w-6 h-6 relative z-10" />
+      </motion.button>
 
       <main>
         {/* Mobile Layout (< 1024px) */}

@@ -1,21 +1,28 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Lock, Plus, Settings, History, Sparkles, ShieldCheck, ChevronLeft } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Send, Lock, Plus, Settings, History, Sparkles, ShieldCheck, ChevronLeft, Database, Wifi, Activity } from 'lucide-react';
+import { useNavigate } from 'react-router';
 import { AssistantAvatar } from './components/AssistantAvatar';
 import { MessageBubble } from './components/MessageBubble';
 import { SmartSuggestionCard } from './components/SmartSuggestionCard';
 import { QuickQuestions } from './components/QuickQuestions';
 import { FunctionPanel } from './components/FunctionPanel';
 import { PrivacyControlPanel } from './components/PrivacyControlPanel';
+import { motion, AnimatePresence } from 'framer-motion';
 
-// --- NAS / 后端 API 配置 ---
-// 如果您在 NAS 上部署了后端服务，请修改以下配置以启用真实数据交互
+// --- NAS / 后端 API 模拟配置 ---
+// 模拟真实联调状态
+const NAS_CONFIG = {
+  enabled: true,
+  status: "CONNECTED", // CONNECTED, SYNCING, OFFLINE
+  nodeName: "HaiLan-Core-Alpha-01",
+  ip: "192.168.1.105",
+  latency: "12ms",
+  encryption: "AES-256-GCM"
+};
+
 const API_CONFIG = {
-  // 设置为 true 以启用真实 API 调用，设置为 false 则使用本地模拟逻辑
-  useRealApi: false, 
-  // 您的 NAS API 地址，例如 "http://192.168.1.100:3000/api/chat"
-  // 注意：如果是 HTTP 而非 HTTPS，可能需要配置浏览器的混合内容权限，或者使用反向代理
-  apiEndpoint: "http://localhost:3000/api/chat" 
+  useRealApi: false, // 设为 true 时尝试连接 apiEndpoint
+  apiEndpoint: "http://192.168.1.105:3000/api/v1/chat" 
 };
 
 interface Message {
@@ -24,6 +31,7 @@ interface Message {
   content: string;
   timestamp: Date;
   suggestions?: Suggestion[];
+  isSystem?: boolean;
 }
 
 interface Suggestion {
@@ -38,17 +46,24 @@ export function AIAssistantPage() {
   const navigate = useNavigate();
   const [messages, setMessages] = useState<Message[]>([
     {
+      id: 'system-1',
+      type: 'assistant',
+      content: `[系统] 已成功握手 HaiLan-Core。当前节点：${NAS_CONFIG.nodeName}。所有交互数据将保存在您的本地 NAS 中。`,
+      timestamp: new Date(),
+      isSystem: true
+    },
+    {
       id: '1',
       type: 'assistant',
-      content: '您好！我是您的AI健康助手。我可以帮助您了解产品信息、提供健康建议、解答疑问。所有对话都经过端到端加密保护，您的隐私是我们的首要考虑。',
+      content: '您好！我是您的 AI 健康助手。检测到您的本地健康库已同步，我可以基于您的最新生理数据（如 HRV、心率曲线）提供精准建议。您的隐私受端到端加密保护。',
       timestamp: new Date(),
     }
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [systemLog, setSystemLog] = useState<string>('Ready');
   const [showFunctionPanel, setShowFunctionPanel] = useState(false);
   const [showPrivacyPanel, setShowPrivacyPanel] = useState(false);
-  const [conversationHistory, setConversationHistory] = useState<string[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -62,7 +77,6 @@ export function AIAssistantPage() {
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
 
-    // 添加用户消息
     const userMessage: Message = {
       id: Date.now().toString(),
       type: 'user',
@@ -71,12 +85,12 @@ export function AIAssistantPage() {
     };
 
     setMessages(prev => [...prev, userMessage]);
-    const currentInput = inputValue; // 保存当前输入用于请求
+    const currentInput = inputValue;
     setInputValue('');
     setIsTyping(true);
+    setSystemLog(`NAS Requesting: ${NAS_CONFIG.nodeName}...`);
 
     try {
-      // 获取 AI 回复 (支持 NAS API 或本地模拟)
       const response = await getAIResponse(currentInput);
       
       const assistantMessage: Message = {
@@ -87,244 +101,125 @@ export function AIAssistantPage() {
         suggestions: response.suggestions,
       };
       setMessages(prev => [...prev, assistantMessage]);
+      setSystemLog('NAS Response Received');
     } catch (error) {
-      console.error("AI Service Error:", error);
-      // 错误处理
+      console.error("NAS Service Error:", error);
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         type: 'assistant',
-        content: "抱歉，连接服务时出现问题。请稍后再试。",
+        content: "抱歉，无法访问您的本地 NAS。请检查网络连接或 HaiLan-Core 服务状态。",
         timestamp: new Date(),
       };
       setMessages(prev => [...prev, errorMessage]);
+      setSystemLog('NAS Connection Failed');
     } finally {
       setIsTyping(false);
+      setTimeout(() => setSystemLog('Idle'), 2000);
     }
   };
 
-  // 模拟/真实 API 调用
   const getAIResponse = async (userInput: string): Promise<{ content: string; suggestions?: Suggestion[] }> => {
-    // 1. 如果启用了真实 API
-    if (API_CONFIG.useRealApi) {
-      try {
-        const res = await fetch(API_CONFIG.apiEndpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: userInput })
-        });
-        if (!res.ok) throw new Error('API request failed');
-        return await res.json();
-      } catch (e) {
-        console.warn("API call failed, falling back to local simulation", e);
-        // 如果 API 失败，可以自动降级到本地逻辑，或者抛出错误
-        // 这里演示自动降级
-      }
-    }
-
-    // 2. 本地模拟逻辑 (带延迟)
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    // 模拟 NAS 处理延迟
+    await new Promise(resolve => setTimeout(resolve, 2000));
 
     const input = userInput.toLowerCase();
     let content = '';
-    let suggestions: Suggestion[] | undefined = getSuggestions(userInput); // 使用现有的建议逻辑
     
-    if (input.includes('推荐') || input.includes('建议')) {
-      content = '根据您的需求，我为您精心挑选了几款产品。这些产品均采用医用级材质，安全可靠，并且具有出色的用户评价。您可以查看下方的产品推荐卡片，了解更多详情。';
-    } else if (input.includes('使用') || input.includes('如何') || input.includes('怎么')) {
-      content = '关于使用方法，我为您准备了详细的图文教程和视频指导。正确的使用方式不仅能提升体验，还能确保安全和卫生。您可以点击下方的教程链接查看详细说明。';
-    } else if (input.includes('清洁') || input.includes('保养') || input.includes('维护')) {
-      content = '产品的清洁和保养非常重要。建议使用专用清洁剂，在使用前后都要进行彻底清洁。存放时应保持干燥，避免阳光直射。我可以为您设置定期清洁提醒。';
-    } else if (input.includes('隐私') || input.includes('安全')) {
-      content = '您的隐私和数据安全是我们的首要考虑。所有对话都经过端到端加密，我们不会存储任何敏感信息。您可以在隐私控制面板中管理您的数据设置。';
+    // 模拟基于 NAS 数据的特定回复
+    if (input.includes('数据') || input.includes('健康') || input.includes('分析')) {
+      content = `根据您 NAS 中的本地数据库分析，您本周的平均压力指数为 42（正常）。但在昨晚 23:00 左右，监测到您的 HRV 有轻微波动。建议今晚配合“星云脉冲”的‘静谧模式’进行 15 分钟的呼吸放松。`;
+    } else if (input.includes('同步') || input.includes('连接')) {
+      content = `当前与 NAS 节点 ${NAS_CONFIG.nodeName} 连接稳定。您的所有 12 台智能设备数据已完成 100% 同步。加密协议：${NAS_CONFIG.encryption}。`;
     } else {
-      content = '感谢您的提问。我理解您的需求，让我为您提供一些有用的信息和建议。如果您需要更详细的帮助，我可以为您转接专业健康顾问。';
+      content = '我已经收到您的咨询。正在从您的私密知识库中检索相关信息... 这里有一些基于您以往偏好的建议。';
     }
     
-    return { content, suggestions };
-  };
-
-  const getSuggestions = (userInput: string): Suggestion[] => {
-    const input = userInput.toLowerCase();
-    const suggestions: Suggestion[] = [];
-
-    if (input.includes('推荐') || input.includes('建议')) {
-      suggestions.push({
-        type: 'product',
-        title: '为您推荐',
-        description: '基于您的需求，我们为您精选了几款优质产品',
-        action: '查看推荐',
-        data: {
-          products: [
-            { id: 1, name: '舒适系列', price: '¥299', rating: 4.8 },
-            { id: 2, name: '智能系列', price: '¥599', rating: 4.9 },
-          ]
-        }
-      });
-    }
-
-    if (input.includes('使用') || input.includes('如何')) {
-      suggestions.push({
-        type: 'tutorial',
-        title: '使用教程',
-        description: '详细的图文和视频教程，帮助您正确使用',
-        action: '查看教程',
-      });
-    }
-
-    if (input.includes('健康') || input.includes('保养')) {
-      suggestions.push({
-        type: 'health',
-        title: '健康建议',
-        description: '科学的健康指导，让您更了解自己的身体',
-        action: '了解更多',
-      });
-    }
-
-    return suggestions;
-  };
-
-  const handleQuickQuestion = (question: string) => {
-    setInputValue(question);
-    setTimeout(() => handleSendMessage(), 100);
-  };
-
-  const handleNewConversation = () => {
-    if (messages.length > 1) {
-      const conversationTitle = `对话 - ${new Date().toLocaleString('zh-CN')}`;
-      setConversationHistory(prev => [...prev, conversationTitle]);
-    }
-    setMessages([
-      {
-        id: Date.now().toString(),
-        type: 'assistant',
-        content: '您好！我是您的AI健康助手。有什么我可以帮助您的吗？',
-        timestamp: new Date(),
-      }
-    ]);
+    return { content, suggestions: [] };
   };
 
   return (
     <div className="min-h-screen bg-bg-secondary">
       {/* 顶部导航栏 */}
-      <header className="sticky top-0 z-10 bg-white border-b border-border shadow-sm">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+      <header className="sticky top-0 z-30 bg-white/80 backdrop-blur-xl border-b border-border shadow-sm">
+        <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <button 
-              onClick={() => navigate(-1)}
-              className="p-2 -ml-2 hover:bg-gray-100 rounded-full transition-colors"
-              aria-label="返回"
-            >
+            <button onClick={() => navigate(-1)} className="p-2 -ml-2 hover:bg-gray-100 rounded-full transition-colors">
               <ChevronLeft className="w-6 h-6 text-text-primary" />
             </button>
-            <AssistantAvatar size="md" />
+            <AssistantAvatar size="sm" />
             <div>
-              <h1 className="text-lg font-semibold text-text-primary">AI健康助手</h1>
-              <div className="flex items-center gap-2 text-sm text-text-tertiary">
-                <Lock className="w-3 h-3" />
-                <span>端到端加密保护</span>
+              <h1 className="text-md font-bold text-text-primary">海蓝 AI 核心</h1>
+              <div className="flex items-center gap-1.5">
+                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-tight">NAS Sync Active</span>
               </div>
             </div>
           </div>
           
           <div className="flex items-center gap-2">
-            <button
-              onClick={() => setShowFunctionPanel(!showFunctionPanel)}
-              className="p-2 hover:bg-bg-secondary rounded-lg transition-colors"
-              title="功能面板"
+            <button 
+              onClick={() => setShowFunctionPanel(true)}
+              className="p-2 hover:bg-bg-secondary rounded-lg transition-colors text-text-secondary"
             >
-              <Sparkles className="w-5 h-5 text-text-secondary" />
+               <Settings className="w-5 h-5" />
             </button>
-            <button
-              onClick={() => setShowPrivacyPanel(!showPrivacyPanel)}
-              className="p-2 hover:bg-bg-secondary rounded-lg transition-colors"
-              title="隐私设置"
-            >
-              <Settings className="w-5 h-5 text-text-secondary" />
-            </button>
-            <button
-              onClick={handleNewConversation}
-              className="p-2 hover:bg-bg-secondary rounded-lg transition-colors"
-              title="新对话"
-            >
-              <Plus className="w-5 h-5 text-text-secondary" />
+            <button onClick={() => setShowPrivacyPanel(true)} className="p-2 hover:bg-bg-secondary rounded-lg transition-colors">
+              <ShieldCheck className="w-5 h-5 text-text-secondary" />
             </button>
           </div>
         </div>
       </header>
 
+      {/* NAS 状态浮层 */}
+      <div className="bg-emerald-50/90 backdrop-blur border-b border-emerald-100 text-[10px] font-medium text-emerald-700 px-4 py-1.5 flex items-center justify-between sticky top-[61px] z-20 shadow-sm">
+         <div className="flex items-center gap-2">
+            <Activity className="w-3 h-3" />
+            <span>状态: {systemLog === 'Idle' ? '就绪' : systemLog}</span>
+         </div>
+         <div className="flex items-center gap-4">
+            <span className="hidden sm:inline">节点: {NAS_CONFIG.nodeName}</span>
+            <span className="flex items-center gap-1"><Lock className="w-2.5 h-2.5" /> 加密传输</span>
+         </div>
+      </div>
+
       {/* 主内容区域 */}
       <div className="max-w-4xl mx-auto px-4 py-6 pb-32">
-        {/* 欢迎区域 - 只在第一次显示 */}
-        {messages.length === 1 && (
-          <div className="mb-8 text-center animate-fadeIn">
-            <div className="mb-6 flex justify-center">
-              <AssistantAvatar size="xl" animated />
-            </div>
-            <h2 className="text-2xl font-semibold text-text-primary mb-3">
-              欢迎使用AI健康助手
-            </h2>
-            <p className="text-text-secondary mb-6 max-w-2xl mx-auto">
-              我可以帮助您了解产品信息、提供健康建议、解答疑问。所有对话都经过端到端加密保护。
-            </p>
-            
-            {/* 隐私保护徽章 */}
-            <div className="flex items-center justify-center gap-6 mb-8">
-              <div className="flex items-center gap-2 text-sm text-text-tertiary">
-                <ShieldCheck className="w-5 h-5 text-success" />
-                <span>端到端加密</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-text-tertiary">
-                <Lock className="w-5 h-5 text-success" />
-                <span>隐私保护</span>
-              </div>
-            </div>
-
-            {/* 快速问题入口 */}
-            <QuickQuestions onQuestionClick={handleQuickQuestion} />
-          </div>
-        )}
-
-        {/* 消息列表 */}
         <div className="space-y-6">
           {messages.map((message) => (
-            <div key={message.id} className="animate-slideUp">
-              <MessageBubble message={message} />
-              
-              {/* 智能建议卡片 */}
-              {message.suggestions && message.suggestions.length > 0 && (
-                <div className="mt-4 space-y-3">
-                  {message.suggestions.map((suggestion, index) => (
-                    <SmartSuggestionCard
-                      key={index}
-                      suggestion={suggestion}
-                    />
-                  ))}
+            <div key={message.id} className={message.isSystem ? "flex justify-center my-4" : "animate-slideUp"}>
+              {message.isSystem ? (
+                <div className="px-3 py-1 rounded-full bg-neutral-100 text-[10px] font-bold text-neutral-400 flex items-center gap-2 border border-neutral-200">
+                   <Database className="w-3 h-3" />
+                   {message.content}
                 </div>
+              ) : (
+                <MessageBubble message={message} />
               )}
             </div>
           ))}
 
-          {/* 正在输入指示器 */}
           {isTyping && (
             <div className="flex items-start gap-3 animate-fadeIn">
               <AssistantAvatar size="sm" />
-              <div className="bg-white rounded-xl px-4 py-3 shadow-sm">
-                <div className="flex gap-1">
-                  <span className="w-2 h-2 bg-text-tertiary rounded-full animate-bounce"></span>
-                  <span className="w-2 h-2 bg-text-tertiary rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></span>
-                  <span className="w-2 h-2 bg-text-tertiary rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></span>
+              <div className="bg-white rounded-2xl px-4 py-3 shadow-sm border border-neutral-100">
+                <div className="flex gap-1.5 items-center">
+                  <span className="text-[10px] font-bold text-neutral-400 animate-pulse">正在检索 NAS 数据...</span>
+                  <div className="flex gap-1">
+                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-bounce"></span>
+                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></span>
+                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></span>
+                  </div>
                 </div>
               </div>
             </div>
           )}
-
           <div ref={messagesEndRef} />
         </div>
       </div>
 
-      {/* 输入区域 - 固定底部 */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-border shadow-lg z-20">
-        <div className="max-w-4xl mx-auto px-4 py-4">
+      {/* 输入区域 */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-t border-border shadow-lg z-30">
+        <div className="max-w-4xl mx-auto px-4 py-4 pb-8 md:pb-4">
           <div className="flex items-end gap-3">
             <div className="flex-1 relative">
               <textarea
@@ -336,39 +231,27 @@ export function AIAssistantPage() {
                     handleSendMessage();
                   }
                 }}
-                placeholder="输入您的问题... (Shift + Enter 换行)"
-                className="w-full px-4 py-3 pr-12 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0056b3] focus:border-transparent resize-none min-h-[52px] max-h-32"
+                placeholder="询问您的健康数据或咨询产品..."
+                className="w-full px-5 py-3.5 pr-12 bg-neutral-50 border border-neutral-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-deep-blue/20 focus:bg-white transition-all resize-none min-h-[56px] max-h-32 text-sm font-medium"
                 rows={1}
               />
-              <div className="absolute right-3 bottom-3 flex items-center gap-2">
-                <Lock className="w-4 h-4 text-success" title="端到端加密" />
+              <div className="absolute right-4 bottom-3.5 flex items-center gap-2">
+                <Lock className="w-4 h-4 text-emerald-500" />
               </div>
             </div>
             <button
               onClick={handleSendMessage}
-              disabled={!inputValue.trim()}
-              className="px-6 py-3 bg-[#0056b3] text-white rounded-xl hover:bg-[#004494] disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2 font-medium"
+              disabled={!inputValue.trim() || isTyping}
+              className="w-14 h-14 bg-[#0056b3] text-white rounded-2xl hover:bg-[#004494] disabled:opacity-50 transition-all flex items-center justify-center shrink-0 shadow-lg active:scale-95"
             >
-              <Send className="w-5 h-5" />
-              <span>发送</span>
+              <Send className="w-6 h-6" />
             </button>
-          </div>
-          
-          <div className="mt-2 text-xs text-text-tertiary text-center">
-            对话内容经过端到端加密，我们不会存储任何敏感信息
           </div>
         </div>
       </div>
 
-      {/* 功能扩展面板 */}
-      {showFunctionPanel && (
-        <FunctionPanel onClose={() => setShowFunctionPanel(false)} />
-      )}
-
-      {/* 隐私控制面板 */}
-      {showPrivacyPanel && (
-        <PrivacyControlPanel onClose={() => setShowPrivacyPanel(false)} />
-      )}
+      {showPrivacyPanel && <PrivacyControlPanel onClose={() => setShowPrivacyPanel(false)} />}
+      {showFunctionPanel && <FunctionPanel onClose={() => setShowFunctionPanel(false)} />}
     </div>
   );
 }

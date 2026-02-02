@@ -1,7 +1,7 @@
 import React from "react";
 import { cn } from "./utils";
 import { GlassCard } from "./GlassCard";
-import { motion, Variants } from "motion/react";
+import { motion, Variants } from "framer-motion";
 
 interface BentoGridProps {
   children: React.ReactNode;

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { createContext, useContext, useState, useCallback, useMemo } from 'react';
 
 export type CamouflageMode = 'calculator' | 'notes' | 'none';
 
@@ -16,41 +16,44 @@ interface PrivacyContextType {
   setBiometricEnabled: (enabled: boolean) => void;
 }
 
-const PrivacyContext = React.createContext<PrivacyContextType | undefined>(undefined);
+const PrivacyContext = createContext<PrivacyContextType | undefined>(undefined);
 
-export const PrivacyProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
-  const [isBlur, setIsBlur] = React.useState(false);
-  const [isLocked, setIsLocked] = React.useState(false); // Default to false for dev convenience, can be true for production
-  const [camouflageMode, setCamouflageMode] = React.useState<CamouflageMode>('none');
-  const [unlockCode, setUnlockCode] = React.useState('8888'); // Auspicious default number
-  const [biometricEnabled, setBiometricEnabled] = React.useState(false);
+export function PrivacyProvider({ children }: { children: React.ReactNode }) {
+  const [isBlur, setIsBlur] = useState(false);
+  const [isLocked, setIsLocked] = useState(false);
+  const [camouflageMode, setCamouflageMode] = useState<CamouflageMode>('none');
+  const [unlockCode, setUnlockCode] = useState('8888');
+  const [biometricEnabled, setBiometricEnabled] = useState(false);
 
-  const toggleLock = () => setIsLocked(prev => !prev);
-  const unlockApp = () => setIsLocked(false);
+  const toggleLock = useCallback(() => setIsLocked(prev => !prev), []);
+  const unlockApp = useCallback(() => setIsLocked(false), []);
+
+  const value = useMemo(() => ({
+    isBlur, 
+    setIsBlur,
+    isLocked,
+    toggleLock,
+    unlockApp,
+    camouflageMode,
+    setCamouflageMode,
+    unlockCode,
+    setUnlockCode,
+    biometricEnabled,
+    setBiometricEnabled
+  }), [isBlur, isLocked, toggleLock, unlockApp, camouflageMode, unlockCode, biometricEnabled]);
 
   return (
-    <PrivacyContext.Provider value={{ 
-      isBlur, 
-      setIsBlur,
-      isLocked,
-      toggleLock,
-      unlockApp,
-      camouflageMode,
-      setCamouflageMode,
-      unlockCode,
-      setUnlockCode,
-      biometricEnabled,
-      setBiometricEnabled
-    }}>
+    <PrivacyContext.Provider value={value}>
       {children}
     </PrivacyContext.Provider>
   );
-};
+}
 
-export const usePrivacy = () => {
-  const context = React.useContext(PrivacyContext);
-  if (!context) {
+export function usePrivacy() {
+  const context = useContext(PrivacyContext);
+  if (context === undefined) {
     throw new Error('usePrivacy must be used within a PrivacyProvider');
   }
   return context;
-};
+}
+

@@ -1,351 +1,239 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  ChevronLeft,
-  Shield,
+  ArrowLeft,
+  ShieldCheck,
+  Server,
+  Fingerprint,
   Lock,
-  Eye,
-  EyeOff,
-  Download,
-  Trash2,
+  ChevronRight,
   Database,
-  Bell,
+  Trash2,
   Smartphone,
-  AlertCircle,
-  CheckCircle,
-  Calendar,
-  HardDrive
+  Plus
 } from 'lucide-react';
+import { Navbar } from "@/app/components/layout/Navbar";
+import { BottomNav } from "@/app/components/layout/BottomNav";
+import { GlassCard } from "@/app/components/design-system/GlassCard";
+import { cn } from "@/app/components/design-system/utils";
+import { WalletAuthPanel } from "./components/WalletAuthPanel";
+import { WebAuthnService } from "@/lib/webauthn";
+import { toast } from "sonner";
 
 export function PrivacyControlPage() {
   const navigate = useNavigate();
-  const [dataStats, setDataStats] = useState({
-    totalSize: '2.3 MB',
-    itemCount: 127,
-    lastBackup: '2026-01-25',
-    retentionDays: 30
-  });
+  const [activeTab, setActiveTab] = useState("identity");
+  const [devices, setDevices] = useState(WebAuthnService.getDevices());
 
-  const [privacySettings, setPrivacySettings] = useState({
-    contentBlur: true,
-    discreetNotifications: true,
-    autoDeleteHistory: true,
-    biometricLock: false,
-    dataEncryption: true,
-    thirdPartySharing: false
-  });
-
-  const toggleSetting = (key: keyof typeof privacySettings) => {
-    setPrivacySettings(prev => ({
-      ...prev,
-      [key]: !prev[key]
-    }));
+  const handleRevoke = (id: string) => {
+    WebAuthnService.revokeDevice(id);
+    setDevices(WebAuthnService.getDevices());
+    toast.success("设备访问权限已撤销");
   };
 
-  const handleExportData = () => {
-    alert('数据导出请求已提交，我们将在24小时内发送加密文件到您的邮箱');
-  };
-
-  const handleDeleteHistory = (type: string) => {
-    if (confirm(`确定要删除${type}吗？此操作无法撤销。`)) {
-      alert(`${type}已删除`);
+  const handleRegisterNew = async () => {
+    try {
+      await WebAuthnService.registerCredential();
+      setDevices(WebAuthnService.getDevices());
+      toast.success("新设备绑定成功");
+    } catch (err: any) {
+      if (err.name !== 'NotAllowedError') {
+        toast.error("设备绑定失败");
+      }
     }
   };
 
-  const handleDeleteAccount = () => {
-    navigate('/profile/delete-account');
-  };
-
   return (
-    <div className="min-h-screen bg-bg-secondary">
-      {/* 顶部导航 */}
-      <header className="sticky top-0 z-10 bg-white border-b border-border shadow-sm">
-        <div className="max-w-4xl mx-auto px-4 py-4">
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => navigate('/profile/center')}
-              className="p-2 hover:bg-bg-secondary rounded-lg transition-colors"
-            >
-              <ChevronLeft className="w-5 h-5 text-text-primary" />
-            </button>
-            <div>
-              <h1 className="text-lg font-semibold text-text-primary">隐私控制中心</h1>
-              <p className="text-xs text-text-secondary">全面管理您的隐私和数据</p>
-            </div>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-[#FDFDFD] pb-32">
+      <Navbar />
 
-      <div className="max-w-4xl mx-auto px-4 py-6 space-y-6">
-        {/* 数据管理仪表板 */}
-        <div className="bg-gradient-to-br from-[#0056b3] to-[#6B46C1] rounded-2xl p-6 text-white shadow-xl">
-          <div className="flex items-center gap-3 mb-6">
-            <Database className="w-6 h-6" />
-            <h2 className="text-xl font-bold">数据管理仪表板</h2>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="bg-white/10 backdrop-blur-xl rounded-xl p-4">
-              <HardDrive className="w-6 h-6 mb-2" />
-              <div className="text-2xl font-bold mb-1">{dataStats.totalSize}</div>
-              <div className="text-white/80 text-xs">数据大小</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-xl rounded-xl p-4">
-              <Database className="w-6 h-6 mb-2" />
-              <div className="text-2xl font-bold mb-1">{dataStats.itemCount}</div>
-              <div className="text-white/80 text-xs">数据项</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-xl rounded-xl p-4">
-              <Calendar className="w-6 h-6 mb-2" />
-              <div className="text-2xl font-bold mb-1">{dataStats.retentionDays}天</div>
-              <div className="text-white/80 text-xs">保留期限</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-xl rounded-xl p-4">
-              <CheckCircle className="w-6 h-6 mb-2" />
-              <div className="text-lg font-bold mb-1">{dataStats.lastBackup}</div>
-              <div className="text-white/80 text-xs">最后备份</div>
-            </div>
-          </div>
+      <main className="container mx-auto px-4 py-8 max-w-4xl">
+        <button 
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-2 text-neutral-400 hover:text-neutral-900 transition-colors mb-8 group"
+        >
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+          <span className="text-xs font-black uppercase tracking-widest">返回个人中心</span>
+        </button>
+
+        <header className="mb-12">
+           <h1 className="text-4xl font-black text-neutral-900 tracking-tight">隐私主权中心</h1>
+           <p className="text-neutral-500 mt-4 leading-relaxed">
+              您的数据完全由您掌控。在这里管理 Web3 身份、零知识证明分发以及本地 NAS 的同步权限。
+           </p>
+        </header>
+
+        {/* Custom Tabs */}
+        <div className="flex gap-2 mb-8 bg-neutral-100 p-1.5 rounded-2xl w-fit">
+           <TabBtn active={activeTab === 'identity'} onClick={() => setActiveTab('identity')} label="身份主权" icon={Fingerprint} />
+           <TabBtn active={activeTab === 'nas'} onClick={() => setActiveTab('nas')} label="NAS 同步" icon={Server} />
+           <TabBtn active={activeTab === 'acl'} onClick={() => setActiveTab('acl')} label="授权审计" icon={ShieldCheck} />
         </div>
 
-        {/* 隐私设置 */}
-        <div className="bg-white rounded-2xl shadow-sm border border-border">
-          <div className="p-6 border-b border-border">
-            <div className="flex items-center gap-3">
-              <Shield className="w-6 h-6 text-[#0056b3]" />
-              <h2 className="text-xl font-bold text-text-primary">隐私设置</h2>
-            </div>
-            <p className="text-sm text-text-secondary mt-2">
-              调整这些设置以控制您的隐私保护级别
-            </p>
-          </div>
+        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+          {activeTab === 'identity' && (
+            <div className="space-y-8">
+              <WalletAuthPanel />
+              
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-lg font-black text-brand-navy">已绑定生物识别设备</h3>
+                    <p className="text-xs text-neutral-400">这些设备可以使用硬件级 WebAuthn 解锁您的医学保险库</p>
+                  </div>
+                  <button 
+                    onClick={handleRegisterNew}
+                    className="flex items-center gap-2 px-4 h-10 rounded-xl bg-brand-hailan-blue/10 text-brand-hailan-blue text-[10px] font-black uppercase tracking-widest hover:bg-brand-hailan-blue/20 transition-all"
+                  >
+                    <Plus className="w-3.5 h-3.5" /> 绑定新设备
+                  </button>
+                </div>
 
-          <div className="divide-y divide-border">
-            <PrivacyToggleItem
-              icon={Eye}
-              title="内容自动模糊"
-              description="在公共场合自动模糊敏感内容"
-              enabled={privacySettings.contentBlur}
-              onToggle={() => toggleSetting('contentBlur')}
-            />
-            <PrivacyToggleItem
-              icon={Bell}
-              title="谨慎通知"
-              description="通知消息不显示具体内容"
-              enabled={privacySettings.discreetNotifications}
-              onToggle={() => toggleSetting('discreetNotifications')}
-            />
-            <PrivacyToggleItem
-              icon={Trash2}
-              title="自动删除历史"
-              description={`浏览历史在${dataStats.retentionDays}天后自动删除`}
-              enabled={privacySettings.autoDeleteHistory}
-              onToggle={() => toggleSetting('autoDeleteHistory')}
-            />
-            <PrivacyToggleItem
-              icon={Smartphone}
-              title="生物识别锁定"
-              description="使用指纹或面部识别验证敏感操作"
-              enabled={privacySettings.biometricLock}
-              onToggle={() => toggleSetting('biometricLock')}
-            />
-            <PrivacyToggleItem
-              icon={Lock}
-              title="数据加密"
-              description="本地数据使用端到端加密"
-              enabled={privacySettings.dataEncryption}
-              onToggle={() => toggleSetting('dataEncryption')}
-              recommended
-            />
-            <PrivacyToggleItem
-              icon={AlertCircle}
-              title="第三方数据共享"
-              description="允许与合作伙伴共享匿名数据"
-              enabled={privacySettings.thirdPartySharing}
-              onToggle={() => toggleSetting('thirdPartySharing')}
-              warning
-            />
-          </div>
+                <motion.div 
+                  layout
+                  className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                >
+                  <AnimatePresence mode="popLayout">
+                    {devices.map((dev: any) => (
+                      <motion.div
+                        key={dev.id}
+                        layout
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.2 } }}
+                      >
+                        <GlassCard className="p-6 border-neutral-100 hover:border-brand-hailan-blue/20 transition-all group h-full">
+                          <div className="flex items-start justify-between">
+                            <div className="flex items-center gap-4">
+                              <div className="w-12 h-12 rounded-2xl bg-neutral-50 text-neutral-400 group-hover:bg-brand-hailan-blue/5 group-hover:text-brand-hailan-blue transition-all flex items-center justify-center">
+                                <Smartphone className="w-6 h-6" />
+                              </div>
+                              <div>
+                                <p className="text-sm font-bold text-neutral-900">{dev.name}</p>
+                                <p className="text-[10px] text-neutral-400 font-mono mt-0.5 uppercase tracking-tighter">ID: {dev.id.substring(0, 12)}...</p>
+                              </div>
+                            </div>
+                            <button 
+                              onClick={() => handleRevoke(dev.id)}
+                              className="p-2 rounded-lg bg-white border border-neutral-100 text-neutral-300 hover:text-rose-500 hover:border-rose-100 hover:bg-rose-50 transition-all"
+                              title="撤销权限"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                          <div className="mt-6 flex items-center justify-between border-t border-neutral-50 pt-4">
+                            <div className="flex flex-col">
+                              <span className="text-[9px] font-black text-neutral-300 uppercase tracking-widest">安全等级</span>
+                              <div className="flex items-center gap-1 mt-1">
+                                <ShieldCheck className="w-3 h-3 text-emerald-500" />
+                                <span className="text-[10px] font-bold text-emerald-600">硬件级加密</span>
+                              </div>
+                            </div>
+                            <div className="text-right flex flex-col items-end">
+                               <span className="text-[9px] font-black text-neutral-300 uppercase tracking-widest">最后活动</span>
+                               <span className="text-[10px] font-bold text-neutral-500 mt-1">{new Date(dev.lastUsed).toLocaleDateString()}</span>
+                            </div>
+                          </div>
+                        </GlassCard>
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </motion.div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'nas' && (
+            <div className="space-y-6">
+               <GlassCard className="p-8 border-neutral-100">
+                  <div className="flex items-center justify-between mb-8">
+                     <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                           <Server className="w-6 h-6" />
+                        </div>
+                        <div>
+                           <h4 className="font-black text-neutral-900">本地 NAS 节点</h4>
+                           <p className="text-xs text-neutral-400">同步序列：HL-NAS-9281 (Online)</p>
+                        </div>
+                     </div>
+                     <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                        <span className="text-[10px] font-black text-emerald-500 uppercase">Connected</span>
+                     </div>
+                  </div>
+                  
+                  <div className="space-y-6">
+                     <div className="flex items-center justify-between p-4 bg-neutral-50 rounded-2xl border border-neutral-100">
+                        <div className="space-y-1">
+                           <span className="text-sm font-bold">端到端同步加密</span>
+                           <p className="text-[10px] text-neutral-400">所有传输数据通过 AES-256 位加密</p>
+                        </div>
+                        <div className="w-12 h-6 bg-neutral-900 rounded-full relative">
+                           <div className="absolute top-1 right-1 w-4 h-4 bg-white rounded-full shadow-md" />
+                        </div>
+                     </div>
+                     
+                     <div className="grid grid-cols-2 gap-4">
+                        <div className="p-4 rounded-2xl bg-white border border-neutral-100">
+                           <span className="text-[9px] font-black text-neutral-400 uppercase block mb-1">同步频率</span>
+                           <span className="text-sm font-bold">实时同步</span>
+                        </div>
+                        <div className="p-4 rounded-2xl bg-white border border-neutral-100">
+                           <span className="text-[9px] font-black text-neutral-400 uppercase block mb-1">已用空间</span>
+                           <span className="text-sm font-bold">2.4 GB / 2 TB</span>
+                        </div>
+                     </div>
+                  </div>
+               </GlassCard>
+
+               <GlassCard className="p-6 border-rose-50 bg-rose-50/10">
+                  <div className="flex items-center justify-between">
+                     <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center">
+                           <Trash2 className="w-5 h-5" />
+                        </div>
+                        <div>
+                           <h4 className="text-sm font-black text-rose-900">销毁本地镜像</h4>
+                           <p className="text-[10px] text-rose-600/60">立即擦除手机端的健康缓存数据</p>
+                        </div>
+                     </div>
+                     <button className="px-4 py-2 bg-rose-600 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg shadow-rose-600/20">
+                        立即执行
+                     </button>
+                  </div>
+               </GlassCard>
+            </div>
+          )}
+
+          {activeTab === 'acl' && (
+             <div className="space-y-6 text-center py-20">
+                <div className="w-20 h-20 bg-neutral-100 rounded-[2rem] flex items-center justify-center mx-auto mb-6 text-neutral-300">
+                   <Database className="w-10 h-10" />
+                </div>
+                <h3 className="text-xl font-black text-neutral-900">审计日志加载中...</h3>
+                <p className="text-sm text-neutral-400">正在从您的本地 NAS 节点检索访问记录</p>
+             </div>
+          )}
         </div>
+      </main>
 
-        {/* 数据管理工具 */}
-        <div className="bg-white rounded-2xl shadow-sm border border-border">
-          <div className="p-6 border-b border-border">
-            <div className="flex items-center gap-3">
-              <Database className="w-6 h-6 text-[#0056b3]" />
-              <h2 className="text-xl font-bold text-text-primary">数据管理</h2>
-            </div>
-          </div>
-
-          <div className="divide-y divide-border">
-            <DataManagementItem
-              icon={Download}
-              title="导出数据"
-              description="下载您的所有个人数据副本（加密格式）"
-              buttonText="导出数据"
-              onClick={handleExportData}
-            />
-            <DataManagementItem
-              icon={Trash2}
-              title="清除浏览历史"
-              description="删除所有浏览和搜索记录"
-              buttonText="立即清除"
-              onClick={() => handleDeleteHistory('浏览历史')}
-              warning
-            />
-            <DataManagementItem
-              icon={Trash2}
-              title="清除订单历史"
-              description="删除已完成和已取消的订单记录"
-              buttonText="立即清除"
-              onClick={() => handleDeleteHistory('订单历史')}
-              warning
-            />
-            <DataManagementItem
-              icon={Database}
-              title="清除缓存数据"
-              description="删除应用缓存以释放空间"
-              buttonText="清除缓存"
-              onClick={() => handleDeleteHistory('缓存数据')}
-            />
-          </div>
-        </div>
-
-        {/* 账户删除 */}
-        <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-6">
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <AlertCircle className="w-6 h-6 text-error" />
-            </div>
-            <div className="flex-1">
-              <h3 className="font-bold text-error text-lg mb-2">删除账户</h3>
-              <p className="text-sm text-text-secondary mb-4">
-                删除账户将永久删除您的所有数据，包括订单历史、收藏、偏好设置等。此操作无法撤销。
-              </p>
-              <button
-                onClick={handleDeleteAccount}
-                className="px-6 py-3 bg-error text-white rounded-xl hover:bg-red-600 transition-colors font-medium"
-              >
-                删除我的账户
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* 隐私政策 */}
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
-          <div className="flex items-start gap-3">
-            <Lock className="w-5 h-5 text-[#0056b3] flex-shrink-0 mt-0.5" />
-            <div>
-              <h4 className="font-semibold text-text-primary mb-1">我们的承诺</h4>
-              <p className="text-sm text-text-secondary mb-3">
-                海蓝承诺保护您的隐私。我们不会在未经您同意的情况下出售、出租或共享您的个人信息。
-                所有数据传输均经过加密，本地存储使用端到端加密。
-              </p>
-              <button className="text-sm text-[#0056b3] hover:text-[#004494] font-medium">
-                阅读完整隐私政策 →
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <BottomNav />
     </div>
   );
 }
 
-function PrivacyToggleItem({ 
-  icon: Icon, 
-  title, 
-  description, 
-  enabled, 
-  onToggle,
-  recommended = false,
-  warning = false
-}: { 
-  icon: any; 
-  title: string; 
-  description: string; 
-  enabled: boolean; 
-  onToggle: () => void;
-  recommended?: boolean;
-  warning?: boolean;
-}) {
+function TabBtn({ active, onClick, label, icon: Icon }: any) {
   return (
-    <div className="p-5 flex items-center justify-between hover:bg-bg-secondary transition-colors">
-      <div className="flex items-start gap-4 flex-1">
-        <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-          warning ? 'bg-yellow-100' : 'bg-blue-100'
-        }`}>
-          <Icon className={`w-5 h-5 ${warning ? 'text-yellow-600' : 'text-[#0056b3]'}`} />
-        </div>
-        <div className="flex-1">
-          <div className="flex items-center gap-2 mb-1">
-            <h3 className="font-semibold text-text-primary">{title}</h3>
-            {recommended && (
-              <span className="px-2 py-0.5 bg-green-100 text-success text-xs rounded-full font-medium">
-                推荐
-              </span>
-            )}
-            {warning && (
-              <span className="px-2 py-0.5 bg-yellow-100 text-yellow-700 text-xs rounded-full font-medium">
-                不推荐
-              </span>
-            )}
-          </div>
-          <p className="text-sm text-text-secondary">{description}</p>
-        </div>
-      </div>
-      <label className="relative inline-flex items-center cursor-pointer ml-4">
-        <input 
-          type="checkbox" 
-          className="sr-only peer" 
-          checked={enabled}
-          onChange={onToggle}
-        />
-        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#0056b3]"></div>
-      </label>
-    </div>
-  );
-}
-
-function DataManagementItem({
-  icon: Icon,
-  title,
-  description,
-  buttonText,
-  onClick,
-  warning = false
-}: {
-  icon: any;
-  title: string;
-  description: string;
-  buttonText: string;
-  onClick: () => void;
-  warning?: boolean;
-}) {
-  return (
-    <div className="p-5 flex items-center justify-between hover:bg-bg-secondary transition-colors">
-      <div className="flex items-start gap-4 flex-1">
-        <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-          warning ? 'bg-red-100' : 'bg-gray-100'
-        }`}>
-          <Icon className={`w-5 h-5 ${warning ? 'text-error' : 'text-text-tertiary'}`} />
-        </div>
-        <div>
-          <h3 className="font-semibold text-text-primary mb-1">{title}</h3>
-          <p className="text-sm text-text-secondary">{description}</p>
-        </div>
-      </div>
-      <button
-        onClick={onClick}
-        className={`px-4 py-2 rounded-lg font-medium transition-colors whitespace-nowrap ml-4 ${
-          warning
-            ? 'bg-red-100 text-error hover:bg-red-200'
-            : 'bg-bg-secondary text-text-primary border border-border hover:border-[#0056b3]'
-        }`}
-      >
-        {buttonText}
-      </button>
-    </div>
+    <button 
+      onClick={onClick}
+      className={cn(
+        "h-10 px-6 rounded-[14px] flex items-center gap-2 text-xs font-bold transition-all whitespace-nowrap",
+        active ? "bg-white text-neutral-900 shadow-sm" : "text-neutral-400 hover:text-neutral-600"
+      )}
+    >
+       <Icon className="w-3.5 h-3.5" />
+       {label}
+    </button>
   );
 }

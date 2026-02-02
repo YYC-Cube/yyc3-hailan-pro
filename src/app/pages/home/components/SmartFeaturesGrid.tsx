@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { View, Target, Sparkles, Lock } from 'lucide-react';
 import { cn } from '@/app/components/design-system/utils';
 

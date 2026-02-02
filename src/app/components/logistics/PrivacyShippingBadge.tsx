@@ -64,19 +64,19 @@ export function PrivacyShippingBadge({
       {/* Tooltip */}
       {showTooltip && isTooltipVisible && (
         <div className="absolute z-50 top-full right-0 mt-2 w-64 animate-fade-in">
-          <div className="bg-gray-900 text-white text-xs rounded-lg p-3 shadow-lg">
+          <div className="bg-brand-navy text-white text-xs rounded-lg p-3 shadow-lg">
             <div className="font-semibold mb-2 flex items-center gap-2">
               <Shield className="w-4 h-4" />
               隐私配送保护
             </div>
-            <ul className="space-y-1.5 text-gray-200">
+            <ul className="space-y-1.5 text-blue-100">
               <li>• 收件人信息已加密</li>
               <li>• 地址详情已脱敏</li>
               <li>• 快递面单无敏感信息</li>
               <li>• 保护您的隐私安全</li>
             </ul>
             {/* 小箭头 */}
-            <div className="absolute -top-1 right-4 w-2 h-2 bg-gray-900 transform rotate-45"></div>
+            <div className="absolute -top-1 right-4 w-2 h-2 bg-brand-navy transform rotate-45"></div>
           </div>
         </div>
       )}

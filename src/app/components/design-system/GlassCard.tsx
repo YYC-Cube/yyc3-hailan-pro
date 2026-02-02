@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cn } from "./utils";
-import { motion, HTMLMotionProps } from "motion/react";
+import { motion, HTMLMotionProps } from "framer-motion";
 
 export interface GlassCardProps extends HTMLMotionProps<"div"> {
   hoverEffect?: boolean;
@@ -23,7 +23,7 @@ export const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
         className={cn(
           "relative overflow-hidden rounded-2xl border backdrop-blur-md transition-all duration-300",
           "bg-white/70 border-white/40 shadow-sm", // Light mode default
-          "dark:bg-neutral-900/70 dark:border-white/10",
+          "dark:bg-brand-navy/70 dark:border-white/10",
           active && "ring-2 ring-brand-deep-blue/50 border-brand-deep-blue/20 bg-blue-50/50",
           className
         )}

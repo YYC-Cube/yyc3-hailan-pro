@@ -3,13 +3,15 @@ import { ApiResponse } from '../types';
 
 /**
  * 基础 API 客户端封装
- * 处理统一的请求头、错误处理及 NAS 连接逻辑
+ * 处理统一的请求头、错误处理及后端连接逻辑
  */
 class ApiClient {
   private baseUrl: string;
+  private anonKey: string;
 
   constructor() {
     this.baseUrl = AppConfig.api.baseUrl;
+    this.anonKey = AppConfig.api.anonKey;
   }
 
   /**
@@ -21,18 +23,17 @@ class ApiClient {
       throw new Error('MOCK_MODE_ENABLED');
     }
 
-    const url = `${this.baseUrl}${endpoint}`;
+    // Ensure endpoint starts with /
+    const path = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+    const url = `${this.baseUrl}${path}`;
     
     // 默认请求头
-    const headers = {
+    const headers: HeadersInit = {
       'Content-Type': 'application/json',
       'X-Client-Version': AppConfig.version,
+      'Authorization': `Bearer ${this.anonKey}`,
       ...options.headers,
     };
-
-    // 可以在这里添加 JWT Token 逻辑
-    // const token = localStorage.getItem('hailan_token');
-    // if (token) headers['Authorization'] = `Bearer ${token}`;
 
     try {
       const response = await fetch(url, {
@@ -44,14 +45,17 @@ class ApiClient {
         throw new Error(`HTTP Error: ${response.status}`);
       }
 
-      const result: ApiResponse<T> = await response.json();
+      const result = await response.json();
 
-      if (!result.success) {
-        throw new Error(result.error?.message || 'Unknown API Error');
+      // Flexible response handling: support both { success: true, data: ... } and direct data
+      if (result && typeof result === 'object' && 'success' in result && 'data' in result) {
+          if (!result.success) {
+             throw new Error(result.error?.message || 'Unknown API Error');
+          }
+          return result.data as T;
       }
 
-      // 强制转换 data 类型 (假设后端遵循 ApiResponse 结构)
-      return result.data as T;
+      return result as T;
 
     } catch (error) {
       console.error(`API Request Failed [${endpoint}]:`, error);

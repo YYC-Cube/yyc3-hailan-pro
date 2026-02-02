@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { PreferenceQuestion } from './components/PreferenceQuestion';
 import { RankingQuestion } from './components/RankingQuestion';

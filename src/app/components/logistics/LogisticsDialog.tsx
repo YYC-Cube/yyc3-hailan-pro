@@ -42,7 +42,7 @@ export function LogisticsDialog({
     <>
       {/* 遮罩层 */}
       <div
-        className="fixed inset-0 bg-black/50 z-40 animate-fade-in"
+        className="fixed inset-0 bg-brand-hailan-blue/40 backdrop-blur-md z-40 animate-fade-in"
         onClick={onClose}
         aria-hidden="true"
       />

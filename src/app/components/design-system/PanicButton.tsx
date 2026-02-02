@@ -1,5 +1,5 @@
 import * as React from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Shield, Lock, Eye, EyeOff } from "lucide-react";
 import { cn } from "./utils";
 
@@ -33,7 +33,7 @@ export function PanicButton({ isActive, onToggle, className, variant = "floating
         className={cn(
           "relative flex items-center gap-2 px-3 py-1.5 rounded-full transition-all duration-300 border overflow-hidden group",
           isActive 
-            ? "bg-neutral-900 border-neutral-700 text-brand-gold hover:bg-neutral-800" 
+            ? "bg-brand-navy border-brand-hailan-blue/40 text-brand-gold hover:bg-brand-navy-light" 
             : "bg-white border-brand-deep-blue/20 text-brand-deep-blue hover:bg-brand-deep-blue/5",
           className
         )}
@@ -84,7 +84,7 @@ export function PanicButton({ isActive, onToggle, className, variant = "floating
         "fixed z-[9999] flex items-center justify-center rounded-full shadow-2xl transition-colors duration-300 backdrop-blur-md border border-white/20",
         isActive 
           ? "bg-gradient-to-br from-green-500 to-emerald-700 text-white shadow-green-900/30" 
-          : "bg-gradient-to-br from-neutral-800 to-neutral-950 text-neutral-400 shadow-black/40",
+          : "bg-gradient-to-br from-brand-navy-light to-brand-navy text-neutral-400 shadow-brand-navy/40",
         className
       )}
       style={{

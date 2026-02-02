@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { 
   X, 
   Camera as CameraIcon,
@@ -14,10 +14,11 @@ import {
   Box,
   Scan
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ARControlPanel } from './components/ARControlPanel';
 import { ARScreenshotPanel } from './components/ARScreenshotPanel';
 import { ARExitConfirm } from './components/ARExitConfirm';
+import { ARSmartShopOverlay } from './components/ARSmartShopOverlay';
 import { cn } from '@/app/components/design-system/utils';
 
 export function ARViewerPage() {
@@ -257,6 +258,8 @@ export function ARViewerPage() {
       </div>
 
       {/* Side Panels (Modals) */}
+      {!isScanning && <ARSmartShopOverlay />}
+      
       <AnimatePresence>
         {showControlPanel && (
           <ARControlPanel

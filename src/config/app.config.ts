@@ -1,20 +1,23 @@
 // 海蓝 (HaiLan) - 系统全局配置
 // 用于管理私有 NAS 连接、环境变量及功能开关
+import { projectId, publicAnonKey } from '/utils/supabase/info';
 
 export const AppConfig = {
   // --- 后端连接配置 ---
   api: {
-    // 您的 NAS 私有云 API 地址
-    // 示例: "http://192.168.1.100:3000/api" 或 "https://hailan.your-nas.com/api"
-    baseUrl: import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api",
+    // Supabase Edge Function URL
+    baseUrl: `https://${projectId}.supabase.co/functions/v1/make-server-0c2cab55`,
     
+    // Supabase Anon Key
+    anonKey: publicAnonKey,
+
     // 超时设置 (毫秒)
-    timeout: 10000,
+    timeout: 15000,
     
     // 是否启用真实 API 连接
-    // true: 尝试连接 NAS 后端
+    // true: 尝试连接后端
     // false: 使用前端本地模拟数据 (演示/离线模式)
-    useRealBackend: false,
+    useRealBackend: true,
   },
 
   // --- 安全配置 ---

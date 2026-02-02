@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import { ArrowLeft, Sparkles } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from "@/app/components/router";
 import { Rating, RatingDisplay } from '@/app/components/ui/rating';
 import { Stepper, StepperProgress } from '@/app/components/ui/stepper';
 import { PrivacyInput, PrivacySearchInput } from '@/app/components/ui/privacy-input';

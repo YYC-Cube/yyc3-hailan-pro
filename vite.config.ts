@@ -13,20 +13,20 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
     // Force single instance of critical packages
-    dedupe: ['react', 'react-dom', 'react-router-dom', 'react-router', 'three', '@react-three/fiber', '@react-three/drei', 'motion'],
+    // Removing 'motion' to avoid conflict with 'framer-motion' v11
+    dedupe: ['react', 'react-dom', 'react-router', 'three', '@react-three/fiber', '@react-three/drei', 'framer-motion', 'scheduler'],
   },
   optimizeDeps: {
     // Pre-bundle these dependencies to avoid multiple instances
     include: [
       'react', 
       'react-dom', 
-      'react-router-dom',
       'react-router',
       'three', 
       '@react-three/fiber', 
       '@react-three/drei',
+      'framer-motion',
       'scheduler',
-      'motion',
     ],
     // Exclude react-reconciler to prevent conflicts
     exclude: ['react-reconciler'],

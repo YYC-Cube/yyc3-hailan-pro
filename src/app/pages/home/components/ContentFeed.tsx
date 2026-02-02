@@ -3,7 +3,7 @@ import { Button } from "@/app/components/design-system/Button";
 import { Badge } from "@/app/components/design-system/Badge";
 import { ArrowRight, MessageCircle, User } from "lucide-react";
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
-import { Link } from "react-router-dom";
+import { Link } from "@/app/components/router";
 
 export function ContentFeed() {
   return (
@@ -29,7 +29,7 @@ export function ContentFeed() {
                  alt="健康生活方式"
                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6 md:p-8">
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/80 via-transparent to-transparent flex flex-col justify-end p-6 md:p-8">
                  <Badge variant="secondary" className="self-start mb-3 bg-brand-gold text-neutral-900 border-none">专家建议</Badge>
                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">亲密科学：了解您的真实需求</h3>
                  <p className="text-neutral-200 line-clamp-2 md:line-clamp-none">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { 
   ChevronLeft,
   BarChart3,
@@ -39,7 +39,7 @@ import { BentoGrid, BentoItem } from '@/app/components/design-system/BentoGrid';
 import { ChartTooltip } from '@/app/components/design-system/charts/ChartTooltip';
 import { Button } from '@/app/components/design-system/Button';
 import { GlassCard } from '@/app/components/design-system/GlassCard';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 
 export function DataAnalyticsPage() {
   const navigate = useNavigate();

@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { RefreshCw } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export function UpdatePrompt() {
   const [showPrompt, setShowPrompt] = useState(false);

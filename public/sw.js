@@ -10,9 +10,9 @@ const IMAGE_CACHE = `${CACHE_VERSION}-images`;
 
 // 需要预缓存的静态资源
 const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/offline.html',
+  './',
+  'index.html',
+  'offline.html',
 ];
 
 // ==================== 安装事件 ====================
@@ -195,6 +195,11 @@ self.addEventListener('push', (event) => {
   if (event.data) {
     try {
       notificationData = event.data.json();
+      
+      // 后台静默更新健康记录缓存
+      if (notificationData.type === 'HEALTH_UPDATE') {
+        event.waitUntil(updateHealthRecordsCache());
+      }
     } catch (e) {
       notificationData.body = event.data.text();
     }
@@ -374,6 +379,33 @@ async function getPendingOrders(db) {
     request.onerror = () => reject(request.error);
     request.onsuccess = () => resolve(request.result);
   });
+}
+
+/**
+ * 静默更新健康记录缓存
+ */
+async function updateHealthRecordsCache() {
+  console.log('[SW] Silent updating health records cache...');
+  const HEALTH_CACHE_NAME = 'hailan-health-records-v1';
+  
+  try {
+    // 模拟获取最新记录列表
+    // 在实际生产中，这里会调用后端 API 获取最新的加密记录摘要
+    const mockRecordIds = ['rec-01', 'rec-02', 'rec-03', 'rec-04'];
+    const cache = await caches.open(HEALTH_CACHE_NAME);
+    
+    for (const id of mockRecordIds) {
+      const url = `/api/health-records/${id}`;
+      // 静默重新抓取并更新缓存
+      const response = await fetch(url);
+      if (response.ok) {
+        await cache.put(url, response);
+        console.log(`[SW] Updated cache for record: ${id}`);
+      }
+    }
+  } catch (error) {
+    console.error('[SW] Failed to silent update health records:', error);
+  }
 }
 
 console.log('[SW] Service Worker loaded successfully');

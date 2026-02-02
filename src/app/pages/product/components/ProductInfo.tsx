@@ -2,7 +2,7 @@ import React from "react";
 import { Product } from "@/app/data/mockData";
 import { Badge } from "@/app/components/ui/badge";
 import { Sparkles, ShieldCheck, Droplets, Wind, Battery, Smartphone } from "lucide-react";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { GlassCard } from "@/app/components/design-system/GlassCard";
 
 interface ProductInfoProps {

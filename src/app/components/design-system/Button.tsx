@@ -2,7 +2,7 @@ import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "./utils";
 import { Loader2, EyeOff } from "lucide-react";
-import { motion, HTMLMotionProps } from "motion/react";
+import { motion, HTMLMotionProps } from "framer-motion";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center rounded-md text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-deep-blue focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-white relative overflow-hidden",

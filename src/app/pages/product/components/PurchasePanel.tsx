@@ -10,9 +10,9 @@ import {
   TooltipTrigger,
 } from "@/app/components/ui/tooltip";
 import { useCart } from "@/app/context/CartContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { cn } from "@/app/components/design-system/utils";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion";
 import { InteractiveListItem } from "@/app/components/design-system/GlassCard";
 
 interface PurchasePanelProps {

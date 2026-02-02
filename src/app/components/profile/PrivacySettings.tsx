@@ -2,7 +2,7 @@ import React from 'react';
 import { useUser } from '@/app/context/UserContext';
 import { Switch } from '@/app/components/ui/switch';
 import { Lock, Eye, Bell, Trash2, Fingerprint, History } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 
 export function PrivacySettings() {
   const { settings, updateSettings } = useUser();
