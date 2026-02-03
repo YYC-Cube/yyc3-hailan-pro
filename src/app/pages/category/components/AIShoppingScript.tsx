@@ -27,7 +27,7 @@ const scripts: Record<string, { title: string; questions: string[]; hint: string
       "纪念日礼物的创意推荐？",
       "如何为双人生活增加新鲜感？",
       "有哪些适合初学者的探索工具？",
-      "如何打造一个沉浸式的居家 SPA？"
+      "如何���造一个沉浸式的居家 SPA？"
     ]
   },
   "SMART": {

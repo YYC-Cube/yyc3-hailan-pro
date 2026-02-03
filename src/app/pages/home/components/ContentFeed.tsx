@@ -4,6 +4,7 @@ import { Badge } from "@/app/components/design-system/Badge";
 import { ArrowRight, MessageCircle, User } from "lucide-react";
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
 import { Link } from "@/app/components/router";
+import healthJournalCover from "figma:asset/dc7a582554e92e0a825af0c5353f663cac1892ad.png";
 
 export function ContentFeed() {
   return (
@@ -25,7 +26,7 @@ export function ContentFeed() {
         <Link to="/community/post/1" className="lg:col-span-2 group cursor-pointer">
            <div className="relative rounded-2xl overflow-hidden aspect-[16/9] mb-4">
               <ImageWithFallback 
-                 src="https://images.unsplash.com/photo-1544367563-12123d8965cd?q=80&w=1600&auto=format&fit=crop"
+                 src={healthJournalCover}
                  alt="健康生活方式"
                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />

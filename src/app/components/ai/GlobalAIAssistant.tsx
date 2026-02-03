@@ -279,7 +279,7 @@ export function GlobalAIAssistant() {
                     <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
                     <span className="font-bold text-emerald-500 uppercase">Nas Sync Active</span>
                 </div>
-                <div className="flex items-center justify-between text-white/50">
+                <div className="flex items-center justify-between text-white">
                   <div className="flex flex-col sm:flex-row sm:gap-4">
                       <span className="flex items-center gap-1">
                          <Activity className="w-2.5 h-2.5" />

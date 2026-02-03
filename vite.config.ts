@@ -14,19 +14,21 @@ export default defineConfig({
     },
     // Force single instance of critical packages
     // Removing 'motion' to avoid conflict with 'framer-motion' v11
-    dedupe: ['react', 'react-dom', 'react-router', 'three', '@react-three/fiber', '@react-three/drei', 'framer-motion', 'scheduler'],
+    dedupe: ['react', 'react-dom', 'three', '@react-three/fiber', '@react-three/drei', 'framer-motion', 'scheduler', '@supabase/supabase-js'],
   },
   optimizeDeps: {
     // Pre-bundle these dependencies to avoid multiple instances
     include: [
       'react', 
       'react-dom', 
-      'react-router',
       'three', 
       '@react-three/fiber', 
       '@react-three/drei',
       'framer-motion',
       'scheduler',
+      '@supabase/supabase-js',
+      'react-router',
+      'react-router-dom',
     ],
     // Exclude react-reconciler to prevent conflicts
     exclude: ['react-reconciler'],

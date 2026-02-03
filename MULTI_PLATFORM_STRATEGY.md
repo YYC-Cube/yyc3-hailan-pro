@@ -731,7 +731,7 @@ export default {
     rollupOptions: {
       output: {
         manualChunks: {
-          'vendor': ['react', 'react-dom', 'react-router-dom'],
+          'vendor': ['react', 'react-dom', 'react-router'],
           'ui': ['@/app/components/ui'],
           'charts': ['recharts'],
         },

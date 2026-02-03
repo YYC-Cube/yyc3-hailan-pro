@@ -129,7 +129,7 @@ export function ZKMedicalVaultPage() {
               </div>
               <h1 className="text-4xl font-black text-brand-navy tracking-tight">零知识医学保险库</h1>
               <p className="text-neutral-500 mt-4 leading-relaxed max-w-xl">
-                 您的所有医疗记录均经过端到端加密，并使用零知识证明（ZK-Proof）进行访问控制。即使是海蓝服务器也无法读取您的私密健康数据。
+                 您的所有医疗记录均经过端到端加密，并使用零知识证明（ZK-Proof���进行访问控制。即使是海蓝服务器也无法读取您的私密健康数据。
               </p>
            </div>
            {!isUnlocked && (

@@ -172,7 +172,7 @@ export function ZKReportDetailPage() {
                          <h5 className="text-sm font-black text-brand-gold uppercase mb-4">进阶操作建议</h5>
                          <div className="space-y-4">
                             <button className="w-full py-3 bg-neutral-900 text-white rounded-xl text-xs font-bold hover:bg-brand-deep-blue transition-all flex items-center justify-center gap-2">
-                               <Zap className="w-3.5 h-3.5" /> 复制该成功场景配置
+                               <Zap className="w-3.5 h-3.5" /> 复制该成功场���配置
                             </button>
                          </div>
                       </GlassCard>

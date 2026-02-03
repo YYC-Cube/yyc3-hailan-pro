@@ -1,4 +1,4 @@
-import { Hono } from "npm:hono";
+import { Hono } from "jsr:@hono/hono@^4.0.0";
 import * as kv from "./kv_store.tsx";
 
 const assets = new Hono();

@@ -1,12 +1,12 @@
 // 海蓝 (HaiLan) - 系统全局配置
 // 用于管理私有 NAS 连接、环境变量及功能开关
-import { projectId, publicAnonKey } from '/utils/supabase/info';
+import { projectId, publicAnonKey } from '../../utils/supabase/info';
 
 export const AppConfig = {
   // --- 后端连接配置 ---
   api: {
     // Supabase Edge Function URL
-    baseUrl: `https://${projectId}.supabase.co/functions/v1/make-server-0c2cab55`,
+    baseUrl: `https://${projectId}.supabase.co/functions/v1/make-server`,
     
     // Supabase Anon Key
     anonKey: publicAnonKey,

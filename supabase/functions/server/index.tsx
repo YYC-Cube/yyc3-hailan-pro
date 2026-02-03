@@ -1,6 +1,6 @@
-import { Hono } from "npm:hono";
-import { cors } from "npm:hono/cors";
-import { logger } from "npm:hono/logger";
+import { Hono } from "jsr:@hono/hono@^4.0.0";
+import { cors } from "jsr:@hono/hono@^4.0.0/cors";
+import { logger } from "jsr:@hono/hono@^4.0.0/logger";
 import assets from "./assets.ts";
 import swarm from "./swarm.ts";
 import ipfs from "./ipfs.ts";

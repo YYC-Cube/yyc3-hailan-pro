@@ -1,0 +1,13 @@
+{
+  "tasks": {
+    "start": "deno run --allow-all --watch index.tsx"
+  },
+  "imports": {
+    "hono": "jsr:@hono/hono@^4.0.0",
+    "hono/": "jsr:@hono/hono@^4.0.0/"
+  },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
+  }
+}

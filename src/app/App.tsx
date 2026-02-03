@@ -1,63 +1,64 @@
 import * as React from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router";
-import { CustomRouter } from "./components/routing/CustomRouter";
-import { WelcomePage } from "./pages/onboarding/WelcomePage";
-import { PrivacySelectionPage } from "./pages/onboarding/PrivacySelectionPage";
-import { RegistrationFlow } from "./pages/onboarding/RegistrationFlow";
-import { HomePage } from "./pages/home/HomePage";
-import { CategoryPage } from "./pages/category/CategoryPage";
-import { ProductDetailPage } from "./pages/product/ProductDetailPage";
-import { CartPage } from "./pages/cart/CartPage";
-import { CheckoutPage } from "./pages/checkout/CheckoutPage";
-import { UserProfilePage } from "./pages/profile/UserProfilePage";
-import { AIAssistantPage } from "./pages/ai-assistant/AIAssistantPage";
-import { ARStartPage } from "./pages/ar-viewer/ARStartPage";
-import { ARViewerPage } from "./pages/ar-viewer/ARViewerPage";
-import { QuizIntroPage } from "./pages/quiz/QuizIntroPage";
-import { QuizQuestionPage } from "./pages/quiz/QuizQuestionPage";
-import { QuizResultPage } from "./pages/quiz/QuizResultPage";
-import { UserCenterPage } from "./pages/profile/UserCenterPage";
-import { OrdersPage } from "./pages/profile/OrdersPage";
-import { PrivacyControlPage } from "./pages/profile/PrivacyControlPage";
-import { PreferencesPage } from "./pages/profile/PreferencesPage";
-import { HelpPage } from "./pages/profile/HelpPage";
-import { CommunityHomePage } from "./pages/community/CommunityHomePage";
-import { PostDetailPage } from "./pages/community/PostDetailPage";
-import { CreatePostPage } from "./pages/community/CreatePostPage";
-import { QAPage } from "./pages/community/QAPage";
-import { AdminDashboardPage } from "./pages/admin/AdminDashboardPage";
-import { ProductManagementPage } from "./pages/admin/ProductManagementPage";
-import { OrderManagementPage } from "./pages/admin/OrderManagementPage";
-import { ContentModerationPage } from "./pages/admin/ContentModerationPage";
-import { DataAnalyticsPage } from "./pages/admin/DataAnalyticsPage";
-import { SupplyChainPage } from "./pages/admin/SupplyChainPage";
-import { DistributionPage } from "./pages/admin/DistributionPage";
-import { OperationsPage } from "./pages/admin/OperationsPage";
-import DesignSystemDemo from "./pages/demo/DesignSystemDemo";
-import { CartProvider } from "./context/CartContext";
-import { UserProvider, useUser } from "./context/UserContext";
-import { PrivacyProvider } from "./context/PrivacyContext";
-import { PaymentProvider } from "./context/PaymentContext";
-import { Toaster } from "./components/ui/sonner";
-import { ErrorBoundary } from "./components/ErrorBoundary";
-import { BrandSplash } from "./components/BrandSplash";
-import { InstallPrompt } from "./components/pwa/InstallPrompt";
-import { UpdatePrompt } from "./components/pwa/UpdatePrompt";
-import { registerServiceWorker } from "../lib/registerServiceWorker";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { CustomRouter } from "@/app/components/routing/CustomRouter";
+import { WelcomePage } from "@/app/pages/onboarding/WelcomePage";
+import { PrivacySelectionPage } from "@/app/pages/onboarding/PrivacySelectionPage";
+import { RegistrationFlow } from "@/app/pages/onboarding/RegistrationFlow";
+import { HomePage } from "@/app/pages/home/HomePage";
+import { CategoryPage } from "@/app/pages/category/CategoryPage";
+import { ProductDetailPage } from "@/app/pages/product/ProductDetailPage";
+import { CartPage } from "@/app/pages/cart/CartPage";
+import { CheckoutPage } from "@/app/pages/checkout/CheckoutPage";
+import { UserProfilePage } from "@/app/pages/profile/UserProfilePage";
+import { AIAssistantPage } from "@/app/pages/ai-assistant/AIAssistantPage";
+import { ARStartPage } from "@/app/pages/ar-viewer/ARStartPage";
+import { ARViewerPage } from "@/app/pages/ar-viewer/ARViewerPage";
+import { QuizIntroPage } from "@/app/pages/quiz/QuizIntroPage";
+import { QuizQuestionPage } from "@/app/pages/quiz/QuizQuestionPage";
+import { QuizResultPage } from "@/app/pages/quiz/QuizResultPage";
+import { UserCenterPage } from "@/app/pages/profile/UserCenterPage";
+import { OrdersPage } from "@/app/pages/profile/OrdersPage";
+import { PrivacyControlPage } from "@/app/pages/profile/PrivacyControlPage";
+import { PreferencesPage } from "@/app/pages/profile/PreferencesPage";
+import { HelpPage } from "@/app/pages/profile/HelpPage";
+import { CommunityHomePage } from "@/app/pages/community/CommunityHomePage";
+import { PostDetailPage } from "@/app/pages/community/PostDetailPage";
+import { CreatePostPage } from "@/app/pages/community/CreatePostPage";
+import { QAPage } from "@/app/pages/community/QAPage";
+import { AdminDashboardPage } from "@/app/pages/admin/AdminDashboardPage";
+import { ProductManagementPage } from "@/app/pages/admin/ProductManagementPage";
+import { OrderManagementPage } from "@/app/pages/admin/OrderManagementPage";
+import { ContentModerationPage } from "@/app/pages/admin/ContentModerationPage";
+import { DataAnalyticsPage } from "@/app/pages/admin/DataAnalyticsPage";
+import { SupplyChainPage } from "@/app/pages/admin/SupplyChainPage";
+import { DistributionPage } from "@/app/pages/admin/DistributionPage";
+import { OperationsPage } from "@/app/pages/admin/OperationsPage";
+import DesignSystemDemo from "@/app/pages/demo/DesignSystemDemo";
+import { CartProvider } from "@/app/context/CartContext";
+import { UserProvider, useUser } from "@/app/context/UserContext";
+import { PrivacyProvider, usePrivacy } from "@/app/context/PrivacyContext";
+import { PaymentProvider } from "@/app/context/PaymentContext";
+import { Toaster } from "@/app/components/ui/sonner";
+import { ErrorBoundary } from "@/app/components/ErrorBoundary";
+import { BrandSplash } from "@/app/components/BrandSplash";
+import { InstallPrompt } from "@/app/components/pwa/InstallPrompt";
+import { UpdatePrompt } from "@/app/components/pwa/UpdatePrompt";
+import { registerServiceWorker } from "@/lib/registerServiceWorker";
 import { toast } from "sonner";
-import { SkeletonStyles } from "./components/design-system/Skeleton";
-import { GlobalAIAssistant } from "./components/ai/GlobalAIAssistant";
-import { OfflinePushBanner } from "./components/pwa/OfflinePushBanner";
-import { CamouflageScreen } from "./components/privacy/CamouflageScreen";
-import { DeviceHubPage } from "./pages/hub/DeviceHubPage";
-import { ScenarioPage } from "./pages/hub/ScenarioPage";
-import { MultiDeviceSyncPage } from "./pages/hub/MultiDeviceSyncPage";
-import { HealthAssetsPage } from "./pages/hub/HealthAssetsPage";
-import { ZKMedicalVaultPage } from "./pages/hub/ZKMedicalVaultPage";
-import { ZKReportDetailPage } from "./pages/community/ZKReportDetailPage";
+import { SkeletonStyles } from "@/app/components/design-system/Skeleton";
+import { GlobalAIAssistant } from "@/app/components/ai/GlobalAIAssistant";
+import { OfflinePushBanner } from "@/app/components/pwa/OfflinePushBanner";
+import { CamouflageScreen } from "@/app/components/privacy/CamouflageScreen";
+import { DeviceHubPage } from "@/app/pages/hub/DeviceHubPage";
+import { ScenarioPage } from "@/app/pages/hub/ScenarioPage";
+import { MultiDeviceSyncPage } from "@/app/pages/hub/MultiDeviceSyncPage";
+import { HealthAssetsPage } from "@/app/pages/hub/HealthAssetsPage";
+import { ZKMedicalVaultPage } from "@/app/pages/hub/ZKMedicalVaultPage";
 
 function AppContent() {
     const navigate = useNavigate();
+    const { logout } = useUser();
+    const { isBlur, setIsBlur } = usePrivacy();
     const [showSplash, setShowSplash] = React.useState(true);
 
     if (showSplash) {
@@ -97,10 +98,15 @@ function AppContent() {
                 <Route path="/sync-protocol" element={<MultiDeviceSyncPage />} />
                 <Route path="/health-assets" element={<HealthAssetsPage />} />
                 <Route path="/medical-vault" element={<ZKMedicalVaultPage />} />
-                <Route path="/community/post/:id" element={<ZKReportDetailPage />} />
                 
-                <Route path="/" element={<HomePage />} />
-                <Route path="/category/:id" element={<CategoryPage />} />
+                <Route path="/" element={
+                    <HomePage 
+                        onLogout={logout}
+                        privacyMode={isBlur}
+                        onPrivacyToggle={setIsBlur}
+                    />
+                } />
+                <Route path="/category" element={<CategoryPage privacyMode={isBlur} onPrivacyToggle={setIsBlur} />} />
                 <Route path="/product/:id" element={<ProductDetailPage />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
@@ -141,12 +147,9 @@ function AppContent() {
 export default function App() {
   React.useEffect(() => {
     console.log("[HaiLan] Application Heartbeat - Initialized Successfully");
-    let isProd = false;
-    try {
-      if (typeof import.meta !== 'undefined' && (import.meta as any).env) {
-        isProd = !!(import.meta as any).env.PROD;
-      }
-    } catch (e) {}
+    
+    // @ts-ignore
+    const isProd = !!(import.meta.env?.PROD);
 
     if (isProd) {
       registerServiceWorker({

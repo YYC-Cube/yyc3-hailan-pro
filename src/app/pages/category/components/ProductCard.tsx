@@ -77,7 +77,7 @@ export function ProductCard({ product, privacyMode, viewMode = "grid" }: Product
            <Button 
              variant="ghost" 
              size="icon" 
-             className="rounded-full w-9 h-9 shadow-lg bg-white/90 hover:bg-white text-neutral-400 hover:text-brand-coral active:scale-90 transition-all"
+             className="rounded-full w-9 h-9 shadow-lg bg-white/90 hover:bg-white text-brand-hailan-blue/60 hover:text-brand-coral active:scale-90 transition-all"
              aria-label="收藏"
            >
              <Heart className="w-4 h-4" />
@@ -106,23 +106,23 @@ export function ProductCard({ product, privacyMode, viewMode = "grid" }: Product
       )}>
         <div>
           <div className="flex items-center justify-between mb-3">
-            <span className="text-[10px] text-neutral-400 uppercase font-bold tracking-widest">
+            <span className="text-[10px] text-brand-hailan-blue uppercase font-bold tracking-widest">
               {categoryName}
             </span>
             <div className="flex items-center gap-1">
               <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-              <span className="text-xs font-bold text-neutral-800">{product.rating}</span>
+              <span className="text-xs font-bold text-brand-hailan-blue">{product.rating}</span>
             </div>
           </div>
 
           <Link to={`/product/${product.id}`} className="block group-hover:text-brand-hailan-blue transition-colors mb-2">
-            <h3 className={cn("font-bold text-neutral-900 leading-tight line-clamp-2", viewMode === "list" ? "text-xl" : "text-lg")}>
+            <h3 className={cn("font-bold text-brand-hailan-blue leading-tight line-clamp-2", viewMode === "list" ? "text-xl" : "text-lg")}>
               {product.name}
             </h3>
           </Link>
           
           {viewMode === "list" && (
-            <p className="text-sm text-neutral-500 mb-4 line-clamp-3 leading-relaxed">
+            <p className="text-sm text-brand-hailan-blue mb-4 line-clamp-3 leading-relaxed">
               {product.description}
             </p>
           )}
@@ -132,7 +132,7 @@ export function ProductCard({ product, privacyMode, viewMode = "grid" }: Product
               ¥{product.price.toLocaleString()}
             </span>
             {product.originalPrice && (
-              <span className="text-xs text-neutral-300 line-through">
+              <span className="text-xs text-brand-hailan-blue/50 line-through">
                 ¥{product.originalPrice.toLocaleString()}
               </span>
             )}
@@ -151,7 +151,7 @@ export function ProductCard({ product, privacyMode, viewMode = "grid" }: Product
            
            {viewMode === "grid" && (
              <Link to={`/product/${product.id}`}>
-               <Button variant="ghost" size="icon" className="rounded-xl h-10 w-10 text-neutral-400 hover:text-brand-hailan-blue hover:bg-brand-hailan-blue/5 border border-neutral-100">
+               <Button variant="ghost" size="icon" className="rounded-xl h-10 w-10 text-brand-hailan-blue/60 hover:text-brand-hailan-blue hover:bg-brand-hailan-blue/5 border border-neutral-100">
                  <ArrowRight className="w-4 h-4" />
                </Button>
              </Link>
@@ -159,7 +159,7 @@ export function ProductCard({ product, privacyMode, viewMode = "grid" }: Product
 
            {viewMode === "list" && (
              <Link to={`/product/${product.id}`}>
-               <Button variant="outline" className="rounded-xl h-10 font-bold border-neutral-200 text-neutral-700">
+               <Button variant="outline" className="rounded-xl h-10 font-bold border-neutral-200 text-brand-hailan-blue">
                  查看详情
                </Button>
              </Link>

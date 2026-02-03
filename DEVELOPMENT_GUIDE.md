@@ -1,0 +1,144 @@
+# “海蓝 (HaiLan)” 项目开发本地衔接指南
+
+本指南旨在为开发人员提供“海蓝 (HaiLan)”高端私密健康管理 PWA 项目的本地开发、架构理解及未来功能扩展的完整说明。
+
+## 1. 技术栈概览
+
+- **前端框架**: React 18.2.0 + Vite 6.3.5
+- **样式系统**: Tailwind CSS v4.1.12 (原生支持 CSS 变量与现代语法)
+- **路由管理**: `react-router` v6.21.3 (注意：已弃用 `react-router-dom` 以兼容 Figma 环境)
+- **后端服务**: Supabase (Auth, DB, Storage, Edge Functions)
+- **核心组件库**: Radix UI (无样式组件) + Motion (动画) + Lucide (图标)
+- **状态管理**: 原生 React Context API (User, Cart, Privacy, Payment)
+
+## 2. 核心架构逻辑
+
+### 2.1 路由适配器 (Routing)
+项目使用了自定义路由适配器 `@/app/components/routing/CustomRouter.tsx`。
+- **MemoryRouter**: 核心使用 `MemoryRouter` 而非 `BrowserRouter`。
+  - **原因 1**: 兼容 Figma 预览环境。
+  - **原因 2**: 隐私保护。内部跳转状态不暴露在 URL 中，符合私密健康管理定位。
+- **使用建议**: 本地开发时请直接使用 `useNavigate()` 和 `<Routes>`，不要手动引入 `BrowserRouter`。
+
+### 2.2 品牌视觉规范 (Design System)
+所有视觉变量定义在 `/src/styles/theme.css` 中：
+- **禁用纯黑**: 全局禁用 `#000000`，采用 `Deep Night (#002b5c)` 或 `Neutral 950` 作为最深色。
+- **品牌蓝**: `--color-brand-hailan-blue: #0056b3`。
+- **隐私模糊**: 使用 `.blur-privacy` (8px) 和 `.blur-privacy-light` (4px) 类来实现内容的毛玻璃脱敏。
+- **动画**: 优先使用原生 CSS 动画（如 `animate-fadeIn`, `animate-slideUp`）以保证 PWA 性能。
+
+### 2.3 隐私与安全架构 (Security)
+- **匿名 DID**: 用户体系基于 DID 逻辑，通过 `/register` 流程生成。
+- **ZK 证明 (ZK Proof)**: 用于 `ZKMedicalVaultPage`，核心逻辑应保持在后端验证，前端仅展示证明状态。
+- **脱敏模式**: `PrivacyProvider` 全局管理 `isBlur` 状态，所有敏感组件（如订单详情、体检报告）需响应此状态。
+
+## 3. 资源处理规范 (Assets)
+
+### 3.1 位图资源 (Raster Images)
+项目中使用来自 Figma 的导出图片时，必须使用虚拟模块协议 `figma:asset`。
+- **格式**: `import img from "figma:asset/HASH_ID.png"`
+- **注意**: 严禁在路径前加 `./` 或 `../`。
+
+### 3.2 矢量图形 (SVGs)
+所有从 Figma 导入的 SVG 统一存储在 `/src/imports` 目录下。
+- **导入**: `import svgIcon from "@/imports/svg-filename"`
+- **使用**: 直接作为路径或组件使用，视具体导入内容而定。
+
+### 3.3 资源盘点 (Asset Inventory)
+
+以下是项目中当前使用的核心资源路径，供开发与扩展参考：
+
+#### A. 品牌与标识 (Figma Assets)
+- **品牌 Logo (图标版)**: `figma:asset/d687e8c6eaff439058d15cc055f57aadc55a2b38.png` (用于 AI 助手、小尺寸 Logo)
+- **品牌 Logo (完整版)**: `figma:asset/923893d6867889983442c75dc0c39278f7c805f0.png` (用于导航栏、登录页)
+- **首页轮播 (CARE)**: `https://images.unsplash.com/photo-1533421455827-883c3a23c031`
+- **首页轮播 (PLAY)**: `https://images.unsplash.com/photo-1672328017935-8b292836b6d1`
+- **首页轮播 (SMART)**: `https://images.unsplash.com/photo-1620555791739-438a95e7ff65`
+- **品牌形象 (通用)**: `figma:asset/bf4d2365e844ba2a11178e3c8bcac399fa68a32b.png`
+
+#### B. 装饰与纹理 (External)
+- **全局噪点纹理**: `https://grainy-gradients.vercel.app/noise.svg` (用于提升毛玻璃质感)
+
+#### C. 产品展示 (Unsplash - 推荐)
+- **按摩类产品 (Pulse)**: `https://images.unsplash.com/photo-1707640591039-74a7a53e7f85`
+- **护理类产品 (Oil)**: `https://images.unsplash.com/photo-1544490405-c0938d974942`
+- **香薰类产品**: `https://images.unsplash.com/photo-1610109790326-9a21dfe969b7`
+- **智能穿戴 (Ring)**: `https://images.unsplash.com/photo-1677316733390-3d128c187891`
+- **远程设备 (Link)**: `https://images.unsplash.com/photo-1621570554541-bcda2571020a`
+- **高端丝绸 (Robe)**: `https://images.unsplash.com/photo-1686212164366-b25166623992`
+
+#### D. 运营与内容 (Unsplash - 推荐)
+- **健康生活**: `https://images.unsplash.com/photo-1725457825240-b13c42841566`
+- **社区故事**: `https://images.unsplash.com/photo-1768387107338-cffab37ea808`
+- **专家文章**: `https://images.unsplash.com/photo-1737505191929-7cd64f65d2d6`
+
+#### E. 资源尺寸与比例规范 (Dimensions & Ratios)
+为保证 PWA 性能与各端显示一致性，请遵循以下规范：
+
+| 资源类型 | 建议比例 | 建议尺寸 (Min) | 使用场景 |
+| :--- | :--- | :--- | :--- |
+| **品牌图标** | 1:1 | 512x512 px | PWA 图标, App Icon, Favicon |
+| **完整 Logo** | 4:1 ~ 5:1 | 1200x300 px | 导航栏, 启动页, 页脚 |
+| **商品主图** | 1:1 | 1080x1080 px | 商品详情, 推荐列表 (Square) |
+| **内容大图** | 16:9 | 1920x1080 px | 首页文章封面, 专题横幅 |
+| **文章缩略图** | 1:1 | 400x400 px | 侧边栏列表, 搜索结果 |
+| **用户头像** | 1:1 | 200x200 px | 个人中心, AI 助手头像 |
+
+### 3.4 新增图片与占位图
+若需在代码中新增图片资源（非 Figma 导入��：
+- **通用组件**: 必须使用 `@/app/components/figma/ImageWithFallback`。
+- **代码示例**:
+  ```tsx
+  import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
+  
+  <ImageWithFallback 
+    src="https://images.unsplash.com/..." 
+    alt="描述" 
+    className="w-full h-auto rounded-lg"
+  />
+  ```
+- **Unsplash 规范**: AI 助手生成代码时会通过 `unsplash_tool` 检索高质量的医疗、科技、办公类图片，开发者手动添加时建议保持风格统一。
+
+## 4. 开发规范与命令
+
+### 3.1 环境准备
+```bash
+# 安装依赖 (推荐使用 pnpm)
+pnpm install
+
+# 启动开发服务器
+pnpm dev
+```
+
+### 3.2 文件目录结构
+- `/src/app/components`: 通用 UI 组件与业务组件。
+- `/src/app/pages`: 页面级组件，按业务模块分文件夹。
+- `/src/app/context`: 全局状态管理。
+- `/supabase/functions/server`: Supabase Edge Functions (Hono 框架)。
+- `/src/styles`: 全局样式与字体配置。
+
+## 5. 后端集成
+
+### 5.1 KV 存储
+使用 `/supabase/functions/server/kv_store.tsx` 提供的工具进行数据持久化。它是对 `kv_store_0c2cab55` 表的封装。
+
+### 5.2 存储桶 (Storage)
+所有医疗影像或私密文档应存储在以 `make-0c2cab55` 为前缀的私有存储桶中，并通过服务器端生成的 `signedUrl` 进行访问。
+
+## 6. 迁移说明 (Vite & Router)
+项目已完成从 `react-router-dom` 到 `react-router` 的彻底迁移。在添加新页面时，请确保导入路径正确：
+```tsx
+// 正确做法
+import { useNavigate } from "react-router";
+
+// 错误做法 (会导致 Figma 环境崩溃)
+import { useNavigate } from "react-router-dom";
+```
+
+## 7. 未来规划
+1. **IPFS 集成**: 目前 UI 已预留占位符，需对接真实的 IPFS 上传接口。
+2. **离线 PWA**: Service Worker 已配置，本地测试时需确保使用 HTTPS 或 localhost。
+3. **ZK Proof 逻辑**: 进一步完善零知识证明的生成与核验流程。
+
+---
+*Generated by HaiLan AI Assistant - 2026-02-03*

@@ -105,8 +105,8 @@ export function Navbar({ privacyMode = false, onPrivacyToggle }: NavbarProps) {
                   onMouseEnter={() => setActiveDropdown('categories')}
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
-                  <Button variant="ghost" className={cn("text-sm font-bold h-11 px-6 rounded-xl hover:bg-white/50", privacyMode ? "text-white" : "text-neutral-900")}>
-                    探索核心分类 <ChevronDown className={cn("ml-2 w-4 h-4 transition-transform duration-300", activeDropdown === 'categories' && "rotate-180")} />
+                  <Button variant="ghost" className={cn("text-sm font-bold h-11 px-6 rounded-xl hover:bg-white/50", privacyMode ? "text-white" : "text-brand-hailan-blue")}>
+                    海蓝之谜 <ChevronDown className={cn("ml-2 w-4 h-4 transition-transform duration-300", activeDropdown === 'categories' && "rotate-180")} />
                   </Button>
                   
                   {activeDropdown === 'categories' && (
@@ -141,7 +141,7 @@ export function Navbar({ privacyMode = false, onPrivacyToggle }: NavbarProps) {
                 </div>
                 
                 <Link to="/community">
-                  <Button variant="ghost" className={cn("text-sm font-bold h-11 px-6 rounded-xl hover:bg-white/50", privacyMode ? "text-white" : "text-neutral-900")}>
+                  <Button variant="ghost" className={cn("text-sm font-bold h-11 px-6 rounded-xl hover:bg-white/50", privacyMode ? "text-white" : "text-brand-hailan-blue")}>
                     海蓝社区
                   </Button>
                 </Link>

@@ -45,8 +45,8 @@ export function CategoryGrid() {
     <section className="container mx-auto px-4 py-16">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
         <div className="max-w-xl">
-           <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 tracking-tight">探索核心分类</h2>
-           <p className="text-neutral-500 mt-3 text-lg">海蓝严格遵循 CARE、PLAY、SMART 三大逻辑，为您构建全方位的健康管理体系。</p>
+           <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 tracking-tight">海蓝之谜</h2>
+           <p className="text-neutral-500 mt-3 text-lg">海蓝严格遵循 CARE、PLAY、SMART 三大逻辑,为您构建全方位的健康管理体系。</p>
         </div>
         <Link to="/category" className="group flex items-center gap-2 text-brand-hailan-blue font-bold hover:underline transition-all">
           查看全部商品 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -102,23 +102,23 @@ export function CategoryGrid() {
       >
         <div className="flex flex-col items-center text-center p-4">
           <ShieldCheck className="w-8 h-8 text-blue-400 mb-3" />
-          <h4 className="text-sm font-bold mb-1 uppercase tracking-widest">私密保障</h4>
-          <p className="text-[10px] text-white/40">银行级加密与伪装技术</p>
+          <h4 className="text-sm font-bold mb-1 uppercase tracking-widest text-white">私密保障</h4>
+          <p className="text-[10px] text-white/80">银行级加密与伪装技术</p>
         </div>
         <div className="flex flex-col items-center text-center p-4">
           <Sparkles className="w-8 h-8 text-amber-400 mb-3" />
-          <h4 className="text-sm font-bold mb-1 uppercase tracking-widest">智感交互</h4>
-          <p className="text-[10px] text-white/40">实时生物反馈调节</p>
+          <h4 className="text-sm font-bold mb-1 uppercase tracking-widest text-white">智感交互</h4>
+          <p className="text-[10px] text-white/80">实时生物反馈调节</p>
         </div>
         <div className="flex flex-col items-center text-center p-4">
           <Zap className="w-8 h-8 text-rose-400 mb-3" />
-          <h4 className="text-sm font-bold mb-1 uppercase tracking-widest">极速达</h4>
-          <p className="text-[10px] text-white/40">全球仓储隐私物流</p>
+          <h4 className="text-sm font-bold mb-1 uppercase tracking-widest text-white">极速达</h4>
+          <p className="text-[10px] text-white/80">全球仓储隐私物流</p>
         </div>
         <div className="flex flex-col items-center text-center p-4">
           <Brain className="w-8 h-8 text-emerald-400 mb-3" />
-          <h4 className="text-sm font-bold mb-1 uppercase tracking-widest">AI 顾问</h4>
-          <p className="text-[10px] text-white/40">24/7 私人健康管家</p>
+          <h4 className="text-sm font-bold mb-1 uppercase tracking-widest text-white">AI 顾问</h4>
+          <p className="text-[10px] text-white/80">24/7 私人健康管家</p>
         </div>
       </motion.div>
     </section>

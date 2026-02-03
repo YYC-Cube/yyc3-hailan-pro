@@ -79,8 +79,8 @@ export const PRODUCTS: Product[] = [
     rating: 4.8,
     reviewCount: 124,
     images: [
-      "https://images.unsplash.com/photo-1563549054059-bf4ebe2f49d5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBzbW9vdGglMjBnYWRnZXQlMjBzaWxpY29uZSUyMHdoaXRlJTIwYmFja2dyb3VuZHxlbnwxfHx8fDE3Njk0MDY2OTN8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      "https://images.unsplash.com/photo-1760037034697-eee0b07ae072?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMHdlbGxuZXNzJTIwdGVjaG5vbG9neXxlbnwxfHx8fDE3Njk0MDY2OTR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+      "https://images.unsplash.com/photo-1707640591039-74a7a53e7f85?q=80&w=1080&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1737505191929-7cd64f65d2d6?q=80&w=1080&auto=format&fit=crop"
     ],
     mainCategory: "SMART",
     category: "tech",
@@ -103,7 +103,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.9,
     reviewCount: 89,
     images: [
-      "https://images.unsplash.com/photo-1676696663276-d556eea4f577?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzaWxrJTIwZmFicmljJTIwdGV4dHVyZSUyMGRhcmslMjBibHVlfGVufDF8fHx8MTc2OTQwNjY5M3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+      "https://images.unsplash.com/photo-1686212164366-b25166623992?q=80&w=1080&auto=format&fit=crop"
     ],
     mainCategory: "PLAY",
     category: "apparel",
@@ -119,8 +119,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.7,
     reviewCount: 210,
     images: [
-      "https://images.unsplash.com/photo-1725182525091-ae6076964336?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBjb3NtZXRpY3MlMjBib3R0bGUlMjBkYXJrJTIwYmFja2dyb3VuZHxlbnwxfHx8fDE3Njk0MDY2OTN8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      "https://images.unsplash.com/photo-1747052881000-a640a4981dd0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwZXJmdW1lJTIwYm90dGxlJTIwZWxlZ2FudHxlbnwxfHx8fDE3Njk0MDY2OTN8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+      "https://images.unsplash.com/photo-1544490405-c0938d974942?q=80&w=1080&auto=format&fit=crop"
     ],
     mainCategory: "CARE",
     category: "massage",
@@ -136,7 +135,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.7,
     reviewCount: 98,
     images: [
-      "https://images.unsplash.com/photo-1739764577422-20863c027cb6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmdXR1cmlzdGljJTIwd2hpdGUlMjB0ZWNoJTIwZ2FkZ2V0JTIwc29mdCUyMGxpZ2h0fGVufDF8fHx8MTc2OTQwNzMwMXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+      "https://images.unsplash.com/photo-1621570554541-bcda2571020a?q=80&w=1080&auto=format&fit=crop"
     ],
     mainCategory: "SMART",
     category: "tech",
@@ -153,7 +152,7 @@ export const PRODUCTS: Product[] = [
     rating: 4.6,
     reviewCount: 67,
     images: [
-      "https://images.unsplash.com/photo-1654713056822-15e0553776bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb3VwbGUlMjByaW5ncyUyMHNtYXJ0JTIwdGVjaCUyMG1pbmltYWxpc3R8ZW58MXx8fHwxNzY5NTE0NDMzfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+      "https://images.unsplash.com/photo-1677316733390-3d128c187891?q=80&w=1080&auto=format&fit=crop"
     ],
     mainCategory: "SMART",
     category: "couples",

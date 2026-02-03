@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { Link } from "@/app/components/router";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
@@ -8,6 +8,12 @@ import { Button } from "@/app/components/design-system/Button";
 import { ArrowRight, Sparkles, HeartPulse, Rocket, Brain, Smartphone } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/app/components/design-system/utils";
+
+// Import new carousel images
+import heroImage1 from "figma:asset/70409da34b464d402098af51d5fab5e6a9b62aa7.png";
+import heroImage2 from "figma:asset/fb622a139e37bc3f5ee05674f9961e914f56bcea.png";
+import heroImage3 from "figma:asset/829f2e79b33973d02644b738c9257498e6083d55.png";
+import heroImage4 from "figma:asset/dc7a582554e92e0a825af0c5353f663cac1892ad.png";
 
 export function HeroSection({ mode = 'default' }: { mode?: 'default' | 'bento' }) {
   const navigate = useNavigate();
@@ -19,7 +25,7 @@ export function HeroSection({ mode = 'default' }: { mode?: 'default' | 'bento' }
   const slides = [
     {
       id: 1,
-      image: "https://images.unsplash.com/photo-1602583576787-f869dc4be00c?q=80&w=1600&auto=format&fit=crop",
+      image: heroImage1,
       title: "身心关爱 · CARE",
       subtitle: "从身体护理到盆底健康，为您提供多维度的专业关爱。",
       theme: "CARE 系列",
@@ -28,7 +34,7 @@ export function HeroSection({ mode = 'default' }: { mode?: 'default' | 'bento' }
     },
     {
       id: 2,
-      image: "https://images.unsplash.com/photo-1754211568488-f8481375d6fb?q=80&w=1600&auto=format&fit=crop",
+      image: heroImage2,
       title: "愉悦探索 · PLAY",
       subtitle: "激发灵感，建立深度连接，开启私密生活的无限可能。",
       theme: "PLAY 系列",
@@ -37,12 +43,21 @@ export function HeroSection({ mode = 'default' }: { mode?: 'default' | 'bento' }
     },
     {
       id: 3,
-      image: "https://images.unsplash.com/photo-1758599879693-9e06f55a4ded?q=80&w=1600&auto=format&fit=crop",
+      image: heroImage3,
       title: "智感科技 · SMART",
       subtitle: "AI 智能推荐与实时生物反馈，让每一刻都更加精准懂你。",
       theme: "SMART 系列",
       link: "/category?main=SMART",
       accent: "from-blue-500/80 to-transparent"
+    },
+    {
+      id: 4,
+      image: heroImage4,
+      title: "海蓝之谜 · 探索",
+      subtitle: "专业品质与隐私保护，开启您的健康管理新体验。",
+      theme: "精选系列",
+      link: "/category",
+      accent: "from-brand-hailan-blue/80 to-transparent"
     }
   ];
 

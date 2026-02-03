@@ -1,7 +1,7 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
+import * as React from 'react'
+import * as ReactDOM from 'react-dom/client'
 import App from './app/App'
-import './styles/theme.css'
+import './styles/index.css'
 
 // Global error capture
 window.onerror = function(message, source, lineno, colno, error) {
