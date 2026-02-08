@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWA 图标预览 - 海蓝</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #1a1a2e;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 32px;
+            font-weight: 700;
+        }
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .section h2 {
+            color: #1a1a2e;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+        .card img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 12px;
+            border-radius: 8px;
+        }
+        .card h3 {
+            margin: 0 0 8px;
+            color: #1a1a2e;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .card p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 12px;
+        }
+        .badge {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 PWA 图标预览 - 海蓝</h1>
+
+        <div class="section">
+            <h2>应用图标</h2>
+            <div class="grid" id="app-icons"></div>
+        </div>
+
+        <div class="section">
+            <h2>快捷方式图标</h2>
+            <div class="grid" id="shortcut-icons"></div>
+        </div>
+
+        <div class="section">
+            <h2>Favicon</h2>
+            <div class="grid" id="favicon-icons"></div>
+        </div>
+    </div>
+
+    <script>
+        const appIcons = [
+            { name: 'icon-48x48.png', size: '48x48', desc: 'Android 小图标' },
+            { name: 'icon-72x72.png', size: '72x72', desc: 'Android 低密度' },
+            { name: 'icon-96x96.png', size: '96x96', desc: 'Android 中密度' },
+            { name: 'icon-128x128.png', size: '128x128', desc: 'Android 高密度' },
+            { name: 'icon-144x144.png', size: '144x144', desc: 'iPad' },
+            { name: 'icon-152x152.png', size: '152x152', desc: 'iPad Pro' },
+            { name: 'icon-192x192.png', size: '192x192', desc: 'Android 超高密度' },
+            { name: 'icon-384x384.png', size: '384x384', desc: 'Android 超高密度' },
+            { name: 'icon-512x512.png', size: '512x512', desc: 'PWA 最大尺寸' },
+            { name: 'icon-1024x1024.png', size: '1024x1024', desc: '高分辨率源图' },
+        ];
+
+        const shortcutIcons = [
+            { name: 'search-96x96.png', size: '96x96', desc: '搜索快捷方式' },
+            { name: 'order-96x96.png', size: '96x96', desc: '订单快捷方式' },
+            { name: 'cart-96x96.png', size: '96x96', desc: '购物车快捷方式' },
+        ];
+
+        const faviconIcons = [
+            { name: 'favicon-16x16.png', size: '16x16', desc: '浏览器标签页小图标' },
+            { name: 'favicon-32x32.png', size: '32x32', desc: '浏览器标签页大图标' },
+        ];
+
+        function renderIcons(icons, containerId) {
+            const container = document.getElementById(containerId);
+            icons.forEach(icon => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <img src="${icon.name}" alt="${icon.name}">
+                    <h3>${icon.name}</h3>
+                    <p>${icon.size} - ${icon.desc}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        renderIcons(appIcons, 'app-icons');
+        renderIcons(shortcutIcons, 'shortcut-icons');
+        renderIcons(faviconIcons, 'favicon-icons');
+    </script>
+</body>
+</html>
