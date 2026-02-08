@@ -1,7 +1,8 @@
 import React from 'react';
 import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
-import logoIcon from 'figma:asset/d687e8c6eaff439058d15cc055f57aadc55a2b38.png';
-import logoFull from 'figma:asset/923893d6867889983442c75dc0c39278f7c805f0.png';
+
+const logoIcon = '/placeholder.svg?height=128&width=128';
+const logoFull = '/placeholder.svg?height=128&width=384';
 
 interface BrandLogoProps {
   variant?: 'icon' | 'full';

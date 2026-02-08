@@ -2,7 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 import { Sparkles, MessageCircle, Lock, ChevronRight } from 'lucide-react';
 import { cn } from '@/app/components/design-system/utils';
-import aiLogo from 'figma:asset/d687e8c6eaff439058d15cc055f57aadc55a2b38.png';
+
+const aiLogo = '/placeholder.svg?height=128&width=128';
 
 interface AIAssistantQuickAccessProps {
   compact?: boolean;
