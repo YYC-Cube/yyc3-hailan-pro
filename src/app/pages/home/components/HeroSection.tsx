@@ -9,11 +9,11 @@ import { ArrowRight, Sparkles, HeartPulse, Rocket, Brain, Smartphone } from "luc
 import { motion } from "framer-motion";
 import { cn } from "@/app/components/design-system/utils";
 
-// Import new carousel images
-import heroImage1 from "figma:asset/70409da34b464d402098af51d5fab5e6a9b62aa7.png";
-import heroImage2 from "figma:asset/fb622a139e37bc3f5ee05674f9961e914f56bcea.png";
-import heroImage3 from "figma:asset/829f2e79b33973d02644b738c9257498e6083d55.png";
-import heroImage4 from "figma:asset/dc7a582554e92e0a825af0c5353f663cac1892ad.png";
+// Hero carousel images from public folder
+const heroImage1 = '/hero-carousel-31.jpg';
+const heroImage2 = '/hero-carousel-32.jpg';
+const heroImage3 = '/hero-carousel-33.jpg';
+const heroImage4 = '/hero-carousel-34.jpg';
 
 export function HeroSection({ mode = 'default' }: { mode?: 'default' | 'bento' }) {
   const navigate = useNavigate();

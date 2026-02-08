@@ -22,7 +22,9 @@ import { FunctionPanel } from '@/app/pages/ai-assistant/components/FunctionPanel
 import { PrivacyControlPanel } from '@/app/pages/ai-assistant/components/PrivacyControlPanel';
 import { AssistantAvatar } from '@/app/pages/ai-assistant/components/AssistantAvatar';
 import { Button } from '@/app/components/design-system/Button';
-import aiLogo from 'figma:asset/d687e8c6eaff439058d15cc055f57aadc55a2b38.png';
+
+// AI logo from public folder (floating AI container)
+const aiLogo = '/logo.png';
 
 interface Message {
   id: string;

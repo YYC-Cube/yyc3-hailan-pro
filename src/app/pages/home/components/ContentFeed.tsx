@@ -6,11 +6,11 @@ import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
 import { Link } from "@/app/components/router";
 import Slider from "react-slick";
 
-// New images for Carousel
-import coverImg1 from "figma:asset/88fca2d2b439c7de6997ccfb2d4dac0378a2f14b.png";
-import coverImg2 from "figma:asset/bbf26c3da8ca8ce7c56fb260b13610772e28f5b9.png";
-import coverImg3 from "figma:asset/d0231f64db531e5159a3335c088e6fa747e38042.png";
-import coverImg4 from "figma:asset/d70fe0f2d346bb264e509b3550fa38d7325385e9.png";
+// Health log cover images from public folder
+const coverImg1 = '/health-log-22.jpg';
+const coverImg2 = '/health-log-.jpg-23.jpg';
+const coverImg3 = '/health-log-.jpg-24.jpg';
+const coverImg4 = '/health-log-25.png';
 
 // Custom Minimal Slick Styles
 const SlickStyles = () => (

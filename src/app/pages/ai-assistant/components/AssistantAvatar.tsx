@@ -1,6 +1,8 @@
 import React from 'react';
 import { Sparkles } from 'lucide-react';
-import aiLogo from 'figma:asset/d687e8c6eaff439058d15cc055f57aadc55a2b38.png';
+
+// AI logo from public folder
+const aiLogo = '/logo.png';
 
 interface AssistantAvatarProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
