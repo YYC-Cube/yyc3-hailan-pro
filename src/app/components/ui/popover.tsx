@@ -14,7 +14,9 @@ function Popover({
 function PopoverTrigger({
   ...props
 }: React.ComponentProps<typeof PopoverPrimitive.Trigger>) {
-  return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />;
+  // @ts-ignore
+  const { asChild, ...rest } = props;
+  return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...rest} />;
 }
 
 function PopoverContent({

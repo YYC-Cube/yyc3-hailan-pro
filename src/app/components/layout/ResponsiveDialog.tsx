@@ -35,10 +35,25 @@ export function ResponsiveDialog({
 }: ResponsiveDialogProps) {
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
+  const renderTrigger = (TriggerComponent: React.ElementType) => {
+    if (!trigger) return null;
+
+    if (React.isValidElement(trigger)) {
+      const { className, children, ...props } = trigger.props as any;
+      return (
+        <TriggerComponent className={className} {...props}>
+          {children}
+        </TriggerComponent>
+      );
+    }
+
+    return <TriggerComponent>{trigger}</TriggerComponent>;
+  };
+
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={onOpenChange}>
-        {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
+        {renderTrigger(DialogTrigger)}
         <DialogContent className={cn("sm:max-w-[600px] rounded-[2rem] p-0 border-none bg-white", className)}>
           {title && (
             <DialogHeader className="px-8 pt-8">
@@ -55,7 +70,7 @@ export function ResponsiveDialog({
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
-      {trigger && <DrawerTrigger asChild>{trigger}</DrawerTrigger>}
+      {renderTrigger(DrawerTrigger)}
       <DrawerContent className={cn("rounded-t-[3rem] p-0 border-none bg-white", className)}>
         {title && (
           <DrawerHeader className="px-8 pt-8">

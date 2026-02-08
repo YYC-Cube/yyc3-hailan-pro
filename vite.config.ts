@@ -1,44 +1,23 @@
-import { defineConfig } from 'vite'
-import path from 'path'
-import tailwindcss from '@tailwindcss/vite'
-import react from '@vitejs/plugin-react'
+import path from "path";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  plugins: [
-    react(),
-    tailwindcss(),
-  ],
+  plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      "@": path.resolve(__dirname, "./src"),
+      "three": path.resolve(__dirname, "node_modules/three"),
     },
-    // Force single instance of critical packages
-    // Removing 'motion' to avoid conflict with 'framer-motion' v11
-    dedupe: ['react', 'react-dom', 'three', '@react-three/fiber', '@react-three/drei', 'framer-motion', 'scheduler', '@supabase/supabase-js'],
   },
   optimizeDeps: {
-    // Pre-bundle these dependencies to avoid multiple instances
     include: [
-      'react', 
-      'react-dom', 
-      'three', 
-      '@react-three/fiber', 
-      '@react-three/drei',
+      '@emotion/is-prop-valid', 
       'framer-motion',
-      'scheduler',
-      '@supabase/supabase-js',
-      'react-router',
-      'react-router-dom',
     ],
-    // Exclude react-reconciler to prevent conflicts
-    exclude: ['react-reconciler'],
-    // Force dependency optimization on every start
-    force: true,
+    exclude: [
+      'react-router',
+    ],
   },
-  // Ensure proper module resolution
-  build: {
-    commonjsOptions: {
-      include: [/node_modules/],
-    },
-  },
-})
+});

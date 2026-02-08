@@ -27,8 +27,11 @@ import { HealthRecordService, HealthRecord } from "@/lib/healthRecord";
 import { WebAuthnService } from "@/lib/webauthn";
 import { Navbar } from "@/app/components/layout/Navbar";
 import { toast } from "sonner";
+import { AddRecordDialog } from "@/app/pages/hub/components/AddRecordDialog";
+import { RecordDetailDialog } from "@/app/pages/hub/components/RecordDetailDialog";
+import { ZKProofDialog } from "@/app/pages/hub/components/ZKProofDialog";
 
-const MOCK_RECORDS: HealthRecord[] = [
+const INITIAL_RECORDS: HealthRecord[] = [
   { id: "rec-01", title: "年度深度体检报告", date: "2026-01-15", type: "Clinical Note", securityLevel: "Maximum", isEncrypted: true },
   { id: "rec-02", title: "心血管功能分析 (AI)", date: "2026-01-10", type: "Lab Result", securityLevel: "High", isEncrypted: true },
   { id: "rec-03", title: "神经系统扫描映射", date: "2025-12-28", type: "Imaging", securityLevel: "Maximum", isEncrypted: true },
@@ -39,11 +42,35 @@ export function ZKMedicalVaultPage() {
   const navigate = useNavigate();
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [unlocking, setUnlocking] = useState(false);
+  
+  // Data State
+  const [records, setRecords] = useState<HealthRecord[]>(INITIAL_RECORDS);
+  
+  // Dialog State
+  const [showAddDialog, setShowAddDialog] = useState(false);
+  const [showZKDialog, setShowZKDialog] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState<HealthRecord | null>(null);
+  const [showDetailDialog, setShowDetailDialog] = useState(false);
 
   // Background prefetching for offline access
   React.useEffect(() => {
-    HealthRecordService.prefetchRecords(MOCK_RECORDS);
-  }, []);
+    HealthRecordService.prefetchRecords(records);
+  }, [records]);
+
+  const handleAddRecord = (newRecord: Omit<HealthRecord, "id" | "isEncrypted">) => {
+    const record: HealthRecord = {
+      ...newRecord,
+      id: `rec-${Math.floor(Math.random() * 10000)}`,
+      isEncrypted: true,
+    };
+    setRecords([record, ...records]);
+    toast.success("记录已加密并保存至保险库");
+  };
+
+  const handleRowClick = (record: HealthRecord) => {
+    setSelectedRecord(record);
+    setShowDetailDialog(true);
+  };
 
   const handleUnlock = async () => {
     setUnlocking(true);
@@ -200,10 +227,13 @@ export function ZKMedicalVaultPage() {
                           </button>
                         }
                       >
-                        <AIHealthAnalysis data={MOCK_RECORDS} />
+                        <AIHealthAnalysis data={records} />
                       </ResponsiveDialog>
                      <button className="h-12 px-6 rounded-2xl bg-white border border-neutral-100 text-xs font-bold hover:bg-neutral-50 transition-all">所有类型</button>
-                     <button className="h-12 px-6 rounded-2xl bg-brand-navy text-white text-xs font-bold flex items-center gap-2">
+                     <button 
+                       onClick={() => setShowAddDialog(true)}
+                       className="h-12 px-6 rounded-2xl bg-brand-navy text-white text-xs font-bold flex items-center gap-2 hover:bg-brand-navy/90 transition-all"
+                     >
                         <Plus className="w-4 h-4" /> 导入记录
                      </button>
                   </div>
@@ -211,7 +241,7 @@ export function ZKMedicalVaultPage() {
 
                {/* Stats Overview */}
                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <VaultStat label="已存储记录" value="12" icon={FileText} />
+                  <VaultStat label="已存储记录" value={records.length.toString()} icon={FileText} />
                   <VaultStat label="加密强度" value="AES-256" icon={ShieldCheck} />
                   <VaultStat label="节点同步" value="Global" icon={Database} />
                </div>
@@ -230,8 +260,12 @@ export function ZKMedicalVaultPage() {
                            </tr>
                         </thead>
                         <tbody>
-                           {MOCK_RECORDS.map((record) => (
-                             <tr key={record.id} className="hover:bg-neutral-50/50 transition-colors group">
+                           {records.map((record) => (
+                             <tr 
+                               key={record.id} 
+                               onClick={() => handleRowClick(record)}
+                               className="hover:bg-neutral-50/50 transition-colors group cursor-pointer"
+                             >
                                 <td className="px-8 py-6">
                                    <div className="flex items-center gap-4">
                                       <div className="w-10 h-10 rounded-xl bg-brand-hailan-blue/5 text-brand-hailan-blue flex items-center justify-center">
@@ -293,7 +327,10 @@ export function ZKMedicalVaultPage() {
                   <div>
                      <h4 className="text-xl font-bold">零知识授权访问</h4>
                      <p className="text-white/60 text-sm mt-2">需要向医生出示报告？生成一个单次有效的 ZK-Proof，对方只能验证报告的真实性，而无法获取您的完整历史或私钥。</p>
-                     <button className="mt-4 text-[10px] font-black uppercase tracking-widest px-6 h-10 rounded-xl bg-white text-brand-hailan-blue hover:bg-neutral-100 transition-all">
+                     <button 
+                       onClick={() => setShowZKDialog(true)}
+                       className="mt-4 text-[10px] font-black uppercase tracking-widest px-6 h-10 rounded-xl bg-white text-brand-hailan-blue hover:bg-neutral-100 transition-all"
+                     >
                         立即生成授权证明
                      </button>
                   </div>
@@ -301,6 +338,22 @@ export function ZKMedicalVaultPage() {
             </motion.div>
           )}
         </AnimatePresence>
+        
+        {/* Dialogs */}
+        <AddRecordDialog 
+          open={showAddDialog} 
+          onOpenChange={setShowAddDialog} 
+          onAdd={handleAddRecord} 
+        />
+        <RecordDetailDialog 
+          open={showDetailDialog} 
+          onOpenChange={setShowDetailDialog} 
+          record={selectedRecord} 
+        />
+        <ZKProofDialog 
+          open={showZKDialog} 
+          onOpenChange={setShowZKDialog} 
+        />
       </main>
 
       <BottomNav />

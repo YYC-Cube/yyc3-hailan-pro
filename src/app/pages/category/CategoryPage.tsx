@@ -5,9 +5,7 @@ import { FilterSidebar } from "@/app/pages/category/components/FilterSidebar";
 import { ProductCard } from "@/app/pages/category/components/ProductCard";
 import { CareDashboard } from "@/app/pages/category/components/CareDashboard";
 import { AIShoppingScript } from "@/app/pages/category/components/AIShoppingScript";
-import { Navbar } from "@/app/components/layout/Navbar";
-import { Footer } from "@/app/components/layout/Footer";
-import { BottomNav } from "@/app/components/layout/BottomNav";
+import { MainLayout } from "@/app/components/layout/MainLayout";
 import { Button } from "@/app/components/design-system/Button";
 import { 
   Select, 
@@ -99,13 +97,8 @@ export function CategoryPage({ privacyMode, onPrivacyToggle }: CategoryPageProps
   const currentMainInfo = activeMainCategory !== "ALL" ? mainCatInfo[activeMainCategory] : null;
 
   return (
-    <div className="min-h-screen bg-[#FDFDFD] font-sans text-neutral-900 pb-20 md:pb-0 relative">
-      <Navbar 
-        privacyMode={privacyMode} 
-        onPrivacyToggle={onPrivacyToggle}
-      />
-
-      <main className="container mx-auto px-4 py-8 max-w-7xl">
+    <MainLayout>
+      <div className="container mx-auto px-4 py-8 max-w-7xl">
         
         {/* Top Header Section */}
         <section className="mb-12">
@@ -224,10 +217,11 @@ export function CategoryPage({ privacyMode, onPrivacyToggle }: CategoryPageProps
 
               <div className="flex items-center gap-4 w-full sm:w-auto">
                 <Sheet open={isMobileFilterOpen} onOpenChange={setIsMobileFilterOpen}>
-                  <SheetTrigger asChild>
+                  <SheetTrigger className="md:hidden flex-1 appearance-none bg-transparent border-none p-0 cursor-pointer">
                     <Button 
+                      as="div"
                       variant="outline" 
-                      className="md:hidden flex-1 h-12 rounded-2xl border-neutral-200 font-bold"
+                      className="w-full h-12 rounded-2xl border-neutral-200 font-bold"
                     >
                       <Filter className="w-4 h-4 mr-2" /> 筛选
                     </Button>
@@ -304,14 +298,11 @@ export function CategoryPage({ privacyMode, onPrivacyToggle }: CategoryPageProps
             
           </div>
         </div>
-      </main>
-
-      <Footer />
-      <BottomNav />
+      </div>
 
       {/* --- SMART Channel Interaction: AI Shopping Script --- */}
       <AIShoppingScript category={activeMainCategory} />
-    </div>
+    </MainLayout>
   );
 }
 

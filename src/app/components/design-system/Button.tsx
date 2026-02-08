@@ -39,15 +39,33 @@ const buttonVariants = cva(
 // Add motion props support
 type MotionButtonProps = HTMLMotionProps<"button"> & VariantProps<typeof buttonVariants> & {
   isLoading?: boolean;
+  as?: keyof JSX.IntrinsicElements;
 };
 
 const Button = React.forwardRef<HTMLButtonElement, MotionButtonProps>(
-  ({ className, variant, size, isLoading, children, ...props }, ref) => {
+  ({ className, variant, size, isLoading, children, as = "button", ...props }, ref) => {
     // Determine if we should use specialized animations based on variant
     const isSpecialVariant = variant === "liquid" || variant === "aurora";
+    
+    // Safety check for motion
+    // @ts-ignore
+    let Component: any = as || "button";
+    
+    // Only try to use motion if:
+    // 1. motion is defined
+    // 2. as is a string (primitive element)
+    // 3. motion[as] exists
+    if (motion && typeof as === "string" && (motion as any)[as]) {
+      Component = (motion as any)[as];
+    }
+    
+    // Fallback to "button" if Component somehow became undefined/null
+    if (!Component) {
+      Component = "button";
+    }
 
     return (
-      <motion.button
+      <Component
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         disabled={isLoading || (props as any).disabled}
@@ -65,7 +83,7 @@ const Button = React.forwardRef<HTMLButtonElement, MotionButtonProps>(
           {!isLoading && variant === 'privacy' && <EyeOff className="w-4 h-4" />}
           {children}
         </span>
-      </motion.button>
+      </Component>
     );
   }
 );

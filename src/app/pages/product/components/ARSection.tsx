@@ -47,8 +47,9 @@ export function ARSection({ product }: ARSectionProps) {
           
           <div className="flex flex-wrap gap-4 pt-2">
             <Dialog>
-              <DialogTrigger asChild>
+              <DialogTrigger className="appearance-none bg-transparent border-none p-0 cursor-pointer">
                 <Button 
+                  as="div"
                   variant="liquid"
                   className="bg-white text-[#1A365D] hover:bg-blue-50 border-none shadow-[0_0_30px_rgba(59,130,246,0.5)] px-6 py-6 h-auto text-base"
                 >

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router";
 import { CustomRouter } from "@/app/components/routing/CustomRouter";
 import { WelcomePage } from "@/app/pages/onboarding/WelcomePage";
 import { PrivacySelectionPage } from "@/app/pages/onboarding/PrivacySelectionPage";

@@ -1,5 +1,5 @@
 import React, { useMemo, useCallback } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router';
 
 export const Link = ({ to, children, className, replace, state, ...props }: any) => {
   const navigate = useNavigate();
