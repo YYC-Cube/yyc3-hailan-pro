@@ -1,12 +1,13 @@
 ---
-@file: 001-HaiLan-Pro-项目概述-项目介绍.md
-@description: HaiLan Pro项目介绍文档，包含项目概述、核心理念、技术栈和快速开始指南
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-02-03
-@updated: 2026-02-03
-@status: published
-@tags: [项目概述],[项目介绍],[快速开始]
+file: 001-HaiLan-Pro-项目概述-项目介绍.md
+description: HaiLan Pro项目介绍文档，包含项目概述、核心理念、技术栈和快速开始指南
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-02-03
+updated: 2026-02-03
+status: published
+tags:
+  - 项目概述,[项目介绍],[快速开始]
 ---
 
 > ***YanYuCloudCube***

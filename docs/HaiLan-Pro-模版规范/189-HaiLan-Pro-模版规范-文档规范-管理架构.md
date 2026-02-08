@@ -1,11 +1,11 @@
 ---
-@file: HaiLan-Pro-模版规范-文档规范-管理架构.md
-@description: HaiLan Pro文档管理架构规范
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-01-26
-@updated: 2026-01-26
-@status: published
+file: HaiLan-Pro-模版规范-文档规范-管理架构.md
+description: HaiLan Pro文档管理架构规范
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-01-26
+updated: 2026-01-26
+status: published
 @tags: 文档规范,管理架构,HaiLan-Pro
 ---
 

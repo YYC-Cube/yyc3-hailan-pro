@@ -1,12 +1,13 @@
 ---
-@file: 109-Tailwind-CSS使用规范.md
-@description: HaiLan Pro Tailwind CSS使用规范，包含原子类、自定义配置、响应式等
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-01-26
-@updated: 2026-01-26
-@status: published
-@tags: [HaiLan-Pro-开发规范],[]
+file: 109-Tailwind-CSS使用规范.md
+description: HaiLan Pro Tailwind CSS使用规范，包含原子类、自定义配置、响应式等
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-01-26
+updated: 2026-01-26
+status: published
+tags:
+  - HaiLan-Pro-开发规范,[]
 ---
 
 > ***YanYuCloudCube***

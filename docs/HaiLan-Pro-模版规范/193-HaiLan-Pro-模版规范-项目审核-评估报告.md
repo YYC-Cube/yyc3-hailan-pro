@@ -1,11 +1,11 @@
 ---
-@file: HaiLan-Pro-模版规范-项目审核-评估报告.md
-@description: HaiLan Pro项目审核评估报告
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-01-26
-@updated: 2026-01-26
-@status: published
+file: HaiLan-Pro-模版规范-项目审核-评估报告.md
+description: HaiLan Pro项目审核评估报告
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-01-26
+updated: 2026-01-26
+status: published
 @tags: 项目审核,评估报告,HaiLan-Pro
 ---
 

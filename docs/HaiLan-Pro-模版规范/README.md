@@ -1,11 +1,11 @@
 ---
-@file: README.md
-@description: HaiLan Pro模版规范文档索引
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-01-26
-@updated: 2026-01-26
-@status: published
+file: README.md
+description: HaiLan Pro模版规范文档索引
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-01-26
+updated: 2026-01-26
+status: published
 @tags: 文档索引,模版规范,HaiLan-Pro
 ---
 

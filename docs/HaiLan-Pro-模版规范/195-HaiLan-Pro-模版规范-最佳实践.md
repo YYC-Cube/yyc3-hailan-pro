@@ -1,11 +1,11 @@
 ---
-@file: HaiLan-Pro-模版规范-最佳实践.md
-@description: HaiLan Pro最佳实践规范
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-01-26
-@updated: 2026-01-26
-@status: published
+file: HaiLan-Pro-模版规范-最佳实践.md
+description: HaiLan Pro最佳实践规范
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-01-26
+updated: 2026-01-26
+status: published
 @tags: 最佳实践,HaiLan-Pro
 ---
 

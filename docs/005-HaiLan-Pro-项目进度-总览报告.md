@@ -1,12 +1,13 @@
 ---
-@file: 005-HaiLan-Pro-项目进度-总览报告.md
-@description: 海蓝Pro项目整体进度总览与完成状态报告
-@author: YanYuCloudCube Team
-@version: v5.0.0
-@created: 2025-01-01
-@updated: 2026-02-04
-@status: published
-@tags: [项目进度],[总览报告],[开发完成],[测试体系闭环]
+file: 005-HaiLan-Pro-项目进度-总览报告.md
+description: 海蓝Pro项目整体进度总览与完成状态报告
+author: YanYuCloudCube Team
+version: v5.0.0
+created: 2025-01-01
+updated: 2026-02-04
+status: published
+tags:
+  - 项目进度,[总览报告],[开发完成],[测试体系闭环]
 ---
 
 > ***YanYuCloudCube***

@@ -1,12 +1,13 @@
 ---
-@file: 063-通用规范-RESTful接口设计标准.md
-@description: HaiLan Pro 全项目RESTful接口的统一设计标准，包含请求、响应、路径规范
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-02-03
-@updated: 2026-02-03
-@status: published
-@tags: [API接口],[通用规范],[RESTful]
+file: 063-通用规范-RESTful接口设计标准.md
+description: HaiLan Pro 全项目RESTful接口的统一设计标准，包含请求、响应、路径规范
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-02-03
+updated: 2026-02-03
+status: published
+tags:
+  - API接口,[通用规范],[RESTful]
 ---
 
 > ***YanYuCloudCube***

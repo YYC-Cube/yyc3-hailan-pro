@@ -1,12 +1,13 @@
 ---
-@file: 058-Web-Bluetooth集成设计.md
-@description: HaiLan Pro 智能硬件设备通过Web Bluetooth API连接与控制的详细设计
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-01-26
-@updated: 2026-01-26
-@status: published
-@tags: [HaiLan-Pro-详细设计],[]
+file: 058-Web-Bluetooth集成设计.md
+description: HaiLan Pro 智能硬件设备通过Web Bluetooth API连接与控制的详细设计
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-01-26
+updated: 2026-01-26
+status: published
+tags:
+  - HaiLan-Pro-详细设计,[]
 ---
 
 > ***YanYuCloudCube***

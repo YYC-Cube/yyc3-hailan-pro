@@ -1,12 +1,13 @@
 ---
-@file: 006-HaiLan-Pro-设计系统-全局统一报告.md
-@description: HaiLan Pro设计系统全局统一执行报告，包含色彩系统、字体系统、间距系统和动效系统
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-02-03
-@updated: 2026-02-03
-@status: published
-@tags: [设计系统],[视觉规范],[全局统一]
+file: 006-HaiLan-Pro-设计系统-全局统一报告.md
+description: HaiLan Pro设计系统全局统一执行报告，包含色彩系统、字体系统、间距系统和动效系统
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-02-03
+updated: 2026-02-03
+status: published
+tags:
+  - 设计系统,[视觉规范],[全局统一]
 ---
 
 > ***YanYuCloudCube***

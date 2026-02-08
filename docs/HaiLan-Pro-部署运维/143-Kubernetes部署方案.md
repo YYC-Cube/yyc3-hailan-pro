@@ -1,12 +1,13 @@
 ---
-@file: 143-Kubernetes部署方案.md
-@description: HaiLan Pro Kubernetes部署方案，包含Pod、Service、Deployment、ConfigMap等
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-01-26
-@updated: 2026-01-26
-@status: published
-@tags: [HaiLan-Pro-部署运维],[]
+file: 143-Kubernetes部署方案.md
+description: HaiLan Pro Kubernetes部署方案，包含Pod、Service、Deployment、ConfigMap等
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-01-26
+updated: 2026-01-26
+status: published
+tags:
+  - HaiLan-Pro-部署运维,[]
 ---
 
 > ***YanYuCloudCube***

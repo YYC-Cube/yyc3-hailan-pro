@@ -1,12 +1,13 @@
 ---
-@file: 152-Nginx配置指南.md
-@description: HaiLan Pro Nginx配置指南，包含反向代理、负载均衡、SSL终止、缓存配置
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-01-26
-@updated: 2026-01-26
-@status: published
-@tags: [HaiLan-Pro-部署运维],[]
+file: 152-Nginx配置指南.md
+description: HaiLan Pro Nginx配置指南，包含反向代理、负载均衡、SSL终止、缓存配置
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-01-26
+updated: 2026-01-26
+status: published
+tags:
+  - HaiLan-Pro-部署运维,[]
 ---
 
 > ***YanYuCloudCube***

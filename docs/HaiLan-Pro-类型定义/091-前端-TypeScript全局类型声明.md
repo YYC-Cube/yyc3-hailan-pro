@@ -1,12 +1,13 @@
 ---
-@file: 091-前端-TypeScript全局类型声明.md
-@description: HaiLan Pro 前端TS全局公共类型、接口、枚举的统一声明与约束
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-01-26
-@updated: 2026-01-26
-@status: published
-@tags: [HaiLan-Pro-类型定义],[]
+file: 091-前端-TypeScript全局类型声明.md
+description: HaiLan Pro 前端TS全局公共类型、接口、枚举的统一声明与约束
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-01-26
+updated: 2026-01-26
+status: published
+tags:
+  - HaiLan-Pro-类型定义,[]
 ---
 
 > ***YanYuCloudCube***

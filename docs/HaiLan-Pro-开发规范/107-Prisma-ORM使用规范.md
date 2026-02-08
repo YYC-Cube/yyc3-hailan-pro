@@ -1,12 +1,13 @@
 ---
-@file: 107-Prisma-ORM使用规范.md
-@description: HaiLan Pro Prisma ORM使用规范，包含Schema定义、查询、迁移、种子数据等
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-01-26
-@updated: 2026-01-26
-@status: published
-@tags: [HaiLan-Pro-开发规范],[]
+file: 107-Prisma-ORM使用规范.md
+description: HaiLan Pro Prisma ORM使用规范，包含Schema定义、查询、迁移、种子数据等
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-01-26
+updated: 2026-01-26
+status: published
+tags:
+  - HaiLan-Pro-开发规范,[]
 ---
 
 > ***YanYuCloudCube***

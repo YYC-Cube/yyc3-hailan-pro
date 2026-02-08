@@ -1,12 +1,13 @@
 ---
-@file: 103-Uni-app开发规范.md
-@description: HaiLan Pro Uni-app框架开发规范，包含多端兼容、生命周期、API使用等
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-01-26
-@updated: 2026-01-26
-@status: published
-@tags: [HaiLan-Pro-开发规范],[]
+file: 103-Uni-app开发规范.md
+description: HaiLan Pro Uni-app框架开发规范，包含多端兼容、生命周期、API使用等
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-01-26
+updated: 2026-01-26
+status: published
+tags:
+  - HaiLan-Pro-开发规范,[]
 ---
 
 > ***YanYuCloudCube***

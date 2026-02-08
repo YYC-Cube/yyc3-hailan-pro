@@ -1,12 +1,13 @@
 ---
-@file: 057-PWA-Service-Worker设计.md
-@description: HaiLan Pro Service Worker注册、缓存策略、离线能力实现的详细设计
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-01-26
-@updated: 2026-01-26
-@status: published
-@tags: [HaiLan-Pro-详细设计],[]
+file: 057-PWA-Service-Worker设计.md
+description: HaiLan Pro Service Worker注册、缓存策略、离线能力实现的详细设计
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-01-26
+updated: 2026-01-26
+status: published
+tags:
+  - HaiLan-Pro-详细设计,[]
 ---
 
 > ***YanYuCloudCube***

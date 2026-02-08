@@ -1,12 +1,13 @@
 ---
-@file: 108-Pinia状态管理规范.md
-@description: HaiLan Pro Pinia状态管理规范，包含Store定义、Actions、Getters、持久化等
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-01-26
-@updated: 2026-01-26
-@status: published
-@tags: [HaiLan-Pro-开发规范],[]
+file: 108-Pinia状态管理规范.md
+description: HaiLan Pro Pinia状态管理规范，包含Store定义、Actions、Getters、持久化等
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-01-26
+updated: 2026-01-26
+status: published
+tags:
+  - HaiLan-Pro-开发规范,[]
 ---
 
 > ***YanYuCloudCube***

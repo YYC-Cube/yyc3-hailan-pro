@@ -1,11 +1,11 @@
 ---
-@file: HaiLan-Pro-模版规范-文档规范-基础标准.md
-@description: HaiLan Pro文档基础标准规范
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-01-26
-@updated: 2026-01-26
-@status: published
+file: HaiLan-Pro-模版规范-文档规范-基础标准.md
+description: HaiLan Pro文档基础标准规范
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-01-26
+updated: 2026-01-26
+status: published
 @tags: 文档规范,基础标准,HaiLan-Pro
 ---
 
@@ -98,13 +98,13 @@ HaiLan Pro (海蓝) 是基于「五高五标五化」理念的智能化情趣健
 
 ```markdown
 ---
-@file: 文件名
-@description: 文档描述
-@author: 作者
-@version: 版本号
-@created: 创建日期
-@updated: 更新日期
-@status: 状态
+file: 文件名
+description: 文档描述
+author: 作者
+version: 版本号
+created: 创建日期
+updated: 更新日期
+status: 状态
 @tags: 标签
 ---
 

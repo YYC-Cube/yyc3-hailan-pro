@@ -1,12 +1,13 @@
 ---
-@file: 092-前端-组件Props类型定义.md
-@description: HaiLan Pro 前端组件Props类型定义，包含隐私组件、商城组件、AI组件等
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-01-26
-@updated: 2026-01-26
-@status: published
-@tags: [HaiLan-Pro-类型定义],[]
+file: 092-前端-组件Props类型定义.md
+description: HaiLan Pro 前端组件Props类型定义，包含隐私组件、商城组件、AI组件等
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-01-26
+updated: 2026-01-26
+status: published
+tags:
+  - HaiLan-Pro-类型定义,[]
 ---
 
 > ***YanYuCloudCube***

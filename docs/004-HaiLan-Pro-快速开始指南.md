@@ -1,12 +1,13 @@
 ---
-@file: 004-HaiLan-Pro-快速开始指南.md
-@description: HaiLan Pro快速开始指南，包含环境准备、快速启动、新功能速览和组件使用示例
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-02-03
-@updated: 2026-02-03
-@status: published
-@tags: [快速开始],[开发指南],[组件使用]
+file: 004-HaiLan-Pro-快速开始指南.md
+description: HaiLan Pro快速开始指南，包含环境准备、快速启动、新功能速览和组件使用示例
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-02-03
+updated: 2026-02-03
+status: published
+tags:
+  - 快速开始,[开发指南],[组件使用]
 ---
 
 > ***YanYuCloudCube***

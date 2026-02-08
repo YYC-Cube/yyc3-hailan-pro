@@ -1,11 +1,11 @@
 ---
-@file: HaiLan-Pro-模版规范-智能协同-实施总结.md
-@description: HaiLan Pro智能协同实施总结
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-01-26
-@updated: 2026-01-26
-@status: published
+file: HaiLan-Pro-模版规范-智能协同-实施总结.md
+description: HaiLan Pro智能协同实施总结
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-01-26
+updated: 2026-01-26
+status: published
 @tags: 智能协同,实施总结,HaiLan-Pro
 ---
 

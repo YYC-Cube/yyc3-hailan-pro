@@ -1,12 +1,13 @@
 ---
-@file: 076-技术类型-WebSocket实时通信接口.md
-@description: HaiLan Pro 实时聊天、消息推送等WebSocket接口的设计与调用规范
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-01-26
-@updated: 2026-01-26
-@status: published
-@tags: [HaiLan-Pro-API文档],[]
+file: 076-技术类型-WebSocket实时通信接口.md
+description: HaiLan Pro 实时聊天、消息推送等WebSocket接口的设计与调用规范
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-01-26
+updated: 2026-01-26
+status: published
+tags:
+  - HaiLan-Pro-API文档,[]
 ---
 
 > ***YanYuCloudCube***

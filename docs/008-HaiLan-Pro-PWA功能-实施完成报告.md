@@ -1,12 +1,13 @@
 ---
-@file: 008-HaiLan-Pro-PWA功能-实施完成报告.md
-@description: HaiLan Pro PWA功能实施完成报告，包含PWA核心功能、创建文件列表和功能特性
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-02-03
-@updated: 2026-02-03
-@status: published
-@tags: [PWA功能],[离线支持],[推送通知]
+file: 008-HaiLan-Pro-PWA功能-实施完成报告.md
+description: HaiLan Pro PWA功能实施完成报告，包含PWA核心功能、创建文件列表和功能特性
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-02-03
+updated: 2026-02-03
+status: published
+tags:
+  - PWA功能,[离线支持],[推送通知]
 ---
 
 > ***YanYuCloudCube***

@@ -1,12 +1,13 @@
 ---
-@file: 037-UI-UX设计规范.md
-@description: HaiLan Pro 前端界面设计、交互逻辑、视觉规范的统一标准，保障用户体验一致
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-01-26
-@updated: 2026-01-26
-@status: published
-@tags: [HaiLan-Pro-详细设计],[]
+file: 037-UI-UX设计规范.md
+description: HaiLan Pro 前端界面设计、交互逻辑、视觉规范的统一标准，保障用户体验一致
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-01-26
+updated: 2026-01-26
+status: published
+tags:
+  - HaiLan-Pro-详细设计,[]
 ---
 
 > ***YanYuCloudCube***

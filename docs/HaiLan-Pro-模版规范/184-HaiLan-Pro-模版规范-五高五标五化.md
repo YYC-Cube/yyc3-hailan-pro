@@ -1,11 +1,11 @@
 ---
-@file: HaiLan-Pro-模版规范-五高五标五化.md
-@description: HaiLan Pro五高五标五化核心特性集成指南
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-01-26
-@updated: 2026-01-26
-@status: published
+file: HaiLan-Pro-模版规范-五高五标五化.md
+description: HaiLan Pro五高五标五化核心特性集成指南
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-01-26
+updated: 2026-01-26
+status: published
 @tags: 五高五标五化,HaiLan-Pro,核心特性
 ---
 

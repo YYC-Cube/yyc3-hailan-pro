@@ -1,12 +1,13 @@
 ---
-@file: HaiLan Pro-HaiLan-Pro-详细设计-文档索引.md
-@description: HaiLan Pro HaiLan-Pro-详细设计相关文档
-@author: YYC³
-@version: v1.0.0
-@created: 2026-01-26
-@updated: 2026-01-26
-@status: published
-@tags: [HaiLan-Pro-详细设计],[文档索引]
+file: HaiLan Pro-HaiLan-Pro-详细设计-文档索引.md
+description: HaiLan Pro HaiLan-Pro-详细设计相关文档
+author: YYC³
+version: v1.0.0
+created: 2026-01-26
+updated: 2026-01-26
+status: published
+tags:
+  - HaiLan-Pro-详细设计,[文档索引]
 ---
 
 # 文档索引

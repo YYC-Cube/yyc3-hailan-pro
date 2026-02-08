@@ -1,12 +1,13 @@
 ---
-@file: 142-Docker部署方案.md
-@description: HaiLan Pro Docker部署方案，包含Dockerfile编写、镜像构建、容器编排
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-01-26
-@updated: 2026-01-26
-@status: published
-@tags: [HaiLan-Pro-部署运维],[]
+file: 142-Docker部署方案.md
+description: HaiLan Pro Docker部署方案，包含Dockerfile编写、镜像构建、容器编排
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-01-26
+updated: 2026-01-26
+status: published
+tags:
+  - HaiLan-Pro-部署运维,[]
 ---
 
 > ***YanYuCloudCube***

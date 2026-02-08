@@ -1,12 +1,13 @@
 ---
-@file: 016-HaiLan-Pro-上线前最终检查报告.md
-@description: 海蓝Pro项目上线前最终检查报告（回归测试、性能压测、安全渗透）
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-02-04
-@updated: 2026-02-04
-@status: published
-@tags: [上线检查],[最终报告],[回归测试],[性能压测],[安全测试]
+file: 016-HaiLan-Pro-上线前最终检查报告.md
+description: 海蓝Pro项目上线前最终检查报告（回归测试、性能压测、安全渗透）
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-02-04
+updated: 2026-02-04
+status: published
+tags:
+  - 上线检查,[最终报告],[回归测试],[性能压测],[安全测试]
 ---
 
 > ***YanYuCloudCube***

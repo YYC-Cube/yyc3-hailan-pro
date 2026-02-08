@@ -1,11 +1,11 @@
 ---
-@file: HaiLan-Pro-模版规范-项目验收-规范标准.md
-@description: HaiLan Pro项目验收规范标准
-@author: YanYuCloudCube Team
-@version: v1.0.0
-@created: 2026-01-26
-@updated: 2026-01-26
-@status: published
+file: HaiLan-Pro-模版规范-项目验收-规范标准.md
+description: HaiLan Pro项目验收规范标准
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-01-26
+updated: 2026-01-26
+status: published
 @tags: 项目验收,规范标准,HaiLan-Pro
 ---
 
