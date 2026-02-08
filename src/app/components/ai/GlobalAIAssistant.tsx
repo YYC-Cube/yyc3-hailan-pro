@@ -23,7 +23,8 @@ import { PrivacyControlPanel } from '@/app/pages/ai-assistant/components/Privacy
 import { AssistantAvatar } from '@/app/pages/ai-assistant/components/AssistantAvatar';
 import { Button } from '@/app/components/design-system/Button';
 
-const aiLogo = '/placeholder.svg?height=128&width=128';
+// AI logo from public folder (floating AI container)
+const aiLogo = '/logo.png';
 
 interface Message {
   id: string;

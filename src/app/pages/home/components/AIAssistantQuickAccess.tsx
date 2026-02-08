@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router';
 import { Sparkles, MessageCircle, Lock, ChevronRight } from 'lucide-react';
 import { cn } from '@/app/components/design-system/utils';
 
-const aiLogo = '/placeholder.svg?height=128&width=128';
+// AI logo from public folder
+const aiLogo = '/logo.png';
 
 interface AIAssistantQuickAccessProps {
   compact?: boolean;

@@ -9,11 +9,11 @@ import { ArrowRight, Sparkles, HeartPulse, Rocket, Brain, Smartphone } from "luc
 import { motion } from "framer-motion";
 import { cn } from "@/app/components/design-system/utils";
 
-// Hero carousel images
-const heroImage1 = '/placeholder.svg?height=1200&width=1920';
-const heroImage2 = '/placeholder.svg?height=1200&width=1920';
-const heroImage3 = '/placeholder.svg?height=1200&width=1920';
-const heroImage4 = '/placeholder.svg?height=1200&width=1920';
+// Hero carousel images from public folder
+const heroImage1 = '/hero-carousel-31.jpg';
+const heroImage2 = '/hero-carousel-32.jpg';
+const heroImage3 = '/hero-carousel-33.jpg';
+const heroImage4 = '/hero-carousel-34.jpg';
 
 export function HeroSection({ mode = 'default' }: { mode?: 'default' | 'bento' }) {
   const navigate = useNavigate();
