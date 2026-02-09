@@ -1,11 +1,17 @@
 /**
  * 优化图片组件
- * 提供懒加载、渐进式加载、错误处理等功能
+ * 提供懒加载、渐进式加载、错误处理、自动WebP转换等功能
+ * @隐私保护 - 所有图片处理在客户端进行
  */
 
 import React, { useState, useEffect, useRef } from 'react';
 import { ImageOff, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { 
+  getOptimizedImageUrl, 
+  getResponsiveImageSrcSet,
+  IMAGE_SIZES 
+} from '@/lib/imageOptimization';
 
 // ==================== 类型定义 ====================
 
@@ -20,6 +26,12 @@ export interface OptimizedImageProps extends React.ImgHTMLAttributes<HTMLImageEl
   showLoader?: boolean;
   onLoadSuccess?: () => void;
   onLoadError?: () => void;
+  // 新增性能优化选项
+  quality?: number;
+  autoWebP?: boolean;
+  responsive?: boolean;
+  sizes?: string;
+  priority?: boolean;
 }
 
 // ==================== 组件 ====================
@@ -36,12 +48,20 @@ export function OptimizedImage({
   onLoadSuccess,
   onLoadError,
   className,
+  quality = 85,
+  autoWebP = true,
+  responsive = true,
+  sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
+  priority = false,
   ...props
 }: OptimizedImageProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
-  const [isInView, setIsInView] = useState(!lazy);
-  const [currentSrc, setCurrentSrc] = useState<string>(src);
+  const [isInView, setIsInView] = useState(!lazy || priority);
+  const [currentSrc, setCurrentSrc] = useState<string>(
+    autoWebP ? getOptimizedImageUrl(src, { quality, format: 'webp' }) : src
+  );
+  const [srcSet, setSrcSet] = useState<string>('');
   const imgRef = useRef<HTMLImageElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -90,14 +110,30 @@ export function OptimizedImage({
     }
   };
 
+  // 生成响应式srcset
+  useEffect(() => {
+    if (responsive && autoWebP) {
+      const responsiveSrcSet = getResponsiveImageSrcSet(src, [
+        IMAGE_SIZES.small,
+        IMAGE_SIZES.medium,
+        IMAGE_SIZES.large,
+      ]);
+      setSrcSet(responsiveSrcSet);
+    }
+  }, [src, responsive, autoWebP]);
+
   // 更新 src
   useEffect(() => {
-    if (src !== currentSrc && src !== fallbackSrc) {
-      setCurrentSrc(src);
+    const optimizedSrc = autoWebP 
+      ? getOptimizedImageUrl(src, { quality, format: 'webp' }) 
+      : src;
+    
+    if (optimizedSrc !== currentSrc && optimizedSrc !== fallbackSrc) {
+      setCurrentSrc(optimizedSrc);
       setIsLoading(true);
       setHasError(false);
     }
-  }, [src]);
+  }, [src, autoWebP, quality]);
 
   return (
     <div
@@ -127,6 +163,8 @@ export function OptimizedImage({
         <img
           ref={imgRef}
           src={currentSrc}
+          srcSet={responsive ? srcSet : undefined}
+          sizes={responsive ? sizes : undefined}
           alt={alt}
           onLoad={handleLoad}
           onError={handleError}
@@ -140,7 +178,8 @@ export function OptimizedImage({
             objectFit === 'none' && 'object-none',
             objectFit === 'scale-down' && 'object-scale-down'
           )}
-          loading={lazy ? 'lazy' : 'eager'}
+          loading={priority ? 'eager' : lazy ? 'lazy' : 'eager'}
+          fetchPriority={priority ? 'high' : 'auto'}
           {...props}
         />
       )}
