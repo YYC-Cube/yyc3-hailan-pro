@@ -342,6 +342,58 @@
   animation: messageBubbleIn var(--duration-standard) var(--ease-decelerate);
 }
 
+/* PWA相关动画 */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes progress {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(400%);
+  }
+}
+
+.animate-slideUp {
+  animation: slideUp var(--duration-standard) var(--ease-decelerate);
+}
+
+.animate-slide-up {
+  animation: slideUp var(--duration-standard) var(--ease-decelerate);
+}
+
+.animate-slideDown {
+  animation: slideDown var(--duration-standard) var(--ease-decelerate);
+}
+
+.animate-slide-down {
+  animation: slideDown var(--duration-standard) var(--ease-decelerate);
+}
+
+.animate-progress {
+  animation: progress 1.5s ease-in-out infinite;
+}
+
 /* === 响应式动效控制 === */
 @media (prefers-reduced-motion: reduce) {
   *,
