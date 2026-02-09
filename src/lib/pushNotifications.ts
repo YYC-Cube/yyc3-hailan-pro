@@ -27,6 +27,18 @@ export interface NotificationPreferences {
   vibrate: boolean;
 }
 
+export interface PushNotificationData {
+  url?: string;
+  category?: NotificationCategory;
+  orderId?: string;
+  productId?: string;
+  promotionId?: string;
+  reminderType?: string;
+  actionType?: string;
+  actionId?: string;
+  [key: string]: string | number | boolean | NotificationCategory | undefined;
+}
+
 export interface PushNotificationOptions {
   title: string;
   body: string;
@@ -36,7 +48,7 @@ export interface PushNotificationOptions {
   image?: string;
   tag?: string;
   url?: string;
-  data?: any;
+  data?: PushNotificationData;
   requireInteraction?: boolean;
   silent?: boolean;
   actions?: Array<{

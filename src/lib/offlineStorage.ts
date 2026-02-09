@@ -4,25 +4,17 @@
  * 提供离线编辑、草稿保存、后台同步功能
  */
 
-export interface OfflineData {
-  id?: number;
-  type: 'draft' | 'order' | 'cart' | 'review' | 'favorite';
-  data: any;
-  timestamp: number;
-  synced: boolean;
-  encrypted?: boolean;
-}
+import type {
+  OfflineData,
+  SyncQueueItem,
+  ProductData,
+  DraftItem,
+  DatabaseUsage,
+  CartItemData,
+  FavoriteData,
+} from '../types/storage';
 
-export interface SyncQueueItem {
-  id?: number;
-  endpoint: string;
-  method: 'POST' | 'PUT' | 'DELETE';
-  body: any;
-  headers?: Record<string, string>;
-  timestamp: number;
-  retryCount: number;
-  maxRetries: number;
-}
+export type { OfflineData, SyncQueueItem };
 
 const DB_NAME = 'HaiLanDB';
 const DB_VERSION = 2;
@@ -320,15 +312,15 @@ export async function updateSyncQueueRetry(id: number): Promise<void> {
 /**
  * 保存草稿
  */
-export async function saveDraft(type: string, content: any): Promise<number> {
+export async function saveDraft<T = unknown>(type: string, content: T): Promise<number> {
   const db = await openDB();
   
   return new Promise((resolve, reject) => {
     const transaction = db.transaction([STORES.DRAFTS], 'readwrite');
     const store = transaction.objectStore(STORES.DRAFTS);
     
-    const draft = {
-      type,
+    const draft: DraftItem<T> = {
+      type: type as any, // 类型断言，因为type参数更灵活
       content,
       timestamp: Date.now(),
     };
@@ -350,7 +342,7 @@ export async function saveDraft(type: string, content: any): Promise<number> {
 /**
  * 获取所有草稿
  */
-export async function getAllDrafts(type?: string): Promise<any[]> {
+export async function getAllDrafts<T = unknown>(type?: string): Promise<DraftItem<T>[]> {
   const db = await openDB();
   
   return new Promise((resolve, reject) => {
@@ -405,17 +397,17 @@ export async function deleteDraft(id: number): Promise<void> {
 /**
  * 添加收藏
  */
-export async function addToFavorites(productId: string, productData: any): Promise<void> {
+export async function addToFavorites(productId: string, productData: ProductData): Promise<void> {
   const db = await openDB();
   
   return new Promise((resolve, reject) => {
     const transaction = db.transaction([STORES.FAVORITES], 'readwrite');
     const store = transaction.objectStore(STORES.FAVORITES);
     
-    const favorite = {
+    const favorite: FavoriteData = {
       productId,
       productData,
-      timestamp: Date.now(),
+      addedAt: Date.now(),
     };
     
     const request = store.put(favorite);
@@ -459,7 +451,7 @@ export async function removeFromFavorites(productId: string): Promise<void> {
 /**
  * 获取所有收藏
  */
-export async function getAllFavorites(): Promise<any[]> {
+export async function getAllFavorites(): Promise<FavoriteData[]> {
   const db = await openDB();
   
   return new Promise((resolve, reject) => {
@@ -469,7 +461,7 @@ export async function getAllFavorites(): Promise<any[]> {
     const request = store.getAll();
     
     request.onsuccess = () => {
-      resolve(request.result);
+      resolve(request.result as FavoriteData[]);
     };
     
     request.onerror = () => {
@@ -507,18 +499,18 @@ export async function isFavorite(productId: string): Promise<boolean> {
 /**
  * 添加到购物车
  */
-export async function addToCart(productId: string, quantity: number, productData: any): Promise<void> {
+export async function addToCart(productId: string, quantity: number, productData: ProductData): Promise<void> {
   const db = await openDB();
   
   return new Promise((resolve, reject) => {
     const transaction = db.transaction([STORES.CART], 'readwrite');
     const store = transaction.objectStore(STORES.CART);
     
-    const cartItem = {
+    const cartItem: CartItemData = {
       productId,
       quantity,
       productData,
-      timestamp: Date.now(),
+      addedAt: Date.now(),
     };
     
     const request = store.put(cartItem);
@@ -562,7 +554,7 @@ export async function removeFromCart(productId: string): Promise<void> {
 /**
  * 获取购物车
  */
-export async function getCart(): Promise<any[]> {
+export async function getCart(): Promise<CartItemData[]> {
   const db = await openDB();
   
   return new Promise((resolve, reject) => {
@@ -572,7 +564,7 @@ export async function getCart(): Promise<any[]> {
     const request = store.getAll();
     
     request.onsuccess = () => {
-      resolve(request.result);
+      resolve(request.result as CartItemData[]);
     };
     
     request.onerror = () => {
@@ -651,13 +643,7 @@ export async function clearAllData(): Promise<void> {
 /**
  * 获取数据库使用情况
  */
-export async function getDatabaseUsage(): Promise<{
-  offlineData: number;
-  syncQueue: number;
-  drafts: number;
-  favorites: number;
-  cart: number;
-}> {
+export async function getDatabaseUsage(): Promise<DatabaseUsage> {
   const db = await openDB();
   
   return new Promise((resolve, reject) => {
@@ -666,7 +652,7 @@ export async function getDatabaseUsage(): Promise<{
       'readonly'
     );
     
-    const results: any = {};
+    const results: Partial<DatabaseUsage> = {};
     
     const counts = [
       { store: STORES.OFFLINE_DATA, key: 'offlineData' },
@@ -683,11 +669,12 @@ export async function getDatabaseUsage(): Promise<{
       const request = objectStore.count();
       
       request.onsuccess = () => {
-        results[key] = request.result;
+        results[key as keyof DatabaseUsage] = request.result;
         completed++;
         
         if (completed === counts.length) {
-          resolve(results);
+          const totalItems = Object.values(results).reduce((a, b) => (a || 0) + (b || 0), 0) || 0;
+          resolve({ ...results, totalItems } as DatabaseUsage);
         }
       };
       
