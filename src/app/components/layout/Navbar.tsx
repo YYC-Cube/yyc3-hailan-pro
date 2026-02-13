@@ -24,6 +24,7 @@ import { Link } from "@/app/components/router";
 import { useCart } from "@/app/context/CartContext";
 import { BrandLogo } from "@/app/components/BrandLogo";
 import { SmartBreadcrumbs } from "./SmartBreadcrumbs";
+import { CalendarWidget } from "@/app/components/calendar/CalendarWidget";
 
 interface NavbarProps {
   privacyMode?: boolean;
@@ -140,11 +141,13 @@ export function Navbar({ privacyMode = false, onPrivacyToggle }: NavbarProps) {
                   )}
                 </div>
                 
-                <Link to="/community">
-                  <Button variant="ghost" className={cn("text-sm font-bold h-11 px-6 rounded-xl hover:bg-white/50", privacyMode ? "text-white" : "text-brand-hailan-blue")}>
-                    海蓝社区
-                  </Button>
-                </Link>
+                <Button 
+                  variant="ghost" 
+                  className={cn("text-sm font-bold h-11 px-6 rounded-xl hover:bg-white/50", privacyMode ? "text-white" : "text-brand-hailan-blue")}
+                  onClick={() => navigate('/community')}
+                >
+                  海蓝社区
+                </Button>
               </nav>
             </div>
 
@@ -185,6 +188,7 @@ export function Navbar({ privacyMode = false, onPrivacyToggle }: NavbarProps) {
               </div>
 
               <div className="hidden md:flex items-center gap-3">
+                 <CalendarWidget />
                  <Button variant="ghost" size="icon" className="rounded-xl h-11 w-11 bg-white/50 border border-white shadow-sm hover:shadow-md" onClick={() => navigate("/profile")}>
                     <Bell className="w-5 h-5" />
                  </Button>

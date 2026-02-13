@@ -34,6 +34,7 @@ import { SupplyChainPage } from "@/app/pages/admin/SupplyChainPage";
 import { DistributionPage } from "@/app/pages/admin/DistributionPage";
 import { OperationsPage } from "@/app/pages/admin/OperationsPage";
 import DesignSystemDemo from "@/app/pages/demo/DesignSystemDemo";
+import { UIEnhancementsDemo } from "@/app/pages/demo/UIEnhancementsDemo";
 import { CartProvider } from "@/app/context/CartContext";
 import { UserProvider, useUser } from "@/app/context/UserContext";
 import { PrivacyProvider, usePrivacy } from "@/app/context/PrivacyContext";
@@ -137,6 +138,7 @@ function AppContent() {
                 <Route path="/distribution" element={<DistributionPage />} />
                 <Route path="/operations" element={<OperationsPage />} />
                 <Route path="/design-system-demo" element={<DesignSystemDemo />} />
+                <Route path="/ui-enhancements-demo" element={<UIEnhancementsDemo />} />
 
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>

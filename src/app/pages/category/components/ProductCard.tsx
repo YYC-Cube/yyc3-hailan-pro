@@ -28,7 +28,10 @@ export function ProductCard({ product, privacyMode, viewMode = "grid" }: Product
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       className={cn(
-        "group relative bg-white rounded-2xl overflow-hidden border border-neutral-100 hover:shadow-xl hover:shadow-brand-hailan-blue/10 transition-all duration-500",
+        "group relative bg-white rounded-2xl overflow-hidden transition-all duration-500",
+        "border border-neutral-100 shadow-[0_2px_8px_rgba(0,0,0,0.04)]",
+        "hover:shadow-[0_8px_30px_rgba(0,86,179,0.12)] hover:border-brand-hailan-blue/20",
+        "hover:-translate-y-1",
         "active:scale-[0.98] touch-manipulation", 
         viewMode === "list" ? "flex gap-6 p-4" : "flex flex-col h-full"
       )}

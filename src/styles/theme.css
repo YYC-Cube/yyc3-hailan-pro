@@ -234,6 +234,32 @@
   }
 }
 
+/* Global Background Gradient Animation */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-bg {
+  background: linear-gradient(
+    135deg,
+    #f8fafc 0%,
+    #f1f5f9 25%,
+    #e0f2fe 50%,
+    #f1f5f9 75%,
+    #f8fafc 100%
+  );
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
 /* Animation Keyframes */
 @keyframes fadeIn {
   from {
