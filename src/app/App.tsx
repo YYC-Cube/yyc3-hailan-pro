@@ -145,21 +145,54 @@ function AppContent() {
 }
 
 export default function App() {
-  React.useEffect(() => {
-    console.log("[HaiLan] Application Heartbeat - Initialized Successfully");
-    
-    // @ts-ignore
-    const isProd = !!(import.meta.env?.PROD);
+  const [isProd, setIsProd] = React.useState(false);
+  const [initialized, setInitialized] = React.useState(false);
 
-    if (isProd) {
-      registerServiceWorker({
-        onSuccess: () => console.log('[PWA] Ready'),
-        onUpdate: () => console.log('[PWA] Update'),
-        onOfflineReady: () => toast.success('已可离线使用'),
-        onError: (err) => console.error('[PWA] Error', err),
-      });
+  React.useEffect(() => {
+    try {
+      console.log("[v0] App initialization starting");
+      
+      const isProduction = import.meta.env?.PROD === true;
+      setIsProd(isProduction);
+
+      if (isProduction) {
+        console.log("[v0] Production mode - registering Service Worker");
+        registerServiceWorker({
+          onSuccess: () => console.log('[PWA] Ready'),
+          onUpdate: () => console.log('[PWA] Update'),
+          onOfflineReady: () => toast.success('已可离线使用'),
+          onError: (err) => console.error('[PWA] Error', err),
+        });
+      } else {
+        console.log("[v0] Development mode - Service Worker disabled");
+      }
+      
+      setInitialized(true);
+      console.log("[HaiLan] Application Heartbeat - Initialized Successfully");
+    } catch (error) {
+      console.error("[v0] Fatal initialization error:", error);
+      setInitialized(true);
     }
   }, []);
+
+  if (!initialized) {
+    return (
+      <div style={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        height: '100vh',
+        background: '#1a1a1a',
+        color: '#0056b3',
+        fontFamily: 'system-ui, -apple-system, sans-serif'
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontSize: '24px', marginBottom: '16px' }}>HaiLan Pro</div>
+          <div style={{ fontSize: '14px', opacity: 0.7 }}>正在初始化...</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <ErrorBoundary>
@@ -170,8 +203,8 @@ export default function App() {
               <PaymentProvider>
                 <AppContent />
                 <Toaster position="top-center" />
-                <InstallPrompt />
-                <UpdatePrompt />
+                {isProd && <InstallPrompt />}
+                {isProd && <UpdatePrompt />}
               </PaymentProvider>
             </PrivacyProvider>
           </CartProvider>
